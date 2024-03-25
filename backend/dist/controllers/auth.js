@@ -63,7 +63,6 @@ var AuthController = {
                                 .send('Your email and password combination does not match an account.')];
                     }
                     token = (0, utils_1.createToken)(user);
-                    user['token'] = token;
                     return [2 /*return*/, res.send({ user: user, token: token })];
             }
         });
