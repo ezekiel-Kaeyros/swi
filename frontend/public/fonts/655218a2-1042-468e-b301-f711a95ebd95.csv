@@ -1,5 +1,0 @@
-id,salesName,dateOfBirth,gender,contactDetails,emailAddress,country,city,region,streetAddress,jobTitle,departement,reportingManager,startDate,status,avatar,team
-1,Thierry Monthé,12/03/2024,1,527687948,thierry.monthe@kaeyros-analytics.de,Cameroon,10,10,deido,CEO,5,5,12/03/2024,true,TM,[object Object]
-2,Eric Mballa,12/03/2024,1,527687948,eric.mballa-analytics.com,Cameroon,1,1,deido,Sales Manager,1,1,12/03/2024,true,EM,[object Object]
-3,Leslie Fonepi,12/03/2024,1,527687948,fonepi.leslie@kaeyros-analytics.de,Cameroon,2,2,deido,Sales Agent,2,2,12/03/2024,false,FL,[object Object]
-4,Ariel Mboma,12/03/2024,1,527687948,viallymboma1@gmail.com,Cameroon,9,9,deido,Route planner,2,2,12/03/2024,true,https://i.pravatar.cc/150?u=a042581f4e29026024d,[object Object]
