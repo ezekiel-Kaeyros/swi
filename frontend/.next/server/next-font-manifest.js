@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/home/ezekiel-kaeyros/githubci/swi/frontend/src/app/[lang]/(pages)/layout":["static/media/c9a5bc6a7c948fb0-s.p.woff2"],"/home/ezekiel-kaeyros/githubci/swi/frontend/src/app/[lang]/(login)/layout":["static/media/c9a5bc6a7c948fb0-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
