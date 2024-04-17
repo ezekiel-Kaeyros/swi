@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/route": "app/api/auth/route.js",
+  "/[lang]/(pages)/designPage/page": "app/[lang]/(pages)/designPage/page.js",
+  "/[lang]/(pages)/page": "app/[lang]/(pages)/page.js",
+  "/[lang]/(pages)/activities/page": "app/[lang]/(pages)/activities/page.js",
+  "/[lang]/(pages)/sales-rep-view/page": "app/[lang]/(pages)/sales-rep-view/page.js",
+  "/[lang]/(pages)/sales-representative/page": "app/[lang]/(pages)/sales-representative/page.js",
+  "/[lang]/(pages)/settings/page": "app/[lang]/(pages)/settings/page.js",
+  "/[lang]/(pages)/testPage/page": "app/[lang]/(pages)/testPage/page.js",
+  "/[lang]/(login)/login/page": "app/[lang]/(login)/login/page.js",
+  "/[lang]/(pages)/point-of-sales/[id]/page": "app/[lang]/(pages)/point-of-sales/[id]/page.js",
+  "/[lang]/(pages)/point-of-sales/create/page": "app/[lang]/(pages)/point-of-sales/create/page.js",
+  "/[lang]/(pages)/point-of-sales/page": "app/[lang]/(pages)/point-of-sales/page.js",
+  "/[lang]/(pages)/realtime-tracking/activity/page": "app/[lang]/(pages)/realtime-tracking/activity/page.js",
+  "/[lang]/(pages)/realtime-tracking/information/page": "app/[lang]/(pages)/realtime-tracking/information/page.js",
+  "/[lang]/(pages)/realtime-tracking/page": "app/[lang]/(pages)/realtime-tracking/page.js",
+  "/[lang]/(pages)/realtime-tracking/directions/page": "app/[lang]/(pages)/realtime-tracking/directions/page.js",
+  "/[lang]/(pages)/route-preparation/create/page": "app/[lang]/(pages)/route-preparation/create/page.js",
+  "/[lang]/(pages)/route-preparation/[id]/page": "app/[lang]/(pages)/route-preparation/[id]/page.js",
+  "/[lang]/(pages)/route-preparation/page": "app/[lang]/(pages)/route-preparation/page.js"
+}
