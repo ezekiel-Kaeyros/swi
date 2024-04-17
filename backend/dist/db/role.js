@@ -75,11 +75,11 @@ var addRoleUser = function (name) { return __awaiter(void 0, void 0, void 0, fun
     });
 }); };
 exports.addRoleUser = addRoleUser;
-var updateRole = function (id, new_name) { return __awaiter(void 0, void 0, void 0, function () {
+var updateRole = function (id, body) { return __awaiter(void 0, void 0, void 0, function () {
     var role;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, models_1.Role.findOneAndUpdate({ _id: id }, { name: new_name }, { new: true })];
+            case 0: return [4 /*yield*/, models_1.Role.findOneAndUpdate({ _id: id }, body, { new: true })];
             case 1:
                 role = _a.sent();
                 return [2 /*return*/, role];
@@ -91,7 +91,9 @@ var deleteRole = function (id) { return __awaiter(void 0, void 0, void 0, functi
     var role;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, models_1.Role.findByIdAndRemove(id)];
+            case 0:
+                console.log(id);
+                return [4 /*yield*/, models_1.Role.findByIdAndDelete(id)];
             case 1:
                 role = _a.sent();
                 return [2 /*return*/, role];

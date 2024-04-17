@@ -13,7 +13,8 @@ export const verifyToken = (token: string) => {
 }
 
 export const isAuthenticate = (req: any, res: Response, next: any) => {
-  next()
+
+  next();
   
     // const token = req.headers['authorization'].split(' ')[1];
     // if (!token) {
@@ -27,4 +28,4 @@ export const isAuthenticate = (req: any, res: Response, next: any) => {
     // } catch (error) {
     //   return res.status(ErrorCodes.Bad_Request).send('Invalid Token.');
     // }
-  };
+};

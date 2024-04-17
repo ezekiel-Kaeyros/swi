@@ -119,12 +119,13 @@ var TaskController = {
         });
     }); },
     modifyTask: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, id, title, description, updatedTask, error_4;
+        var id, _a, title, description, updatedTask, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = request.body, id = _a.id, title = _a.title, description = _a.description;
+                    id = request.params.id;
+                    _a = request.body, title = _a.title, description = _a.description;
                     if (!id || !title) {
                         response.status(400).json({ success: false, error: 'ID, title, and description are required' });
                         return [2 /*return*/];

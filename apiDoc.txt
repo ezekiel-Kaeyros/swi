@@ -1,0 +1,428 @@
+---------------------DOC API----------------------
+
+
+**************************************************************************************************************************************************************
+------------Endpoint: http://localhost:4000/login,   
+            *** Methods: post,
+                Feat: login
+                input:{
+                    "token":"string", 
+                }
+                output: {
+                    "message":"string"  
+                 }
+                status:200 
+
+
+
+------------Endpoint: http://localhost:4000/logout,   
+            *** Methods: post,
+                Feat: login
+                input:{
+                    "email":"string",
+                    "password":"string"
+                }
+                output: {
+                    "user": {
+                        "_id": "string",
+                        "role": "object",
+                        "address_id": "object",
+                        "email": "string",
+                        "password": "string",
+                        "createdAt": "string",
+                        "updatedAt": "string",
+                        "__v": "number"
+                    },
+                   "token": "string"
+                 }
+                status:200                 
+
+
+*****************************************************************************************************************************************************************
+------------Endpoint: http://localhost:4000/roles ,   
+            *** Methods: Get,
+                Feat: Get roles
+                output: {
+                    _id: string;
+                    name: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                }
+                status:200 
+
+
+-------------Endpoint: http://localhost:4000/roles:id   ,  
+             *** Methods: Get
+                 Feat: Get roles By id
+                 output:{
+                    _id: string;
+                    name: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                 }
+                status:200                   
+
+
+-------------Endpoint: http://localhost:4000/roles   ,  
+             *** Methods: post
+                 Feat: createRole
+                 input: 
+                      {
+                        "name": "string"
+                      }  
+                 output: {
+                    _id: string;
+                    name: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                 }  
+                status:200    
+
+
+--------------------------Endpoint: http://localhost:4000/roles/:id   ,  
+             *** Methods: put
+                 Feat: updateRole
+                 input: 
+                      {
+                        "name": "string"
+                      }
+                 output: {
+                    _id: string;
+                    name: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                 }    
+                status:200       
+                    
+
+
+
+                    
+
+--------------------------Endpoint: http://localhost:4000/roles/:id   
+             *** Methods: Delete
+                 Feat: updateRole
+                 input: 
+                 output: {
+                    _id: string;
+                    name: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                 }      
+                status:200   
+
+
+
+
+*******************************************************************************************************************************************************
+
+
+
+--------------------------Endpoint: http://localhost:4000/users   
+             *** Methods: Get
+                 Feat: getUsers
+                 input: 
+                 output: [
+                       {
+                        _id: string;
+                        role: string[];
+                        address_id: string[];
+                        email: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        __v: number;
+                       }
+                 ]
+
+
+--------------------------Endpoint: http://localhost:4000/users/:id   
+             *** Methods: Get
+                 Feat: getUsers By id 
+                 input: 
+                 output: [
+                       {
+                        _id: string;
+                        role: string[];
+                        address_id: string[];
+                        email: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        __v: number;
+                       }
+                 ]
+                 
+                 
+
+
+
+
+--------------------------Endpoint: http://localhost:4000/users  
+             *** Methods: post
+                 Feat: createUsers 
+                 input: {
+                        
+                        "email": "string"
+                        "password": "string"
+                        }
+                 output: [
+                       {
+                        _id: string;
+                        role: string[];
+                        address_id: string[];
+                        email: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        __v: number;
+                       }
+                 ]
+                status: 200
+
+--------------------------Endpoint: http://localhost:4000/users/:id  
+             *** Methods: put
+                 Feat: updateUsers 
+                 input: {
+                         "name": "string",
+                         "email": "string"
+                         }
+                 output: [
+                       {
+                        _id: string;
+                        role: string[];
+                        address_id: string[];
+                        email: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        __v: number;
+                       }
+                 ]
+                status: 200     
+
+
+
+--------------------------Endpoint: http://localhost:4000/users/:id  
+             *** Methods: Delete
+                 Feat: deleteUsers 
+                 input: 
+                 output: [
+                       {
+                        _id: string;
+                        role: string[];
+                        address_id: string[];
+                        email: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        __v: number;
+                       }
+                 ]
+                status: 200  
+**********************************************************************************************************************************************************                
+
+--------------------------Endpoint: http://localhost:4000/pos   
+             *** Methods: Get
+                 Feat: getpos
+                 input: 
+                 output:{
+                    "_id": "string",
+                    "longitude": "string",
+                    "latitude": "string",
+                    "name": "string",
+                    "description": "string",
+                    "createdAt": "string",
+                    "updatedAt": "string",
+                    "__v": "number"
+                },
+                status: 200
+
+
+--------------------------Endpoint: http://localhost:4000/pos:id   
+             *** Methods: Get
+                 Feat: getOnePos
+                 input: 
+                 output:{
+                    "_id": "string",
+                    "longitude": "string",
+                    "latitude": "string",
+                    "name": "string",
+                    "description": "string",
+                    "createdAt": "string",
+                    "updatedAt": "string",
+                    "__v": "number"
+                },
+                status: 200
+
+
+
+--------------------------Endpoint: http://localhost:4000/pos   
+             *** Methods: post
+                 Feat: savePos
+                 input: {
+                        "longitude": "number",
+                        "latitude": "number"       
+                    }
+                 output:{
+                    "_id": "string",
+                    "longitude": "string",
+                    "latitude": "string",
+                    "name": "string",
+                    "description": "string",
+                    "createdAt": "string",
+                    "updatedAt": "string",
+                    "__v": "number"
+                },
+                status: 200    
+
+
+
+--------------------------Endpoint: http://localhost:4000/pos/id   
+             *** Methods: put
+                 Feat: updatePos
+                 input: {
+                        "longitude": "number",
+                        "latitude": "number"       
+                    }
+                 output:{
+                    "_id": "string",
+                    "longitude": "string",
+                    "latitude": "string",
+                    "name": "string",
+                    "description": "string",
+                    "createdAt": "string",
+                    "updatedAt": "string",
+                    "__v": "number"
+                },
+                status: 200  
+
+
+
+--------------------------Endpoint: http://localhost:4000/pos/id   
+             *** Methods: put
+                 Feat: deletePos
+                 output:{
+                    "success": "boolean",
+                    data{
+                    "owner":[]
+                    "_id": "string",
+                    "longitude": "string",
+                    "latitude": "string",
+                    "name": "string",
+                    "description": "string",
+                    "createdAt": "string",
+                    "updatedAt": "string",
+                    "__v": "number"
+                    }
+                },       
+
+                status: 200       
+                                        
+**********************************************************************************************************************************************************
+
+
+
+--------------------------Endpoint: http://localhost:4000/task   
+             *** Methods: Get
+                 Feat: getTask
+                 input: 
+                 output:[
+                    {
+                    _id: string;
+                    title: string;
+                    description: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                    }
+                 ]
+                status: 200
+
+
+--------------------------Endpoint: http://localhost:4000/task:id   
+             *** Methods: Get
+                 Feat: getOneTask
+                 input: 
+                output:[
+                    {
+                    _id: string;
+                    title: string;
+                    description: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                    }
+                ]
+                status: 200
+
+
+
+
+--------------------------Endpoint: http://localhost:4000/task  
+             *** Methods: post
+                 Feat: saveTask
+                 input:
+                 {
+                    "title": "string",
+                    "description": "string"
+                 } 
+
+                 output:[
+                    {
+                    _id: string;
+                    title: string;
+                    description: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                    }
+                 ]
+                status: 200                
+
+
+
+
+--------------------------Endpoint: http://localhost:4000/task/id  
+             *** Methods: put
+                 Feat: modifyTask
+                 input:
+                 {
+                    "title": "string",
+                    "description": "string"
+                 } 
+
+                 output:[
+                    {
+                    _id: string;
+                    title: string;
+                    description: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                    }
+                 ]
+                status: 200                
+
+
+
+--------------------------Endpoint: http://localhost:4000/task/id  
+             *** Methods: Delete
+                 Feat: deleteTask
+                 output:[
+                    {
+                    _id: string;
+                    title: string;
+                    description: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    __v: number;
+                    }
+                 ]
+                status: 200                
+
+
+
+
+
+

@@ -119,12 +119,13 @@ var PosController = {
         });
     }); },
     updatePos: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, id, longitude, latitude, name_2, description, updatedPos, error_4;
+        var id, _a, longitude, latitude, name_2, description, updatedPos, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = request.body, id = _a.id, longitude = _a.longitude, latitude = _a.latitude, name_2 = _a.name, description = _a.description;
+                    id = request.params.id;
+                    _a = request.body, longitude = _a.longitude, latitude = _a.latitude, name_2 = _a.name, description = _a.description;
                     if (!id || !longitude || !latitude || !name_2 || !description) {
                         response.status(400).json({ success: false, error: 'ID, longitude, latitude, name, and description are required' });
                         return [2 /*return*/];

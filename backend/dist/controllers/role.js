@@ -81,7 +81,8 @@ var RoleController = {
             switch (_a.label) {
                 case 0:
                     fieldsToUpdate = req.body;
-                    return [4 /*yield*/, (0, db_1.updateRole)(req.body._id, fieldsToUpdate)];
+                    console.log('hello', fieldsToUpdate);
+                    return [4 /*yield*/, (0, db_1.updateRole)(req.params.id, fieldsToUpdate)];
                 case 1:
                     role = _a.sent();
                     return [2 /*return*/, res.send(role)];
@@ -93,7 +94,7 @@ var RoleController = {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    roleId = req.params._id;
+                    roleId = req.params.id;
                     return [4 /*yield*/, (0, db_1.deleteRole)(roleId)];
                 case 1:
                     role = _a.sent();

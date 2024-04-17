@@ -1,3 +1,5 @@
+"use client"; 
+
 import ProjectionCard from '@/app/common/components/home/projection-card/ProjectionCard';
 import StatisticsCard from '@/app/common/components/home/statistics-card/StatisticsCard';
 import GraphProjection from '../../../../public/images/projectionChart.svg';
@@ -13,6 +15,7 @@ import TopSellingProductsCard from '@/app/common/components/home/top-selling-pro
 import TopSalesCard from '@/app/common/components/home/top-sales-card/TopSalesCard';
 
 const Home = () => {
+
   return (
     <div className="w-full my-16">
       <div className="flex justify-between space-x-4 w-full">

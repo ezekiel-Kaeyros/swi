@@ -70,7 +70,8 @@ var getUserById = function (id) { return __awaiter(void 0, void 0, void 0, funct
                 query = { _id: id };
                 return [4 /*yield*/, models_1.User.findOne(query)
                         .select('-password')
-                        .populate('roles')];
+                        .populate('role')
+                        .populate('address_id')];
             case 1:
                 user = _a.sent();
                 return [2 /*return*/, user];
@@ -116,15 +117,11 @@ var updateUserResetPasswordToken = function (userId, token) { return __awaiter(v
     });
 }); };
 exports.updateUserResetPasswordToken = updateUserResetPasswordToken;
-var createUser = function (role, email, password) { return __awaiter(void 0, void 0, void 0, function () {
+var createUser = function (body) { return __awaiter(void 0, void 0, void 0, function () {
     var user;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, models_1.User.create({
-                    role: role,
-                    email: email,
-                    password: password
-                })];
+            case 0: return [4 /*yield*/, models_1.User.create(body)];
             case 1:
                 user = _a.sent();
                 return [2 /*return*/, user];

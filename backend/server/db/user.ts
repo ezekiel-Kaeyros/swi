@@ -12,7 +12,8 @@ export const getUserById = async (id: string) => {
 
   const user = await User.findOne(query)
     .select('-password')
-    .populate('roles')
+    .populate('role')
+    .populate('address_id')
 
   return user;
 };
@@ -34,16 +35,8 @@ export const updateUserResetPasswordToken = async (userId: string, token: string
   return user;
 };
 
-export const createUser = async (
-  role: string,
-  email: string,
-  password: string
-) => {
-  const user = await User.create({
-    role,
-    email,
-    password
-  });
+export const createUser = async (body) => {
+  const user = await User.create(body);
   return user;
 };
 

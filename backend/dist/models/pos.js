@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose_1 = __importDefault(require("mongoose"));
 var Schema = mongoose_1.default.Schema;
 var PosSchema = new Schema({
+    owner: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
     longitude: {
         type: String,
         trim: true,
@@ -19,9 +25,24 @@ var PosSchema = new Schema({
     name: {
         type: String,
         trim: true,
-        required: true,
+        required: false,
     },
     description: {
+        type: String,
+        trim: true,
+        required: false,
+    },
+    phone: {
+        type: Number,
+        trim: true,
+        required: false,
+    },
+    location: {
+        type: String,
+        trim: true,
+        required: false,
+    },
+    image: {
         type: String,
         trim: true,
         required: false,

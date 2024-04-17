@@ -63,14 +63,12 @@ var UserController = {
         });
     }); },
     createUser: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, role, email, password, user;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _a = req.body, role = _a.role, email = _a.email, password = _a.password;
-                    return [4 /*yield*/, (0, db_1.createUser)(role, email, password)];
+        var user;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, db_1.createUser)(req.body)];
                 case 1:
-                    user = _b.sent();
+                    user = _a.sent();
                     return [2 /*return*/, res.send(user)];
             }
         });
@@ -81,7 +79,7 @@ var UserController = {
             switch (_a.label) {
                 case 0:
                     fieldsToUpdate = req.body;
-                    return [4 /*yield*/, (0, db_1.updateUser)(req.body._id, fieldsToUpdate)];
+                    return [4 /*yield*/, (0, db_1.updateUser)(req.params.id, fieldsToUpdate)];
                 case 1:
                     user = _a.sent();
                     return [2 /*return*/, res.send(user)];
@@ -93,7 +91,7 @@ var UserController = {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    userId = req.params._id;
+                    userId = req.params.id;
                     return [4 /*yield*/, (0, db_1.deleteUser)(userId)];
                 case 1:
                     user = _a.sent();

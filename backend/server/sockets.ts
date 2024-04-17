@@ -4,32 +4,26 @@ const users = {};
 
 
 export default (httpServer: any) => {
-  const io = new Server(httpServer, {
-    cors: {
-      origin: process.env.FRONTEND_URL,
-      methods: ['GET', 'POST'],
-      credentials: true,
-    },
-  });
-
-  io.use((socket: any, next) => {
-   
-  });
+  console.log('start socket io init');
+  
+  const io = new Server(httpServer);
 
   io.on('connection', (socket: any) => {
     console.log('Socket connection. socket.connected: ', socket.connected);
-    
-
+    socket.broadcast.emit('hi');
     /**
      * Notifications.
      */
-    socket.on(Events.CREATE_NOTIFICATION, (data: any) => {
+    socket.on('chat message', (msg: any) => {
+      io.emit('chat message', msg);
+    });
+    socket.on(Events.SEND_POSITIONS, (data: any) => {
+      io.emit(Events.RECIEVE_POSITIONS, data);
      
     });
-
+    
     socket.on('disconnect', () => {
       console.log('Socket disconnected');
-      
     });
   });
 };

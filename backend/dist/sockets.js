@@ -4,21 +4,19 @@ var socket_io_1 = require("socket.io");
 var constants_1 = require("./constants");
 var users = {};
 exports.default = (function (httpServer) {
-    var io = new socket_io_1.Server(httpServer, {
-        cors: {
-            origin: process.env.FRONTEND_URL,
-            methods: ['GET', 'POST'],
-            credentials: true,
-        },
-    });
-    io.use(function (socket, next) {
-    });
+    console.log('start socket io init');
+    var io = new socket_io_1.Server(httpServer);
     io.on('connection', function (socket) {
         console.log('Socket connection. socket.connected: ', socket.connected);
+        socket.broadcast.emit('hi');
         /**
          * Notifications.
          */
-        socket.on(constants_1.Events.CREATE_NOTIFICATION, function (data) {
+        socket.on('chat message', function (msg) {
+            io.emit('chat message', msg);
+        });
+        socket.on(constants_1.Events.SEND_POSITIONS, function (data) {
+            io.emit(constants_1.Events.RECIEVE_POSITIONS, data);
         });
         socket.on('disconnect', function () {
             console.log('Socket disconnected');

@@ -13,19 +13,18 @@ const UserController = {
   },
 
   createUser: async (req: Request, res: Response)=> {
-    const { role, email, password } = req.body;
-    const user = await createUser(role, email, password);
+    const user = await createUser(req.body);
     return res.send(user);
   },
 
   updateUser: async (req: Request, res: Response)=> {
     const fieldsToUpdate= req.body
-    const user = await updateUser(req.body._id, fieldsToUpdate);
+    const user = await updateUser(req.params.id, fieldsToUpdate);
     return res.send(user);
   },
 
   deleteUser: async (req: Request, res: Response) => {
-    const userId= req.params._id
+    const userId= req.params.id
     const user = await deleteUser(userId);
     return res.send(user);
   },

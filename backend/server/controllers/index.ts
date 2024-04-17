@@ -2,3 +2,13 @@ export { default as UserController } from './user';
 export { default as RoleController } from './role';
 export { default as AuthController } from './auth';
 export { default as PosController } from './pos';
+export { default as RoadItemController } from './road_item';
+export { default as RoadController } from './road';
+export { default as TaskController } from './task';
+export { default as CompanyController } from './company';
+export { default as TradeChannelController } from './trade_channel';
+export { default as ChannelClusterController } from './channel_cluster'
+export { default as CategoryController } from './category'
+export { default as TimesController } from './times'
+export { default as SaleRepController } from './sale_rep'
+export { default as ActivitiesController } from './activities'

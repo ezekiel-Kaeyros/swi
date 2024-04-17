@@ -12,6 +12,7 @@ interface ButtonProps
     VariantProps<typeof buttonVariants> {
   href?: string;
   icon?: any;
+  onclickMethod?: any
 }
 
 const buttonVariants = cva(
@@ -58,6 +59,16 @@ const Button: FC<ButtonProps> = ({
             {children}
           </Link>
         ) : (
+          // <Link href={href} {...props} className={cn(buttonVariants({ variant, className }))}>
+          //   <div className="flex items-center justify-center whitespace-nowrap font-medium text-[13px]">
+          //     <span className="mr-2">
+          //       {icon ? <Image width={ 15 } src={icon} alt={'Icon'} /> : ''}
+          //     </span>
+          //     <div  className='mt-[.2rem] font-bold font-articulat'>
+          //     {children}
+          //     </div>
+          //   </div>
+          // </Link>
           <Link
             href={href}
             className={cn(buttonVariants({ variant, className }))}
@@ -71,11 +82,13 @@ const Button: FC<ButtonProps> = ({
   return (
     <AnimateClick>
       <button {...props} className={cn(buttonVariants({ variant, className }))}>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center whitespace-nowrap font-medium text-[13px]">
           <span className="mr-2">
-            {icon ? <Image src={icon} alt={'Icon'} /> : ''}
+            {icon ? <Image width={ 15 } src={icon} alt={'Icon'} /> : ''}
           </span>
+          <div className='mt-[.2rem] font-bold font-articulat'>
           {children}
+          </div>
         </div>
       </button>
     </AnimateClick>

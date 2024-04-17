@@ -56,7 +56,8 @@ const TaskController = {
 
     modifyTask: async (request: Request, response: Response): Promise<void> => {
         try {
-            const { id, title, description }: ITask = request.body;
+            const {id}= request.params
+            const {title, description }: ITask = request.body;
 
             if (!id || !title ) {
                 response.status(400).json({ success: false, error: 'ID, title, and description are required' });

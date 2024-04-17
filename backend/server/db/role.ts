@@ -23,12 +23,15 @@ export const addRoleUser = async (
   return role;
 };
 
-export const updateRole = async (id: string, new_name: string): Promise<any> => {
-  const role = await Role.findOneAndUpdate({ _id: id }, {name: new_name}, { new: true })
+export const updateRole = async (id: string, body: any): Promise<any> => {
+  const role = await Role.findOneAndUpdate({ _id: id }, body, { new: true })
   return role;
 };
 
 export const deleteRole = async (id: string): Promise<any> => {
-  const role = await Role.findByIdAndRemove(id);
+  console.log(id);
+  
+  const role = await Role.findByIdAndDelete(id)
+  
   return role;
 };

@@ -43,12 +43,34 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var Schema = mongoose_1.default.Schema;
 var UserSchema = new Schema({
-    role: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Role',
-        },
-    ],
+    role: {
+        type: String,
+        trim: true,
+    },
+    address_id: {
+        type: String,
+        trim: true,
+    },
+    first_name: {
+        type: String,
+        trim: true,
+    },
+    email_confirm: {
+        type: Boolean,
+        default: false,
+    },
+    last_name: {
+        type: String,
+        trim: true,
+    },
+    contact: {
+        type: Number,
+        trim: true,
+    },
+    profile_picture: {
+        type: String,
+        trim: true,
+    },
     email: {
         type: String,
         trim: true,
@@ -93,6 +115,15 @@ UserSchema.methods.isValidPassword = function (password) {
                     compare = _a.sent();
                     return [2 /*return*/, compare];
             }
+        });
+    });
+};
+UserSchema.methods.fullName = function () {
+    return __awaiter(this, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            user = this;
+            return [2 /*return*/, (user === null || user === void 0 ? void 0 : user.first_name) + ' ' + (user === null || user === void 0 ? void 0 : user.last_name)];
         });
     });
 };

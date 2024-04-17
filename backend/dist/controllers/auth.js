@@ -69,13 +69,7 @@ var AuthController = {
     }); },
     logout: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            if (req.cookies['token']) {
-                return [2 /*return*/, res.clearCookie('token').send('You have been successfully logged out.')];
-            }
-            else {
-                return [2 /*return*/, res.send('You have been successfully logged out.')];
-            }
-            return [2 /*return*/];
+            return [2 /*return*/, res.send('You have been successfully logged out.')];
         });
     }); },
     forgotPassword: function (req, res) { return __awaiter(void 0, void 0, void 0, function () {

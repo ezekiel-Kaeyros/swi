@@ -57,7 +57,8 @@ const PosController = {
 
     updatePos: async (request: Request, response: Response): Promise<void> => {
         try {
-            const { id, longitude, latitude, name, description }: IPos = request.body;
+            const id= request.params.id
+            const {longitude, latitude, name, description }: IPos = request.body;
 
             if (!id || !longitude || !latitude || !name || !description) {
                 response.status(400).json({ success: false, error: 'ID, longitude, latitude, name, and description are required' });

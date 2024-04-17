@@ -20,12 +20,15 @@ const RoleController = {
 
   updateRole: async (req: Request, res: Response): Promise<any> => {
     const fieldsToUpdate= req.body
-    const role = await updateRole(req.body._id, fieldsToUpdate);
+    console.log('hello', fieldsToUpdate);
+    
+    const role = await updateRole(req.params.id, fieldsToUpdate);
     return res.send(role);
   },
 
   deleteRole: async (req: Request, res: Response): Promise<any> => {
-    const roleId= req.params._id
+    
+    const roleId= req.params.id
     const role = await deleteRole(roleId);
     return res.send(role);
   },
