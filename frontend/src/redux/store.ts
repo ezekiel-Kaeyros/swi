@@ -4,6 +4,7 @@ import RoutePlanningReducer from './features/route-planning-slice';
 import pointOfSaleViewReducer from './features/create-point-of-sale-slice';
 import ChannelClusterReducer from './features/channel-cluster-slice';
 import ActivityReducer from './features/activities-slice';
+import AgentCreationReducer from './features/agent-creation';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     RoutePlanningReducer,
     pointOfSaleViewReducer,
     ChannelClusterReducer,
-    ActivityReducer,
+    ActivityReducer, 
+    AgentCreationReducer, 
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

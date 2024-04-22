@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Activities = exports.Category = exports.Company = exports.TradeChannel = exports.ChannelCluster = exports.TravelTime = exports.Road = exports.RoadItem = exports.UserAddress = exports.Task = exports.Pos = exports.Role = exports.SaleRep = exports.User = void 0;
+exports.ActivitieItem = exports.Activities = exports.Category = exports.Company = exports.TradeChannel = exports.ChannelCluster = exports.TravelTime = exports.Road = exports.RoadItem = exports.UserAddress = exports.Task = exports.Pos = exports.Role = exports.SaleRep = exports.User = void 0;
 var user_1 = require("./user");
 Object.defineProperty(exports, "User", { enumerable: true, get: function () { return __importDefault(user_1).default; } });
 var sale_rep_1 = require("./sale_rep");
@@ -32,3 +32,5 @@ var category_1 = require("./category");
 Object.defineProperty(exports, "Category", { enumerable: true, get: function () { return __importDefault(category_1).default; } });
 var activities_1 = require("./activities");
 Object.defineProperty(exports, "Activities", { enumerable: true, get: function () { return __importDefault(activities_1).default; } });
+var activitie_item_1 = require("./activitie_item");
+Object.defineProperty(exports, "ActivitieItem", { enumerable: true, get: function () { return __importDefault(activitie_item_1).default; } });

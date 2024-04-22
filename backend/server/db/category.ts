@@ -43,9 +43,7 @@ export const updateCategroy =  async(categoryData: ICategory): Promise<ICategory
         const category = await Category.findByIdAndUpdate(
             {_id: categoryData.id },
             {
-                name: categoryData.name,
-                id_company: categoryData.id_company,
-                channel_cluster_id: categoryData.trade_chanel_id
+               ...categoryData
             },
             {new: true}  
         )

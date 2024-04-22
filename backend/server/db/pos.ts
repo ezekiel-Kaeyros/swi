@@ -35,16 +35,8 @@ export const createPos = async (posData: IPos): Promise<any> => {
 
 export const updatePos = async (posData: IPos): Promise<any> => {
     try {
-      const updatedPos = await Pos.findOneAndUpdate(
-        { _id: posData.id },
-        {
-          longitude: posData.longitude,
-          latitude: posData.latitude,
-          name: posData.name,
-          description: posData.description,
-        },
-        { new: true }
-      );
+      const updatedPos = await
+      Pos.findOneAndUpdate({ _id: posData.id}, { ...posData }, { new: true })
   
       if (!updatedPos) {
         throw new Error('La pos avec l\'ID fourni n\'a pas été trouvée.');

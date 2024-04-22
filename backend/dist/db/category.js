@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -106,11 +117,7 @@ var updateCategroy = function (categoryData) { return __awaiter(void 0, void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, models_1.Category.findByIdAndUpdate({ _id: categoryData.id }, {
-                        name: categoryData.name,
-                        id_company: categoryData.id_company,
-                        channel_cluster_id: categoryData.trade_chanel_id
-                    }, { new: true })];
+                return [4 /*yield*/, models_1.Category.findByIdAndUpdate({ _id: categoryData.id }, __assign({}, categoryData), { new: true })];
             case 1:
                 category = _a.sent();
                 if (!category) {

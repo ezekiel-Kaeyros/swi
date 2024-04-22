@@ -8,7 +8,7 @@ export const findAllChannelClusters = async (): Promise<IChannelCluster[]> =>{
         const ChannelClusters = await ChannelCluster.find()
         .populate({
             path: 'trade_channels_id',
-            populate: "id_company"
+            populate: "id_company categories_id",
         })
         .populate('id_company');
         return ChannelClusters;
@@ -52,8 +52,7 @@ export const updateChannelCluster = async (channelClusterData: IChannelCluster):
         const updatedChannelCluster = await ChannelCluster.findOneAndUpdate(
             {_id: channelClusterData.id},
             {
-                name: channelClusterData.name,
-                id_company: channelClusterData.id_company
+             ...channelClusterData
             },
             {new: true}
             )

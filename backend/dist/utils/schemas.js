@@ -24,8 +24,12 @@ var userValidator = joi_1.default.object().keys({
     role: joi_1.default.string().required(),
 });
 var posValidator = joi_1.default.object().keys({
-    longitude: joi_1.default.string().min(4).required(),
-    latitude: joi_1.default.string().min(4).required(),
+    longitude: joi_1.default.number().required(),
+    latitude: joi_1.default.number().required(),
+    name: joi_1.default.string().min(4).required(),
+    channelCluster: joi_1.default.string().required(),
+    tradeChannel: joi_1.default.string().required(),
+    category: joi_1.default.string().required(),
 });
 var taskValidator = joi_1.default.object().keys({
     title: joi_1.default.string().required(),
@@ -42,6 +46,9 @@ var timesValidator = joi_1.default.object().keys({
 var channelClusterValidator = joi_1.default.object().keys({
     name: joi_1.default.string().required(),
     id_company: joi_1.default.string().required(),
+    color: joi_1.default.string().required(),
+    trade_channels_id: joi_1.default.array().items(joi_1.default.string()).required(),
+    id: joi_1.default.string().required(),
 });
 var tradeChannelValidator = joi_1.default.object().keys({
     name: joi_1.default.string().required(),
@@ -55,6 +62,7 @@ var categoryValidator = joi_1.default.object().keys({
     name: joi_1.default.string().required(),
     id_company: joi_1.default.string().required(),
     trade_chanel_id: joi_1.default.string().required(),
+    description: joi_1.default.array().required(),
 });
 exports.default = {
     "/login": loginValidator,

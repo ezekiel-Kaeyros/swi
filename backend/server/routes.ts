@@ -4,7 +4,8 @@ import {
   CompanyController,
   CategoryController,
   SaleRepController,
-  ActivitiesController
+  ActivitiesController,
+  ActivitiesItemController
 } from './controllers';
 const router = Router();
 import { isAuthenticate} from './utils';
@@ -244,6 +245,24 @@ router.put(
 )
 router.delete('/activities/:id', ActivitiesController.deleteActivity)
 
+
+/**
+ * Activitie Item
+ */
+
+router.get('/activitiesItem', ActivitiesItemController.getActivitiesItem)
+router.get('/activitiesItem/:id', ActivitiesItemController.getOneActivitieItem)
+router.post(
+  '/activitiesItem',
+  // schemaValidator('/category'),
+  ActivitiesItemController.saveActivitieItem
+)
+router.put(
+  '/activitiesItem/:id',
+  // schemaValidator('/category'),
+  ActivitiesItemController.updateActivitieItem
+)
+router.delete('/activitiesItem/:id', ActivitiesItemController.deleteActivitieItem)
 
 
 export default router;

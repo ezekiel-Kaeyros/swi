@@ -127,4 +127,16 @@ router.put('/activities/:id',
 // schemaValidator('/category'),
 controllers_1.ActivitiesController.updateActivitie);
 router.delete('/activities/:id', controllers_1.ActivitiesController.deleteActivity);
+/**
+ * Activitie Item
+ */
+router.get('/activitiesItem', controllers_1.ActivitiesItemController.getActivitiesItem);
+router.get('/activitiesItem/:id', controllers_1.ActivitiesItemController.getOneActivitieItem);
+router.post('/activitiesItem', 
+// schemaValidator('/category'),
+controllers_1.ActivitiesItemController.saveActivitieItem);
+router.put('/activitiesItem/:id', 
+// schemaValidator('/category'),
+controllers_1.ActivitiesItemController.updateActivitieItem);
+router.delete('/activitiesItem/:id', controllers_1.ActivitiesItemController.deleteActivitieItem);
 exports.default = router;

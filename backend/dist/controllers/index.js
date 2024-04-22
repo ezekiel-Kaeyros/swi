@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActivitiesController = exports.SaleRepController = exports.TimesController = exports.CategoryController = exports.ChannelClusterController = exports.TradeChannelController = exports.CompanyController = exports.TaskController = exports.RoadController = exports.RoadItemController = exports.PosController = exports.AuthController = exports.RoleController = exports.UserController = void 0;
+exports.ActivitiesItemController = exports.ActivitiesController = exports.SaleRepController = exports.TimesController = exports.CategoryController = exports.ChannelClusterController = exports.TradeChannelController = exports.CompanyController = exports.TaskController = exports.RoadController = exports.RoadItemController = exports.PosController = exports.AuthController = exports.RoleController = exports.UserController = void 0;
 var user_1 = require("./user");
 Object.defineProperty(exports, "UserController", { enumerable: true, get: function () { return __importDefault(user_1).default; } });
 var role_1 = require("./role");
@@ -32,3 +32,5 @@ var sale_rep_1 = require("./sale_rep");
 Object.defineProperty(exports, "SaleRepController", { enumerable: true, get: function () { return __importDefault(sale_rep_1).default; } });
 var activities_1 = require("./activities");
 Object.defineProperty(exports, "ActivitiesController", { enumerable: true, get: function () { return __importDefault(activities_1).default; } });
+var activity_item_1 = require("./activity_item");
+Object.defineProperty(exports, "ActivitiesItemController", { enumerable: true, get: function () { return __importDefault(activity_item_1).default; } });

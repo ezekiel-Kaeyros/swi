@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47,7 +58,7 @@ var findAllChannelClusters = function () { return __awaiter(void 0, void 0, void
                 return [4 /*yield*/, models_1.ChannelCluster.find()
                         .populate({
                         path: 'trade_channels_id',
-                        populate: "id_company"
+                        populate: "id_company categories_id",
                     })
                         .populate('id_company')];
             case 1:
@@ -112,10 +123,7 @@ var updateChannelCluster = function (channelClusterData) { return __awaiter(void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, models_1.ChannelCluster.findOneAndUpdate({ _id: channelClusterData.id }, {
-                        name: channelClusterData.name,
-                        id_company: channelClusterData.id_company
-                    }, { new: true })];
+                return [4 /*yield*/, models_1.ChannelCluster.findOneAndUpdate({ _id: channelClusterData.id }, __assign({}, channelClusterData), { new: true })];
             case 1:
                 updatedChannelCluster = _a.sent();
                 if (!updatedChannelCluster) {

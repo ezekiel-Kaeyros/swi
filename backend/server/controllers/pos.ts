@@ -39,14 +39,9 @@ const PosController = {
 
     savePos: async (request: Request, response: Response): Promise<void> => {
         try {
-            const { longitude, latitude, name, description }: IPos = request.body;
+            const data: IPos = request.body;
 
-            if (!longitude || !latitude || !name || !description) {
-                response.status(400).json({ success: false, error: 'All fields are required' });
-                return;
-            }
-
-            const newPos: IPos = await createPos({ longitude, latitude, name, description });
+            const newPos: IPos = await createPos(data);
 
             response.status(201).json({ success: true, data: newPos });
         } catch (error) {

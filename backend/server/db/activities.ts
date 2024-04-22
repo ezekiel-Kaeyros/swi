@@ -5,9 +5,10 @@ import { IActivity } from "../models/activities";
 export const findAllActivities = async  (): Promise<any[]> => {
     try{
         const activities = await Activities.find()
-        .populate('channelClusters')
-        .populate('tradeChannels')
-        .populate('categories');
+        .populate({
+            path: 'activitieItems',
+            populate: "channelClusters tradeChannels categories",
+        })
         return activities
     }catch(error){
         console.log('Error finding all activities ', error.message)
@@ -20,9 +21,10 @@ export const findActivityById = async (id:string):Promise<IActivity[]> => {
     try{
         const query = {_id: id};
         const activity = await Activities.findById(query)
-        .populate('channelClusters')
-        .populate('tradeChannels')
-        .populate('categories');
+        .populate({
+            path: 'activitieItems',
+            populate: "channelClusters tradeChannels categories",
+        })
         return activity;
     }catch(error){
         console.log('Error finding activity')
@@ -46,12 +48,7 @@ export const updateActivity =  async(activityData: any): Promise<IActivity> =>{
             {_id: activityData.id },
             {
                 name: activityData.name,
-                priority: activityData.priority,
-                colors: activityData.colors,
                 description: activityData.description,
-                channelClusters: activityData.channelClusters,
-                tradeChannels: activityData.tradeChannels,
-                categories: activityData.categories
             },
             {new: true}  
         )
@@ -64,6 +61,26 @@ export const updateActivity =  async(activityData: any): Promise<IActivity> =>{
         throw error
     }
 
+}
+
+export const updateArrayActivity = async (Data: any): Promise<any> =>{
+    try{
+        const activity = await Activities.findOneAndUpdate(
+            {_id: Data.id},
+            { "$push": { "activitieItems": Data.activitie_item_id } },
+            {new: true}
+            )
+
+            if (!activity) {
+                throw new Error('Activity  avec l\'ID fourni n\'a pas été trouvée.');
+            }
+            return activity;
+            
+    }catch (error){
+        console.log('Error updating:', error.message);
+        throw error;
+    }
+    
 }
 
 export const deleteActivity =  async(activityData: any): Promise<any> =>{

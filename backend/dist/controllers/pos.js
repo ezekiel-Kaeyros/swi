@@ -94,23 +94,19 @@ var PosController = {
         });
     }); },
     savePos: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, longitude, latitude, name_1, description, newPos, error_3;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var data, newPos, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    _a = request.body, longitude = _a.longitude, latitude = _a.latitude, name_1 = _a.name, description = _a.description;
-                    if (!longitude || !latitude || !name_1 || !description) {
-                        response.status(400).json({ success: false, error: 'All fields are required' });
-                        return [2 /*return*/];
-                    }
-                    return [4 /*yield*/, (0, pos_1.createPos)({ longitude: longitude, latitude: latitude, name: name_1, description: description })];
+                    _a.trys.push([0, 2, , 3]);
+                    data = request.body;
+                    return [4 /*yield*/, (0, pos_1.createPos)(data)];
                 case 1:
-                    newPos = _b.sent();
+                    newPos = _a.sent();
                     response.status(201).json({ success: true, data: newPos });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_3 = _b.sent();
+                    error_3 = _a.sent();
                     console.error('Error creating pos:', error_3.message);
                     response.status(500).json({ success: false, error: 'Internal Server Error' });
                     return [3 /*break*/, 3];
@@ -119,14 +115,14 @@ var PosController = {
         });
     }); },
     updatePos: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var id, _a, longitude, latitude, name_2, description, updatedPos, error_4;
+        var id, _a, longitude, latitude, name_1, description, updatedPos, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     id = request.params.id;
-                    _a = request.body, longitude = _a.longitude, latitude = _a.latitude, name_2 = _a.name, description = _a.description;
-                    if (!id || !longitude || !latitude || !name_2 || !description) {
+                    _a = request.body, longitude = _a.longitude, latitude = _a.latitude, name_1 = _a.name, description = _a.description;
+                    if (!id || !longitude || !latitude || !name_1 || !description) {
                         response.status(400).json({ success: false, error: 'ID, longitude, latitude, name, and description are required' });
                         return [2 /*return*/];
                     }
@@ -135,7 +131,7 @@ var PosController = {
                         response.status(400).json({ success: false, error: 'Invalid ID format' });
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, (0, pos_1.updatePos)({ id: id, longitude: longitude, latitude: latitude, name: name_2, description: description })];
+                    return [4 /*yield*/, (0, pos_1.updatePos)({ id: id, longitude: longitude, latitude: latitude, name: name_1, description: description })];
                 case 1:
                     updatedPos = _b.sent();
                     if (updatedPos) {

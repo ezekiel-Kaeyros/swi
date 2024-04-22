@@ -27,3 +27,5 @@ __exportStar(require("./times"), exports);
 __exportStar(require("./channel_cluster"), exports);
 __exportStar(require("./category"), exports);
 __exportStar(require("./sale_rep"), exports);
+__exportStar(require("./activities"), exports);
+__exportStar(require("./activitie_item"), exports);

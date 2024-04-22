@@ -8,6 +8,7 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var Schema = mongoose_1.default.Schema;
 exports.channelClusterSchema = new Schema({
     name: { type: String, required: true },
+    color: { type: String, required: false },
     id_company: [{ type: Schema.Types.String,
             ref: 'Company' }],
     trade_channels_id: [{ type: Schema.Types.ObjectId, ref: 'TradeChannel' }],

@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+@font-face {
+  font-family: "articulat";
+  src: url("../../../../public/fonts/articulat/Articulat_CF_OTF/ArticulatCF-Regular.otf"); 
+  font-weight: normal;
+
+  /* Add additional formats if needed */
+}
+
+/* @font-face {
+  font-family: "visby-bold";
+  src: url("../../../../public/fonts/Visby/VisbyCF-Bold.otf"); 
+} */
+
+/* @font-face {
+  font-family: "visby-regular";
+  src: url("../../../../public/fonts/Visby/VisbyCF-Regular.otf");
+} */
+
 body {
-  overflow-y: hidden;
+  overflow-y: hidden; 
+  /* font-family: "articulat"; */
 }

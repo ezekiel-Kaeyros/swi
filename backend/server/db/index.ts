@@ -11,3 +11,5 @@ export * from './times';
 export * from './channel_cluster'
 export * from './category'
 export * from './sale_rep'
+export * from './activities'
+export * from './activitie_item'

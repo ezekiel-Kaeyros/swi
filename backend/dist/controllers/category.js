@@ -93,20 +93,20 @@ var CategoryController = {
         });
     }); },
     saveCategory: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, name_1, id_company, trade_chanel_id, newCategory, error_3;
+        var _a, name_1, id_company, trade_chanel_id, description, newCategory, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 3, , 4]);
-                    _a = request.body, name_1 = _a.name, id_company = _a.id_company, trade_chanel_id = _a.trade_chanel_id;
-                    if (!name_1 || !id_company || !trade_chanel_id) {
+                    _a = request.body, name_1 = _a.name, id_company = _a.id_company, trade_chanel_id = _a.trade_chanel_id, description = _a.description;
+                    if (!name_1 || !id_company || !trade_chanel_id || !description) {
                         response.status(400).json({ success: false, error: 'All fields are required' });
                         return [2 /*return*/];
                     }
                     if (!trade_chanel_id) {
                         throw new Error('Trade Channel not found with the provided ID');
                     }
-                    return [4 /*yield*/, (0, db_1.createCategroy)({ name: name_1, id_company: id_company, trade_chanel_id: trade_chanel_id })];
+                    return [4 /*yield*/, (0, db_1.createCategroy)({ name: name_1, id_company: id_company, trade_chanel_id: trade_chanel_id, description: description })];
                 case 1:
                     newCategory = _b.sent();
                     return [4 /*yield*/, (0, db_1.updateArrayCategories)({ id: trade_chanel_id, categories_id: newCategory._id })];
@@ -124,25 +124,21 @@ var CategoryController = {
         });
     }); },
     updateCategroy: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var id, _a, name_2, id_company, trade_chanel_id, category, error_4;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var id, data, category, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 2, , 3]);
                     id = request.params.id;
-                    _a = request.body, name_2 = _a.name, id_company = _a.id_company, trade_chanel_id = _a.trade_chanel_id;
-                    if (!id || !name_2 || !id_company || !trade_chanel_id) {
-                        response.status(400).json({ success: false, error: 'ID and name are required' });
-                        return [2 /*return*/];
-                    }
+                    data = request.body;
                     // Check if the provided ID is a valid ObjectId
                     if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
                         response.status(400).json({ success: false, error: 'Invalid ID format' });
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, (0, db_1.updateCategroy)({ name: name_2, id_company: id_company, trade_chanel_id: trade_chanel_id, id: id })];
+                    return [4 /*yield*/, (0, db_1.updateCategroy)(data)];
                 case 1:
-                    category = _b.sent();
+                    category = _a.sent();
                     if (category) {
                         response.json({ success: true, data: category });
                     }
@@ -151,7 +147,7 @@ var CategoryController = {
                     }
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _b.sent();
+                    error_4 = _a.sent();
                     console.error('Error updating trade channel:', error_4.message);
                     response.status(500).json({ success: false, error: 'Internal Server Error' });
                     return [3 /*break*/, 3];

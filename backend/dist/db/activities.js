@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteActivity = exports.updateActivity = exports.createActivity = exports.findActivityById = exports.findAllActivities = void 0;
+exports.deleteActivity = exports.updateArrayActivity = exports.updateActivity = exports.createActivity = exports.findActivityById = exports.findAllActivities = void 0;
 var models_1 = require("../models");
 var findAllActivities = function () { return __awaiter(void 0, void 0, void 0, function () {
     var activities, error_1;
@@ -45,9 +45,10 @@ var findAllActivities = function () { return __awaiter(void 0, void 0, void 0, f
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, models_1.Activities.find()
-                        .populate('channelClusters')
-                        .populate('tradeChannels')
-                        .populate('categories')];
+                        .populate({
+                        path: 'activitieItems',
+                        populate: "channelClusters tradeChannels categories",
+                    })];
             case 1:
                 activities = _a.sent();
                 return [2 /*return*/, activities];
@@ -68,9 +69,10 @@ var findActivityById = function (id) { return __awaiter(void 0, void 0, void 0, 
                 _a.trys.push([0, 2, , 3]);
                 query = { _id: id };
                 return [4 /*yield*/, models_1.Activities.findById(query)
-                        .populate('channelClusters')
-                        .populate('tradeChannels')
-                        .populate('categories')];
+                        .populate({
+                        path: 'activitieItems',
+                        populate: "channelClusters tradeChannels categories",
+                    })];
             case 1:
                 activity = _a.sent();
                 return [2 /*return*/, activity];
@@ -110,12 +112,7 @@ var updateActivity = function (activityData) { return __awaiter(void 0, void 0, 
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, models_1.Activities.findByIdAndUpdate({ _id: activityData.id }, {
                         name: activityData.name,
-                        priority: activityData.priority,
-                        colors: activityData.colors,
                         description: activityData.description,
-                        channelClusters: activityData.channelClusters,
-                        tradeChannels: activityData.tradeChannels,
-                        categories: activityData.categories
                     }, { new: true })];
             case 1:
                 updateActivity_1 = _a.sent();
@@ -132,8 +129,30 @@ var updateActivity = function (activityData) { return __awaiter(void 0, void 0, 
     });
 }); };
 exports.updateActivity = updateActivity;
+var updateArrayActivity = function (Data) { return __awaiter(void 0, void 0, void 0, function () {
+    var activity, error_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, models_1.Activities.findOneAndUpdate({ _id: Data.id }, { "$push": { "activitieItems": Data.activitie_item_id } }, { new: true })];
+            case 1:
+                activity = _a.sent();
+                if (!activity) {
+                    throw new Error('Activity  avec l\'ID fourni n\'a pas été trouvée.');
+                }
+                return [2 /*return*/, activity];
+            case 2:
+                error_5 = _a.sent();
+                console.log('Error updating:', error_5.message);
+                throw error_5;
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.updateArrayActivity = updateArrayActivity;
 var deleteActivity = function (activityData) { return __awaiter(void 0, void 0, void 0, function () {
-    var deleteActivity_1, error_5;
+    var deleteActivity_1, error_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -146,9 +165,9 @@ var deleteActivity = function (activityData) { return __awaiter(void 0, void 0, 
                 }
                 return [2 /*return*/, deleteActivity_1];
             case 2:
-                error_5 = _a.sent();
-                console.log('Error deleting activity ', error_5.message);
-                throw error_5;
+                error_6 = _a.sent();
+                console.log('Error deleting activity ', error_6.message);
+                throw error_6;
             case 3: return [2 /*return*/];
         }
     });

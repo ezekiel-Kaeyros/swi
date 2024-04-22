@@ -94,17 +94,17 @@ var ChannelClusterController = {
         });
     }); },
     saveChannelCluster: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, name_1, id_company, newChannelCluster, error_3;
+        var _a, name_1, id_company, color, newChannelCluster, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
-                    _a = request.body, name_1 = _a.name, id_company = _a.id_company;
+                    _a = request.body, name_1 = _a.name, id_company = _a.id_company, color = _a.color;
                     if (!name_1 || !id_company) {
                         response.status(400).json({ success: false, error: 'All fields are required' });
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, (0, channel_cluster_1.createChannelCluster)({ name: name_1, id_company: id_company })];
+                    return [4 /*yield*/, (0, channel_cluster_1.createChannelCluster)({ name: name_1, id_company: id_company, color: color })];
                 case 1:
                     newChannelCluster = _b.sent();
                     response.status(201).json({ success: true, data: newChannelCluster });
@@ -119,25 +119,26 @@ var ChannelClusterController = {
         });
     }); },
     updateChannelCluster: function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-        var id, _a, name_2, id_company, updatedChannelCluster, error_4;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var id, data, updatedChannelCluster, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 2, , 3]);
                     id = request.params.id;
-                    _a = request.body, name_2 = _a.name, id_company = _a.id_company;
-                    if (!id || !name_2 || !id_company) {
-                        response.status(400).json({ success: false, error: 'ID and name are required' });
-                        return [2 /*return*/];
-                    }
+                    data = request.body;
+                    data['id'] = id;
+                    // if (!id || !name || !id_company) {
+                    //     response.status(400).json({ success: false, error: 'ID and name are required' });
+                    //     return;
+                    // }
                     // Check if the provided ID is a valid ObjectId
                     if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
                         response.status(400).json({ success: false, error: 'Invalid ID format' });
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, (0, channel_cluster_1.updateChannelCluster)({ id: id, name: name_2, id_company: id_company })];
+                    return [4 /*yield*/, (0, channel_cluster_1.updateChannelCluster)(data)];
                 case 1:
-                    updatedChannelCluster = _b.sent();
+                    updatedChannelCluster = _a.sent();
                     if (updatedChannelCluster) {
                         response.json({ success: true, data: updatedChannelCluster });
                     }
@@ -146,7 +147,7 @@ var ChannelClusterController = {
                     }
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _b.sent();
+                    error_4 = _a.sent();
                     console.error('Error updating channel cluster:', error_4.message);
                     response.status(500).json({ success: false, error: 'Internal Server Error' });
                     return [3 /*break*/, 3];

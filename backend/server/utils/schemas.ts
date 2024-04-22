@@ -26,8 +26,13 @@ const userValidator = Joi.object().keys({
 });
 
 const posValidator = Joi.object().keys({
-    longitude: Joi.string().min(4).required(),
-    latitude: Joi.string().min(4).required(),
+    longitude: Joi.number().required(),
+    latitude: Joi.number().required(),
+    name: Joi.string().min(4).required(),
+    channelCluster: Joi.string().required(),
+    tradeChannel: Joi.string().required(),
+    category: Joi.string().required(),
+
   });
 
   const taskValidator = Joi.object().keys({
@@ -47,6 +52,9 @@ const posValidator = Joi.object().keys({
   const channelClusterValidator = Joi.object().keys({
     name: Joi.string().required(),
     id_company: Joi.string().required(),
+    color: Joi.string().required(),
+    trade_channels_id: Joi.array().items(Joi.string()).required(),
+    id: Joi.string().required(),
   });
 
   const tradeChannelValidator = Joi.object().keys({
@@ -63,6 +71,7 @@ const posValidator = Joi.object().keys({
     name: Joi.string().required(),
     id_company: Joi.string().required(),
     trade_chanel_id: Joi.string().required(),
+    description: Joi.array().required(),
   });
 
 export default {

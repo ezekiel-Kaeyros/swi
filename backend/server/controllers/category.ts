@@ -42,16 +42,16 @@ const CategoryController = {
     saveCategory: async(request: Request, response: Response): Promise<void> => {
 
         try{
-            const { name, id_company,trade_chanel_id}: ICategory = request.body;
+            const { name, id_company,trade_chanel_id,description}: ICategory = request.body;
 
-            if (!name || !id_company || !trade_chanel_id) {
+            if (!name || !id_company || !trade_chanel_id || !description) {
                 response.status(400).json({ success: false, error: 'All fields are required' });
                 return;
             }
             if (!trade_chanel_id) {
                 throw new Error('Trade Channel not found with the provided ID');
             }
-            const newCategory: any = await createCategroy({ name, id_company,trade_chanel_id});
+            const newCategory: any = await createCategroy({ name, id_company,trade_chanel_id, description});
             await updateArrayCategories({id: trade_chanel_id, categories_id: newCategory._id});
 
             response.status(201).json({ success: true, data: newCategory });
@@ -65,21 +65,15 @@ const CategoryController = {
 
         try{
             const { id } = request.params;
-            const { name, id_company,trade_chanel_id }: ICategory = request.body;
-
-            if (!id || !name || !id_company || !trade_chanel_id) {
-                response.status(400).json({ success: false, error: 'ID and name are required' });
-                return;
-            }
+            const data: ICategory = request.body;
             
-
             // Check if the provided ID is a valid ObjectId
             if (!mongoose.Types.ObjectId.isValid(id)) {
                 response.status(400).json({ success: false, error: 'Invalid ID format' });
                 return;
             }
 
-            const category: ICategory | null = await updateCategroy({ name, id_company,trade_chanel_id, id });
+            const category: ICategory | null = await updateCategroy(data);
 
             if (category) {
                 response.json({ success: true, data: category });

@@ -39,7 +39,7 @@ const ChannelClusterController = {
     },
     saveChannelCluster: async(request: Request, response: Response): Promise<void> => {
         try{
-            const { name, id_company }: IChannelCluster = request.body;
+            const { name, id_company , color}: IChannelCluster = request.body;
              
             if (!name || !id_company ) {
                 response.status(400).json({ success: false, error: 'All fields are required' });
@@ -47,7 +47,7 @@ const ChannelClusterController = {
             }
 
 
-            const newChannelCluster: IChannelCluster = await createChannelCluster({ name, id_company });
+            const newChannelCluster: IChannelCluster = await createChannelCluster({ name, id_company, color});
 
             response.status(201).json({ success: true, data: newChannelCluster });
 
@@ -59,13 +59,15 @@ const ChannelClusterController = {
     updateChannelCluster: async(request: Request, response: Response): Promise<void> => {
         try{
             const { id } = request.params;
-            const { name, id_company }: IChannelCluster = request.body;
+            let data: IChannelCluster = request.body;
+            data['id']=id
 
 
-            if (!id || !name || !id_company) {
-                response.status(400).json({ success: false, error: 'ID and name are required' });
-                return;
-            }
+
+            // if (!id || !name || !id_company) {
+            //     response.status(400).json({ success: false, error: 'ID and name are required' });
+            //     return;
+            // }
 
             // Check if the provided ID is a valid ObjectId
             if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -73,7 +75,7 @@ const ChannelClusterController = {
                 return;
             }
 
-            const updatedChannelCluster: IChannelCluster | null = await updateChannelCluster({ id, name, id_company });
+            const updatedChannelCluster: IChannelCluster | null = await updateChannelCluster(data);
 
             if (updatedChannelCluster) {
                 response.json({ success: true, data: updatedChannelCluster });
