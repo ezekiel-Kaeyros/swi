@@ -7,8 +7,8 @@ on:
       - completed
 
 env:
-  IMAGE_NAME_FRONTEND_SWIVY: ezekielkaeyros/swivyfrontend
-  IMAGE_NAME_BACKEND_SWIVY: ezekielkaeyros/swivybackend
+  IMAGE_NAME_FRONTEND_SWIVY: ezekielkaeyros/swivyfrontend:latest
+  IMAGE_NAME_BACKEND_SWIVY: ezekielkaeyros/swivybackend:latest
   AWS_REGION: eu-central-1
   ECS_SERVICE_FRONTEND_SWIVY: swivi_frontend
   ECS_SERVICE_BACKEND_SWIVY: backend_swivy_staging
