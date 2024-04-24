@@ -13,8 +13,8 @@ env:
   ECS_SERVICE_FRONTEND_SWIVY: swivi_frontend
   ECS_SERVICE_BACKEND_SWIVY: backend_swivy_staging
   ECS_CLUSTER: stagingswivicluster
-  ECS_TASK_DEFINITION_FRONTEND: aws/frontend_staging.json
-  ECS_TASK_DEFINITION_BACKEND: aws/backend_staging.json
+  ECS_TASK_DEFINITION_FRONTEND: aws_staging/frontend_staging.json
+  ECS_TASK_DEFINITION_BACKEND: aws_staging/backend_staging.json
   CONTAINER_NAME_FRONTEND: swivy_frontend_container
   CONTAINER_NAME_BACKEND: swivy_backend_container
 
