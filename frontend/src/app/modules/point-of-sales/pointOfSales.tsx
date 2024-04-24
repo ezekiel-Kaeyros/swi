@@ -8,16 +8,22 @@ import SearchBar from '@/app/common/components/searchbar/SearchBar';
 import { Button } from '@/app/common/components/button/Button';
 
 import AddPOSIcon from '../../../../public/icons/addPOSIcon.svg';
+import GenericNavigation from '@/app/[lang]/(pages)/components/settings-navigation/GenericNavigation';
+// import { POSDisplayNavigationList } from '@/services/simulationData';
+import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
+import { useClientFormStep } from '@/app/hooks/useClientFormStep';
 
 const PointOfSales = () => {
+  let { selectNavigationTabsInPOS } = useChangeNavigationItem (); 
+  const { dispatch, posDisplayNavigationList } = useClientFormStep (); 
   return (
     <Card>
       {/* Display details */}
 
-      <SearchBar />
-
       {/* Tab Navigator */}
-      <div className="my-4 flex items-center justify-between">
+      <div className=" flex flex-col items-start justify-between ">
+        <GenericNavigation settingPageNavigation={ posDisplayNavigationList } genericAction={ selectNavigationTabsInPOS } settinPStyle={ false } genericActionBoolean={ true } agentDStyle={ false } />
+        <SearchBar />
         <TabNavigation />
         <div>
           <Button href={`/point-of-sales/create`} icon={AddPOSIcon}>
@@ -25,9 +31,11 @@ const PointOfSales = () => {
           </Button>
         </div>
       </div>
+      <div className='overflow-y-auto h-full px-3 py-3 mt-5'>
+        {/* Point of sales list */}
+        <PointOfSalesList />
+      </div>
 
-      {/* Point of sales list */}
-      <PointOfSalesList />
     </Card>
   );
 };

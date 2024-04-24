@@ -2,7 +2,7 @@ export const channelClusters = [
   {
     id: 1,
     name: 'Modern Trade retail',
-    color: { hex: '#673BB7' },
+    color: { hex: '#673BB7', fadeHex: '#BF9BED' },
     tradeChannel: [
       {
         key: 1,
@@ -78,7 +78,7 @@ export const channelClusters = [
   {
     id: 2,
     name: 'General Trade retail',
-    color: { hex: '#009788' },
+    color: { hex: '#D99125', fadeHex: '#F0D3A8' },
     tradeChannel: [
       {
         key: 1,
@@ -159,7 +159,7 @@ export const channelClusters = [
   {
     id: 3,
     name: 'E-com',
-    color: { hex: '#EA1E63' },
+    color: { hex: '#EA1E63', fadeHex: '#F0D3A8' },
     tradeChannel: [
       {
         key: 1,
@@ -179,7 +179,7 @@ export const channelClusters = [
   {
     id: 4,
     name: 'FoodServices',
-    color: { hex: '#0b47fb' },
+    color: { hex: '#0b47fb', fadeHex: '#F0D3A8' },
     tradeChannel: [
       {
         key: 1,

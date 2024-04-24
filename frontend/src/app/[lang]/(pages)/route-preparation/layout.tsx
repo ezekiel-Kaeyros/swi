@@ -8,16 +8,27 @@ import { useEffect } from 'react';
 import { selectedRoute } from '@/redux/features/route-planning-slice';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { toggleMapsValue, showAllRoutes, dispatch } = useRoutePlanning();
+  const { toggleMapsValue, showAllRoutes, dispatch,selectedRouteId } = useRoutePlanning();
 
   useEffect(() => {
     showAllRoutes && dispatch(selectedRoute({ selectedRouteId: 0 }));
-  });
+  
+  },[]);
 
   return (
     <main className="flex flex-col lg:flex-row">
-      <div className="w-8/12 overflow-y-scroll h-screen">{children}</div>
-      <div className="w-full">
+      <div
+        className={`${
+          !showAllRoutes ? 'w-full' : ' w-8/12'
+        } overflow-y-auto h-screen`}
+      >
+        {children}
+      </div>
+      <div
+        className={`${
+          showAllRoutes ? 'w-full' : ' hidden'
+        } `}
+      >
         {showAllRoutes ? (
           <AllDirections />
         ) : toggleMapsValue ? (

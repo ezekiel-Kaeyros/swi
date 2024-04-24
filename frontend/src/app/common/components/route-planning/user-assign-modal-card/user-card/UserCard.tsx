@@ -47,7 +47,7 @@ const UserCard: React.FC<UserCardProps> = ({
             {name?.charAt(0)}
           </div>
         )}
-        <div className="">
+        <div className="text-xs">
           <h1>{name}</h1>
           <h3>{email}</h3>
         </div>

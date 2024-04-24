@@ -1,6 +1,8 @@
 export type AddSubCategoryProps = {
   clusterId: string | number;
-  tradeChannelId: string | number;
+  tradeChannelId: string | number; 
+  editToggle?: boolean, 
+  dataTtoEdit?: string, 
   handleCloseModal: () => void;
 };
 

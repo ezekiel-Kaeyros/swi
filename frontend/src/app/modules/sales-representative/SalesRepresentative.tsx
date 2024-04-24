@@ -9,6 +9,7 @@ import CustomModal from '@/app/common/components/modal/Modal';
 import AddSalesAgentForm from '@/app/common/components/forms/add-sales-agent-form/AddSalesAgentForm';
 import CreateChannelClusterForm from '@/app/common/components/forms/channel-cluster-creation-form/CreateChannelClusterForm';
 import CreateCategoryIcon from '../../../../public/icons//hierarchy-3.svg';
+import ActivityModule from '@/app/[lang]/(pages)/activity-flow-builder/module/ActivityModule';
 
 const SalesRepresentative = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -19,24 +20,25 @@ const SalesRepresentative = () => {
         <Button onClick={() => setOpen(true)} icon={AddUserIcon}>
           Add Agent
         </Button>
-        {/* Add user modal form */}
-
         <CustomModal
           onClose={() => setOpen(false)}
           isOpen={open}
-          title="Create agent"
-          classStyle="bg-cardDark overflow-y-scroll h-8/12 xl:h-[80vh] xl:max-w-2xl"
+          title="Create agentss"
+          classStyle="bg-red-500 overflow-y-scroll h-8/12 xl:h-[80vh] xl:max-w-2xl"
         >
           <AddSalesAgentForm />
         </CustomModal>
-        <Button variant="secondary"  onClick={() => setOpen2(true)} icon={UploadFileIcon}>
+        <Button
+          variant="secondary"
+          onClick={() => setOpen2(true)}
+          icon={UploadFileIcon}
+        >
           Import CSV
         </Button>
         <CustomModal
           onClose={() => setOpen2(false)}
           isOpen={open2}
           title="Create Category"
-          /* iconTitle={CreateCategoryIcon} */
           classStyle="bg-cardDark  h-8/10 xl:h-[58vh] xl:max-w-[28rem] align-self-center"
         >
           <CreateChannelClusterForm />
@@ -46,6 +48,7 @@ const SalesRepresentative = () => {
       <div>
         <CustomTable />
       </div>
+      {/* <ActivityModule /> */}
     </div>
   );
 };

@@ -110,7 +110,9 @@ export const pointOfSalesSearch = [
 
 export const pointOfSales: IPointOfSalesType[] = [
   {
-    id: 1,
+
+  //  _ id: 1,
+    id: "1",
     name: 'Santa Lucia',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Adamou',
@@ -128,7 +130,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
   },
   {
-    id: 2,
+  //  _ id: "2",
+    id: "2",
     name: 'Dovv',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Jean',
@@ -146,7 +149,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 3,
+  //  _ id: "3",
+    id: "3",
     name: 'Rond Point',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Jean',
@@ -164,7 +168,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
   },
   {
-    id: 4,
+  //  _ id: "4",
+    id: "4",
     name: 'Friends Food',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Pierre',
@@ -182,7 +187,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 5,
+  //  _ id: "5",
+    id: "5",
     name: 'Dovv',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Philippe',
@@ -200,7 +206,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 6,
+  //  _ id: "6",
+    id: "6",
     name: 'Victory Garden',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Jean',
@@ -218,7 +225,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 7,
+  //  _ id: "7",
+    id: "7",
     name: 'Carrefour Yoro Joss',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Patrice',
@@ -236,7 +244,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 8,
+  //  _ id: "8",
+    id: "8",
     name: 'Commissariat 12eme de bonamoussadi',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
     shopOwner: 'M. Bernard',
@@ -256,7 +265,8 @@ export const pointOfSales: IPointOfSalesType[] = [
 
   // Yaoundé boutique
   {
-    id: 9,
+  //  _ id: "9",
+    id: "9",
     name: 'Boutique JOSS',
     shopLocation: 'Ecole de police, Yaoundé, Cameroun',
     shopOwner: 'M. Adamou',
@@ -274,7 +284,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
   },
   {
-    id: 10,
+    // _id: "10",
+    id: "10",
     name: 'Carrefour Market',
     shopLocation: 'Warda, Yaoundé, Cameroun',
     shopOwner: 'M. Jacques',
@@ -292,7 +303,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 11,
+    // _id: "11",
+    id: "11",
     name: 'Alioum Store',
     shopLocation: 'Tsinga, Yaoundé, Cameroun',
     shopOwner: 'M. Hamadou',
@@ -310,7 +322,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
   },
   {
-    id: 12,
+    // _id: "12",
+    id: "12",
     name: 'Friends Food',
     shopLocation: 'Bastos, Yaoundé, Cameroun',
     shopOwner: 'M. Kamga',
@@ -328,7 +341,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 13,
+    // _id: "13",
+    id: "13",
     name: 'Dovv',
     shopLocation: 'Bastos, Yaoundé, Cameroun',
     shopOwner: 'M. Philippe',
@@ -346,7 +360,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 14,
+    // _id: "14",
+    id: "14",
     name: 'US Embassy',
     shopLocation: 'Bastos, Yaoundé, Cameroun',
     shopOwner: 'American Government',
@@ -364,7 +379,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     markerColor: 'red',
   },
   {
-    id: 15,
+    // _id: "15",
+    id: "15",
     name: 'Dovv',
     shopLocation: 'Nkomkana, Yaoundé, Cameroun',
     shopOwner: 'John Montenala',

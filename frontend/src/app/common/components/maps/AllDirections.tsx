@@ -29,7 +29,7 @@ const AllDirections = () => {
                 })
               }
                 
-              { pointOfSales.map((pos: any) =>
+              { pointOfSales?.map((pos: any) =>
                   (<AdvancedMarkerWrapper position={pos.position} active={true} key={pos.id} markerColor='red'>
                       <InfoView shopDetails={pos}/>
                   </AdvancedMarkerWrapper>

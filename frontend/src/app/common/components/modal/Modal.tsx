@@ -23,7 +23,14 @@ const CustomModal: React.FC<ModalPropsType & ModalProps> = ({
 }) => {
   return (
     // eslint-disable-next-line react/no-children-prop
-    <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
+    <Modal
+      backdrop="blur"
+      isOpen={isOpen}
+      onClose={onClose}
+      classNames={{
+        closeButton: 'hidden',
+      }}
+    >
       <ModalContent className={classStyle}>
         {(onClose) => (
           <>
@@ -31,7 +38,6 @@ const CustomModal: React.FC<ModalPropsType & ModalProps> = ({
               className="flex 
              flex-col gap-1 ml-[2%] font-[900] text-2xl"
             >
-
               {title}
             </ModalHeader>
             <ModalBody>{children}</ModalBody>

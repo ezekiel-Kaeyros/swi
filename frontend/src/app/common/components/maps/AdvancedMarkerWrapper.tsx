@@ -21,7 +21,7 @@ const AdvancedMarkerWrapper: React.FC<AdvancedMarkerProps> = ({ position, childr
     const [markerRef, marker] = useAdvancedMarkerRef();
     const [infowindowShown, setInfowindowShown] = useState(false);
 
-    console.log("Hello I am executing");
+    console.log("Hello I am executing", position, markerColor);
 
     console.log('position of lat and long', position);
 

@@ -3,6 +3,9 @@ export type AddTradeChannelFormValues = {
 };
 
 export type AddTradeChannelProps = {
-  handleCloseModal: () => void;
+  handleCloseModal: () => void; 
+  title?: string; 
+  shouldUpdate?: boolean; 
+  existingData?: string; 
   channelClusterId: string | number;
 };

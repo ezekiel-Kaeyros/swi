@@ -1,6 +1,5 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { IActivity } from './types';
-import { addContentIfNotExist, addTradeChannel } from '../utils';
 import { activities } from '@/utils/activities';
 
 export type ActivityClusterState = {

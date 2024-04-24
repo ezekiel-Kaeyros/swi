@@ -10,6 +10,7 @@ const useGetStepObject = () => {
     const showAddButtonInPreview: boolean = useSelector(
         (state: RootState) => state.AgentCreationReducer.showAddButtonInPreview!
     );
+    
 
     const currentUser: AgentFormValueType = useSelector(
         (state: RootState) => state.AgentCreationReducer.currentUser!

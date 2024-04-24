@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -7,7 +7,7 @@ import { ThemeProvider } from '../../common/dark-mode/theme-provider/theme-provi
 import ReduxProvider from '@/redux/provider';
 
 import Header from '../../common/components/header/header';
-import { Providers } from '../../common/nextui/providers';
+import { Providers } from '../../../providers/nextui/providers';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 import Sidebar from '@/app/modules/sidebar/Sidebar';
 
@@ -25,7 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { lang: string };
 }) {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  // const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const apiKey = 'AIzaSyDgt80ssZkZSllaUnnyf0wqoTGPHdsxC24';
 
   if (!apiKey) {
     throw new Error('Missing Google Maps API key');
@@ -43,7 +44,7 @@ export default function RootLayout({
                 <Header lang={lang} />
                 <div className="flex">
                   <Sidebar /> <div className="w-full ">{children}</div>
-                </div>       
+                </div>
               </body>
             </APIProvider>
           </Providers>

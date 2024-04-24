@@ -38,7 +38,7 @@ jobs:
 
       - name: Push to Dockerhub for backend
         run: |
-          docker tag ezekielkaeyros/swivybackend:latest ezekielkaeyros/swivybackend:v${{ github.run_number }}
+          
           docker push ezekielkaeyros/swivybackend:v${{ github.run_number }}
 
       - name: Build the Docker image for frontend
@@ -47,5 +47,5 @@ jobs:
 
       - name: Push to Dockerhub for frontend
         run: |
-          docker tag ezekielkaeyros/swivyfrontend:latest ezekielkaeyros/swivyfrontend:v${{ github.run_number }}
+          
           docker push ezekielkaeyros/swivyfrontend:v${{ github.run_number }}

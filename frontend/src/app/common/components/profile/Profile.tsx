@@ -2,8 +2,16 @@ import React from 'react';
 import { ProfileProps } from './profile';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const Profile: React.FC<ProfileProps> = ({ name, picture, role, link }) => {
+interface ProfileComponentProps {
+  showText?: boolean;
+}
+const Profile: React.FC<ProfileProps & ProfileComponentProps> = ({
+  name,
+  picture,
+  role,
+  link,
+  showText = false,
+}) => {
   return (
     <Link className="pl-2" href={`/${link}`}>
       <div className="flex items-center">
@@ -14,7 +22,7 @@ const Profile: React.FC<ProfileProps> = ({ name, picture, role, link }) => {
             {name?.charAt(0)}
           </div>
         )}
-        <div className="ml-4">
+        <div className={`ml-4 ${showText && 'hidden'}`}>
           <h1 className="font-bold">{name}</h1>
           <h2 className="pt-0 text-sm">{role}</h2>
         </div>

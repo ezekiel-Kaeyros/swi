@@ -14,37 +14,50 @@ import RemoveIcon from '../../../../../../public/icons/removeIcon.svg';
 import Image from 'next/image';
 import AnimateClick from '../../animate-click/AnimateClick';
 import { removeElementById } from './utils';
-import { addSubCategory } from '@/redux/features/channel-cluster-slice';
 import { useSettings } from '@/app/hooks/useSettings';
+import { makePostReques, makePutReques } from '@/utils/makePostReq';
+import { BASE_URL } from '@/utils/constants';
+// import { addSubCategory } from '@/redux/features/channel-cluster-slice';
 
 const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
   tradeChannelId,
-  clusterId,
+  editToggle, 
+  clusterId, 
+  dataTtoEdit, 
   handleCloseModal,
 }) => {
   const { dispatch } = useSettings();
 
   const [descriptionInputs, setDescriptionInputs] = useState<any[]>([]);
-
   const { register, handleSubmit } = useForm<AddSubCategoryFormValues>();
-
-  // triggers when submitting
-
-  const onSubmit: SubmitHandler<any> = (data: { [key: string]: string }) => {
+  const onSubmit: SubmitHandler<any> = async (data: { [key: string]: string }) => {
     let name: string = data?.name;
-
     const descriptionValues: string[] = Object?.keys(data)
       .filter((key: string) => key?.startsWith('description'))
       .map((key) => data[key]);
 
-    let dataToBeSent = {
-      channelClusterId: clusterId,
-      idToBeUpdated: tradeChannelId,
-      name: name,
-      description: descriptionValues,
-    };
+    const newDataD = {
+      name: name, 
+      id_company: "661e46da0c5460e02b3c492b", 
+      description: descriptionValues.length > 0 ? [descriptionValues[0]] : "", // NOT ADDED IN BE YET: FILE backend/server/controllers/category.ts LINE 47 (I ASKED BACKEND TEAM)
+      trade_chanel_id: tradeChannelId
+    }
 
-    dispatch(addSubCategory(dataToBeSent));
+    if (editToggle) {
+      // CANT DELETE BECAUSE WE ARE NOT ABLE TO GET CATEGORY ID DINAMYCALLY (COMING SOON)
+      // const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
+    } else {
+      const result = await makePostReques (`${ BASE_URL }/category`, newDataD)
+    }
+
+    // THIS CODE IS FOR DUMMY DATA
+    // let dataToBeSent = {
+    //   channelClusterId: clusterId,
+    //   idToBeUpdated: tradeChannelId,
+    //   name: name,
+    //   description: descriptionValues,
+    // };
+    // dispatch(addSubCategory(dataToBeSent));
 
     handleCloseModal();
   };

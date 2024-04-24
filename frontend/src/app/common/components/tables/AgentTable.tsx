@@ -1,5 +1,8 @@
+
 "use client"
-import React from "react";
+import React, { useState } from "react";
+
+
 import {
   Table,
   TableHeader,
@@ -20,45 +23,74 @@ import {
   ChipProps,
   SortDescriptor
 } from "@nextui-org/react";
-import {PlusIcon} from "./elements/PlusIcon";
-import {VerticalDotsIcon} from "./elements/VerticalDotsIcon";
-import {ChevronDownIcon} from "./elements/ChevronDownIcon";
-import {SearchIcon} from "./elements/SearchIcon";
-// import {columns, users, statusOptions} from "./elements/data";
-import { agentColumns, agentData, statusOptions} from "./elements/data";
-import { capitalize } from "../table/utils/utils";
-import Image from "next/image";
-// import {capitalize} from "./utils";
-// import actionIcon from "../../../../../public/icons/table/region.png"; 
 
-const statusColorMap: Record<string, ChipProps["color"]> = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+// import {ChevronDownIcon} from "./elements/ChevronDownIcon";
+// import {SearchIcon} from "./elements/SearchIcon";
+// // import {columns, users, statusOptions} from "./elements/data";
+// import { agentColumns, agentData, statusOptions} from "./elements/data";
+// import { capitalize } from "../table/utils/utils";
+// import Image from "next/image";
+//   SortDescriptor,
+// } from '@nextui-org/react';
+import { PlusIcon } from './elements/PlusIcon';
+import { VerticalDotsIcon } from './elements/VerticalDotsIcon';
+import { ChevronDownIcon } from './elements/ChevronDownIcon';
+import { SearchIcon } from './elements/SearchIcon';
+// import {columns, users, statusOptions} from "./elements/data";
+import { agentColumns, agentData, statusOptions } from './elements/data';
+import { capitalize } from '../table/utils/utils';
+import Image from 'next/image';
+// import {capitalize} from "./utils";
+// import actionIcon from "../../../../../public/icons/table/region.png";
+
+const statusColorMap: Record<string, ChipProps['color']> = {
+  active: 'success',
+  paused: 'danger',
+  vacation: 'warning',
 };
 
-import editIcon from "../../../../../public/icons/table/edit.png"; 
-import blueEyeViewIcon from "../../../../../public/icons/table/blueEyeView.png"
-import dustBeenIcon from "../../../../../public/icons/table/dustBeen.png"
+import editIcon from '../../../../../public/icons/table/edit.png';
+import blueEyeViewIcon from '../../../../../public/icons/table/blueEyeView.png';
+import dustBeenIcon from '../../../../../public/icons/table/dustBeen.png';
 
-import { AgentFormValueType } from "@/redux/features/types";
-import { addUser, toggleAgentDetailView } from "@/redux/features/agent-creation";
+import { AgentFormValueMainTypeMain, AgentFormValuesMainTypeMain } from "@/redux/features/types";
+import { addSalesRepAgents, addUser, toggleAgentDetailView } from "@/redux/features/agent-creation";
 import { useClientFormStep } from "@/app/hooks/useClientFormStep";
-import useTogglePopup from "@/app/hooks/useTogglePopup";
+// import useTogglePopup from "@/app/hooks/useTogglePopup";
+import useMakeActions from "@/app/hooks/useMakeActions";
+import { BASE_URL } from "@/utils/constants";
+import { AgentFormValueType } from '@/redux/features/types';
+// import {
+//   addUser,
+//   toggleAgentDetailView,
+// } from '@/redux/features/agent-creation';
+// import { useClientFormStep } from '@/app/hooks/useClientFormStep';
+import useTogglePopup from '@/app/hooks/useTogglePopup';
+import ColumnvgColums from '../SvgCustomIcons/ColumnSvg';
+import FilterSvgColums from '../SvgCustomIcons/FilterSvgColums';
+import SearchSvgIcons from '../SvgCustomIcons/SearchColumsSvg';
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "salesName", "jobTitle", "status", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+  'id',
+  'salesName',
+  'jobTitle',
+  'status',
+  'actions',
+];
 
-type User = typeof agentData[0];
+type User = (typeof agentData)[0];
 
-export default function AgentTable() {
+const AgentTable = ({ agentData }: { agentData: AgentFormValuesMainTypeMain }) => {
+  const { salesRepsAgents } = useClientFormStep ()
+  // console.log(agentData, "it is inside the tables", salesRepsAgents)
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "age",
-    direction: "ascending",
+    column: 'age',
+    direction: 'ascending',
   });
   const [page, setPage] = React.useState(1);
 
@@ -67,51 +99,17 @@ export default function AgentTable() {
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
-    if (visibleColumns === "all") return agentColumns;
+    if (visibleColumns === 'all') return agentColumns;
 
-    return agentColumns.filter((column) => Array.from(visibleColumns).includes(column.uid));
+    return agentColumns.filter((column) =>
+      Array.from(visibleColumns).includes(column.uid)
+    );
   }, [visibleColumns]);
 
-  const {  
-    dispatch, 
-  } = useClientFormStep (); 
+  const { dispatch } = useClientFormStep();
 
-  // let objUrl = "/"
-  // if (agentData.length > 0) {
 
-  //     let final_value = []; 
-  //     // if(incrementalFiltering === true) {
-  //     //     final_value = agentData
-  //     // } else {
-  //     //     final_value = attendances
-  //     // }
-      
-  //     const titleKeys = Object.keys(agentData[0])
-  //     // console.log("titleKeys: ", titleKeys)
-  
-  //     const refinedData = []
-  //     refinedData.push(titleKeys)
-  
-  //     agentData.forEach(item => {
-  //         refinedData.push(Object.values(item))  
-  //         // console.log("refinedData: ", refinedData)
-  //     })
-
-  //     let csvContent = ''
-  
-  //     refinedData.forEach(row => {
-  //         csvContent += row.join(',') + '\n'; 
-  //         // console.log("refinedData: ", csvContent)
-  //     })
-  
-  //     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' })
-  //     // console.log("blob: ", blob)
-  
-  //     objUrl = URL.createObjectURL(blob)
-  //     // console.log("objUrl: ", objUrl)
-  // }
-
-  const showAgentDetails = (data: AgentFormValueType) => {
+  const showAgentDetails = (data: AgentFormValueMainTypeMain) => {
     dispatch(addUser({
       user: data
     }))
@@ -120,16 +118,18 @@ export default function AgentTable() {
     }))
   }
 
+  const { makeDeleteAction } = useMakeActions ()
+
   const filteredItems = React.useMemo(() => {
     let filteredUsers = [...agentData];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user: AgentFormValueType) =>
-        user.salesName.toLowerCase().includes(filterValue.toLowerCase()),
+      filteredUsers = filteredUsers.filter((user: AgentFormValueMainTypeMain) =>
+        user.salesName!.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
-      filteredUsers = filteredUsers.filter((user: AgentFormValueType) =>
+      filteredUsers = filteredUsers.filter((user: AgentFormValueMainTypeMain) =>
         Array.from(statusFilter).includes(user.status),
       );
     }
@@ -145,21 +145,27 @@ export default function AgentTable() {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: User, b: User) => {
+    return [...items].sort((a: any, b: any) => {
       const first = a[sortDescriptor.column as keyof User] as number;
       const second = b[sortDescriptor.column as keyof User] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+      return sortDescriptor.direction === 'descending' ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const { toggleAgentCreationModal } = useTogglePopup (true)
+  const { toggleAgentCreationModal } = useTogglePopup(true);
 
-  const renderCell = React.useCallback((user: AgentFormValueType, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof AgentFormValueType]; 
+  const selectAgentAndOpenModal = (data: AgentFormValueMainTypeMain) => {
+    // console.log(data, "inside selectAgentAndOpenModal")
+    dispatch(addSalesRepAgents({
+      salesRepsAgent: data
+    }))
+    toggleAgentCreationModal ()
+  }
 
-    console.log(">>>>", cellValue)
+  const renderCell = React.useCallback((user: AgentFormValueMainTypeMain, columnKey: React.Key) => {
+    const cellValue = user[columnKey as keyof AgentFormValueMainTypeMain]; 
 
     switch (columnKey) {
       case "salesName":
@@ -184,30 +190,55 @@ export default function AgentTable() {
         );
       case "status":
         return (
-          <Chip
-            // className="capitalize border-none gap-1 text-default-600"
-            className={` ${user.status ? "text-activeTextColor bg-activeBgColor" : "bg-pendingBgcolor text-pendingTextColor"} `}
-            // color={statusColorMap[user.status]}
-            size="sm"
-            variant="dot"
-          >
-            { user.status ? "Active" : "Pending" }
-           {cellValue} 
-          </Chip>
-            // <div className={` ${user.status ? "text-activeTextColor bg-activeBgColor" : "bg-pendingBgcolor text-pendingTextColor"} `}>
-            //   {cellValue}
-            // </div>
+          <div className={`w-[80px] py-[.2rem] px-[.2rem] gap-3 ${ user.status ? "bg-activeBgColor" : "bg-pendingBgcolor" } rounded-xl flex flex-row justify-center items-center `}>
+            <div className="w-[10px] h-[10px] rounded-full bg-white">
+            </div>
+              { user.status ? "Active" : "Pending" }
+          </div>
+
         );
+      case "reportingManager":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user?.reportingManager?.name}</p>
+            <p className="text-bold text-tiny capitalize text-default-500">{user?.reportingManager?.extra}</p>
+          </div>
+      );
+      case "gender":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user?.gender?.name}</p>
+          </div>
+      );
+      case "city":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user?.city?.extra}</p>
+          </div>
+      );
+      case "region":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{user?.region?.name}</p>
+          </div>
+      );
       case "actions":
         return (
           <div className="relative flex justify-start items-center gap-3">
-            <div className="cursor-pointer" onClick={ toggleAgentCreationModal }>
+            <div className="cursor-pointer" onClick={ () => selectAgentAndOpenModal (user) }>
               <Image src={ editIcon } width={ 20 } alt="editIcon" />
             </div>
-            <div className="cursor-pointer">
+            <div onClick={ () => showAgentDetails (user)} className="cursor-pointer">
               <Image src={ blueEyeViewIcon } width={ 20 } alt="blueEyeView" />
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer"onClick={ () => {
+              let confirmAction = confirm ("Are you sure to execute this action?")
+              if (confirmAction) {
+                makeDeleteAction (`${ BASE_URL }/salesrep/${ user?.id}`)
+              } else {
+                console.log("hi"); 
+              }
+            }}>
               <Image src={ dustBeenIcon } width={ 20 } alt="dustBeen" />
             </div>
             {/* <Dropdown className="bg-background border-1 border-default-200">
@@ -223,53 +254,54 @@ export default function AgentTable() {
               </DropdownMenu>
             </Dropdown> */}
           </div>
-        );
+        ); 
+
       default:
         return cellValue;
     }
   }, []);
   
 
-  const onRowsPerPageChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setRowsPerPage(Number(e.target.value));
-    setPage(1);
-  }, []);
+  const onRowsPerPageChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setRowsPerPage(Number(e.target.value));
+      setPage(1);
+    },
+    []
+  );
 
   const onSearchChange = React.useCallback((value?: string) => {
     if (value) {
       setFilterValue(value);
       setPage(1);
     } else {
-      setFilterValue("");
+      setFilterValue('');
     }
   }, []);
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
+      <div className="flex flex-col ">
+        <div className="flex justify-between gap-3 items-end py-8">
           <Input
             isClearable
             classNames={{
-              base: "w-full sm:max-w-[44%]",
-              inputWrapper: "border-1",
+              base: 'w-full sm:max-w-[44%] bg-bgColorDark rounded-xl',
+              inputWrapper: 'border-0.5 ',
             }}
             placeholder="Search by name..."
             size="sm"
-            startContent={<SearchIcon className="text-default-300" />}
+            startContent={<SearchSvgIcons className="text-default-300" />}
             value={filterValue}
             variant="bordered"
-            onClear={() => setFilterValue("")}
+            onClear={() => setFilterValue('')}
             onValueChange={onSearchChange}
           />
           <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={<ChevronDownIcon className="text-small" />}
-                  size="sm"
-                  variant="flat"
-                >
+                <Button size="md" variant="flat">
+                  <FilterSvgColums />
                   Status
                 </Button>
               </DropdownTrigger>
@@ -290,11 +322,8 @@ export default function AgentTable() {
             </Dropdown>
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={<ChevronDownIcon className="text-small" />}
-                  size="sm"
-                  variant="flat"
-                >
+                <Button size="md" variant="flat">
+                  <FilterSvgColums />
                   Columns
                 </Button>
               </DropdownTrigger>
@@ -322,8 +351,10 @@ export default function AgentTable() {
             </Button> */}
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {agentData.length} users</span>
+        <div className="flex justify-between items-center ">
+          <span className="text-default-400 text-small">
+            Total {agentData.length} users
+          </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
@@ -354,7 +385,7 @@ export default function AgentTable() {
         <Pagination
           showControls
           classNames={{
-            cursor: "bg-foreground text-background",
+            cursor: 'bg-foreground text-background',
           }}
           color="default"
           isDisabled={hasSearchFilter}
@@ -364,8 +395,8 @@ export default function AgentTable() {
           onChange={setPage}
         />
         <span className="text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
+          {selectedKeys === 'all'
+            ? 'All items selected'
             : `${selectedKeys.size} of ${items.length} selected`}
         </span>
       </div>
@@ -374,21 +405,28 @@ export default function AgentTable() {
 
   const classNames = React.useMemo(
     () => ({
-      wrapper: ["max-h-[382px]", "max-w-3xl"],
-      th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
+      wrapper: ['max-h-[382px]', 'max-w-3xl', 'border-2'],
+
+      th: [
+        'bg-bgColorDark',
+        'text-default-500',
+        'border-b',
+        'border-divider',
+        'p-3',
+      ],
       td: [
         // changing the rows border radius
         // first
-        "group-data-[first=true]:first:before:rounded-none",
-        "group-data-[first=true]:last:before:rounded-none",
+        'group-data-[first=true]:first:before:rounded-none',
+        'group-data-[first=true]:last:before:rounded-none',
         // middle
-        "group-data-[middle=true]:before:rounded-none",
+        'group-data-[middle=true]:before:rounded-none',
         // last
-        "group-data-[last=true]:first:before:rounded-none",
-        "group-data-[last=true]:last:before:rounded-none",
+        'group-data-[last=true]:first:before:rounded-none',
+        'group-data-[last=true]:last:before:rounded-none',
       ],
     }),
-    [],
+    []
   );
 
   return (
@@ -400,7 +438,7 @@ export default function AgentTable() {
       bottomContentPlacement="outside"
       checkboxesProps={{
         classNames: {
-          wrapper: "after:bg-foreground after:text-background text-background",
+          wrapper: 'after:bg-foreground after:text-background text-background',
         },
       }}
       classNames={classNames}
@@ -412,26 +450,30 @@ export default function AgentTable() {
       onSelectionChange={setSelectedKeys}
       onSortChange={setSortDescriptor}
     >
-      <TableHeader columns={headerColumns} className="flex flex-row">
+      <TableHeader
+        columns={headerColumns}
+        className="flex flex-row !rounded-t-xl"
+      >
         {(column: any) => (
           <TableColumn
             key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
+            align={column.uid === 'actions' ? 'center' : 'start'}
           >
-            <div className="flex flex-row items-center justify-start justify-items-center gap-2">
-              <Image src={ column.img } width={ 20 } alt="titleIcon" /> 
-              { column.name }
+            <div className="flex justify-items-center text-center gap-2 items-center h-full w-full ">
+              <Image src={column.img} width={20} alt="titleIcon" />
+              {column.name}
             </div>
           </TableColumn>
         )}
       </TableHeader>
       <TableBody emptyContent={"No users found"} items={sortedItems}>
-        {(item) => (
-          <TableRow key={item.id} onClick={() => {
-            console.log("item.id", item.id)
-            showAgentDetails (item)
-          }}>
+        {(item: AgentFormValueMainTypeMain) => (
+          <TableRow key={item._id} onClick={
+            () => {
+              console.log("item.id", item._id)
+              // showAgentDetails (item)
+            }}
+            >
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
@@ -439,3 +481,23 @@ export default function AgentTable() {
     </Table>
   );
 }
+
+export default AgentTable;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,15 +10,15 @@ const DynamicNestedAccordion = ({
 }) => {
   return (
     <div className="my-4">
-      {data?.map((item: { title: string; key: number | string }) => (
-        <AccordionItem
-          id={item?.key}
+      {data?.map((item: any) => {
+        return (<AccordionItem
+          id={item?._id}
           clusterId={clusterId}
-          title={item?.title}
-          key={item.key}
+          title={item?.name as string}
+          key={item._id}
           content={item}
-        />
-      ))}
+        />)
+      })}
     </div>
   );
 };

@@ -2,9 +2,11 @@ import { OptionTypes } from "@/app/[lang]/(pages)/components/agents-creation/age
 
 export interface IChannelCluster {
   id: number | string;
-  color?: { hex: string };
+  color?: { hex: string; fadeHex: string };
   name: string;
+  trade_channels_id?: [];
   tradeChannel?: any[];
+  _id?: number | string;
 }
 
 export interface IActivity {
@@ -62,8 +64,10 @@ export type AgentFormValuesType = AgentFormValueType []
 // *******************FOR BACKEND DATA****************
 // THIS IS THE TYEP THAT VALIDATES THE DATA OF THE USER FROM BACKEND
 export type AgentFormValueMainTypeMain = {
+  id?: string;
   _id?: string | number; 
   name: string;
+  salesName?: string | undefined;
   dateOfBirth: string;
   gender: OptionType;
   contactDetails?: string; // BACKEND PEOPLE FORGOT TO PUT THIS FIELD IN THE DB
@@ -72,12 +76,13 @@ export type AgentFormValueMainTypeMain = {
   city: OptionType;
   streetAddress: string;
   job: string; 
+  jobTitle?: string; 
   departement: OptionType; 
   reportingManager: OptionType; 
   startDate: string; 
   status?: boolean | Key | undefined | string, 
   email: string;
-
+  emailAddress?: string;
   avatar?: any
   team?: any, 
 };
@@ -117,8 +122,90 @@ export interface IAgentCreation {
   showDataFieldUI?: boolean; 
   settingPageNavigation: AgentNavigationsType; 
   detailPageNavigation: AgentNavigationsType; 
-  dateOfBirth?: any
+  dateOfBirth?: any;
+  deleteUrl?: string | undefined; 
 }
+
+
+export interface IUser {
+  email_confirm: false,
+  _id: string,
+  role: string,
+  address_id: string,
+  first_name: string,
+  last_name: string,
+  contact: number,
+  profile_picture: string,
+  email: string,
+  createdAt: string,
+  updatedAt: string,
+  __v: 0
+}
+
+export type GetAgentDataType = {
+  _id: string,
+  dateOfBirth: string;
+  gender: string;
+  country: string;
+  region: string; 
+  city: string;
+  job: string; 
+  name: string; 
+  streetAddress: string;
+  departement: string;
+  reportingManager: IUser [];
+  startDate: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number
+}
+
+// email: string;
+// name:string;
+// dateOfBirth?: string;
+// gender?:string;
+// country?: string;
+// region: string;
+// streetAddress: string;
+// job?: string;
+// departement?: string;
+// reportingManager?: any;
+// startDate?: string;
+// status?: string;
+
+
+// GET USER 
+// "_id": "661e4153da89a10ba058d428",
+// "dateOfBirth": "2024-04-09",
+// "gender": "Male",
+// "country": "Cameroon",
+// "region": "Centre",
+// "city": "Yaounde",
+// "job": "Front End Dev",
+// "departement": "OptionTypeString",
+// "reportingManager": [
+//     {
+//         "_id": "661e141e39ef710584fcf7a2",
+//         "role": "Data Science",
+//         "address_id": "yaounde",
+//         "first_name": "Gleyne",
+//         "email_confirm": false,
+//         "last_name": "Monthe",
+//         "contact": 6561888167,
+//         "profile_picture": "https//image.com",
+//         "email": "gm@test.com",
+//         "password": "$2b$10$WihreqjQ2VFQB0CnyzNcTOPscSnG43otFLoFunDV2ekOEldfKlikq",
+//         "createdAt": "2024-04-16T06:01:02.438Z",
+//         "updatedAt": "2024-04-16T06:01:02.438Z",
+//         "__v": 0
+//     }
+// ],
+// "startDate": "2024-04-10T00:00:00.000Z",
+// "email": "New Orlean",
+// "createdAt": "2024-04-16T09:13:55.509Z",
+// "updatedAt": "2024-04-16T09:13:55.509Z",
+// "__v": 0
 
 
 // POSTED DATA
@@ -161,3 +248,10 @@ export interface IAgentCreation {
 //   "updatedAt": "2024-04-15T10:44:34.004Z",
 //   "__v": 0
 // }
+
+
+// 6571ae656f56ecf502bc75c8 gone
+// 657194e945352d0f220be0b5 gone
+// 6570c6eb897d213b72b95135 gone
+// 656d9da17295cdd5d80b2b65 gone
+// 656d9d3d7295cdd5d80b2b63 gone

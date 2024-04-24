@@ -1,14 +1,13 @@
 "use client";
 import { useClientFormStep } from '@/app/hooks/useClientFormStep';
-import { IFormStep, IFormSteps } from '@/redux/features/types';
-import { RootState } from '@/redux/store';
+import { IFormStep } from '@/redux/features/types';
 import Image from 'next/image';
 import React from 'react'
-import { useSelector } from 'react-redux';
 import selectedIcon from "../../../../../../../public/icons/stepPassed.png"
 
 const FormSteps = () => {
 
+    // COMPONENT TO DISPLAY ALL FORM STEPS
     const { formSteps } = useClientFormStep (); 
   return (
     <div className='flex flex-col justify-between relative h-[200px]'>

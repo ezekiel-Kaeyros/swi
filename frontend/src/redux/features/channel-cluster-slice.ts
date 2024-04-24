@@ -3,12 +3,25 @@ import { createSlice, current } from '@reduxjs/toolkit';
 import { IChannelCluster } from './types';
 import { addContentIfNotExist, addTradeChannel } from '../utils';
 
+export type TradeChannel = {
+  _id: string,
+  name: string,
+  id_company: string,
+  channel_cluster_id: string,
+  categories_id: string[],
+}
+export type TradeChannels = TradeChannel []
+
 export type ChannelClusterState = {
-  channelCluster: IChannelCluster[];
+  channelCluster: IChannelCluster[]; 
+  companies: any; 
+  tradeChannels: TradeChannels
 };
 
 const initialState: ChannelClusterState = {
   channelCluster: channelClusters,
+  tradeChannels: [], 
+  companies: []
 };
 
 // Create the slice
@@ -18,6 +31,19 @@ export const channelCluster = createSlice({
   reducers: {
     // Create a new Channel cluster
 
+    // ADDING ALL CHANNEL CLUSTER FROM DB AT ONCE
+    loadAllChannelCluster: (state, action) => {
+      const { allChannelCluster } = action?.payload; 
+      state.channelCluster = allChannelCluster
+    },
+
+    // ADDING ALL TRADE CHANNEL FROM DB AT ONCE
+    loadAllTradeChannels: (state, action) => {
+      const { allTradeChannel } = action?.payload; 
+      state.tradeChannels = allTradeChannel
+    },
+
+
     createChannelCluster: (state, action) => {
       const { name, color } = action?.payload;
 
@@ -26,6 +52,12 @@ export const channelCluster = createSlice({
         name,
         color,
       });
+    },
+
+    loadCompanies: (state, action) => {
+      const { comp }: any = action?.payload;
+      // console.log(comp, "????????????????")
+      state.companies = comp;
     },
 
     addNewTradeChannel: (state, action) => {
@@ -59,6 +91,6 @@ export const channelCluster = createSlice({
 });
 
 // Export actions and reducer
-export const { createChannelCluster, addNewTradeChannel, addSubCategory } =
+export const { createChannelCluster, loadCompanies, loadAllChannelCluster, loadAllTradeChannels, addNewTradeChannel, addSubCategory } =
   channelCluster.actions;
 export default channelCluster.reducer;

@@ -1,10 +1,18 @@
 'use client';
 import { Tab, Tabs } from '@nextui-org/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RoutesList from '../routes-list/RoutesList';
 import SearchBar from '../../searchbar/SearchBar';
+import { useHeaderTitle } from '@/app/hooks/useHeaderTitle';
+import { setTitle } from '../../header/slice/header-title-slice';
 
 const TabNavigation = () => {
+  /** Set Header Title Depending on the Module you are */
+  const { dispatch } = useHeaderTitle();
+  dispatch(
+    setTitle('Realtime tracking')
+  ); /** Just set the name header you want to */
+
   return (
     <div className="w-full relative">
       <h1 className="font-bold text-xl p-8">Realtime tracking</h1>

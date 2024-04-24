@@ -1,0 +1,75 @@
+name: Deploy to Amazon ECS
+
+on:
+  workflow_run:
+    workflows: ["CI Pipelines"]
+    types:
+      - completed
+
+env:
+  IMAGE_NAME_FRONTEND_SWIVY: ezekielkaeyros/swivyfrontend
+  IMAGE_NAME_BACKEND_SWIVY: ezekielkaeyros/swivybackend
+  AWS_REGION: eu-central-1
+  ECS_SERVICE_FRONTEND_SWIVY: swivi_frontend
+  ECS_SERVICE_BACKEND_SWIVY: backend_swivy_staging
+  ECS_CLUSTER: stagingswivicluster
+  ECS_TASK_DEFINITION_FRONTEND: aws/frontend_staging.json
+  ECS_TASK_DEFINITION_BACKEND: aws/backend_staging.json
+  CONTAINER_NAME_FRONTEND: swivy_frontend_container
+  CONTAINER_NAME_BACKEND: swivy_backend_container
+
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition for frontend
+        id: task-def-frontend
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_FRONTEND }}
+          container-name: ${{ env.CONTAINER_NAME_FRONTEND }}
+          image: ${{ env.IMAGE_NAME_FRONTEND_SWIVY }}
+
+      - name: Deploy Amazon ECS task definition for frontend
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-frontend.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_FRONTEND_SWIVY }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
+      - name: Fill in the new image ID in the Amazon ECS task definition for backend
+        id: task-def-backend
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_BACKEND }}
+          container-name: ${{ env.CONTAINER_NAME_BACKEND }}
+          image: ${{ env.IMAGE_NAME_BACKEND_SWIVY }}
+
+      - name: Deploy Amazon ECS task definition for backend
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-backend.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_BACKEND_SWIVY }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
+      

@@ -9,8 +9,13 @@ import { useClickOutside } from '@/app/hooks/useClickOutside';
 import { useClientFormStep } from '@/app/hooks/useClientFormStep';
 import { toggleOptionsContainer } from '@/redux/features/agent-creation';
 
-const OptionContainer = () => {
-    const { toggleAgentCreationModal } = useTogglePopup (true); 
+const OptionContainer = ({
+    firstAction, secondAction
+}: {
+    firstAction?: any, 
+    secondAction?: any, 
+}) => {
+    // const { toggleAgentCreationModal } = useTogglePopup (true); 
     const { dispatch } = useClientFormStep ()
 
     // truncateText
@@ -21,11 +26,11 @@ const OptionContainer = () => {
     });
     
   return (
-    <div ref={domNode} className='rounded-lg rigt-[100%] flex flex-col justify-start translate-x translate-x-[-70%] translate-y-[10%] absolute  bg-optionContainerBg'>
-        <Button type='button' icon={ editIcon } className='rounded-sm bg-transparent w-[150px] flex justify-center' onClick={ toggleAgentCreationModal }>
+    <div ref={domNode} className='ease-in duration-300 rounded-xl rigt-[100%] flex flex-col justify-start translate-x translate-x-[-70%] translate-y-[0%] absolute  bg-optionContainerBg'>
+        <Button type='button' icon={ editIcon } className='bg-transparent w-[150px] flex justify-start' onClick={ () => firstAction () }>
             Edit
         </Button>
-        <Button type='button' icon={ dustBean } className='rounded-sm bg-transparent w-[150px] flex justify-center' onClick={ () => console.log("hi") }>
+        <Button type='button' icon={ dustBean } className='bg-transparent w-[150px] flex justify-start' onClick={ () => secondAction () }>
             Delete
         </Button>
     </div>

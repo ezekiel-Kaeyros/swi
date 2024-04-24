@@ -15,7 +15,7 @@ const AgentDetailNavigation = () => {
                 detailPageNavigation?.map ((agentNavigation: AgentNavigationType) => {
                     return (
                         
-                        <NavigationItem settingPaneNavigation={ false} agentDetailPaneNavigation={ true } id={ agentNavigation?.id } label={ agentNavigation?.label } textColor={ agentNavigation?.textColor } color={ agentNavigation?.color } />
+                        <NavigationItem key={ agentNavigation.id } settingPaneNavigation={ false} agentDetailPaneNavigation={ true } id={ agentNavigation?.id } label={ agentNavigation?.label } textColor={ agentNavigation?.textColor } color={ agentNavigation?.color } />
                     )
                 })
             }

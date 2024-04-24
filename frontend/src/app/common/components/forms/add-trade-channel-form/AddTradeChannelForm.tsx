@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormRow from './form-row/FormRow';
 import InputField from '../text-field/InputField';
 import { Button } from '../../button/Button';
@@ -9,19 +9,43 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSettings } from '@/app/hooks/useSettings';
 import { addNewTradeChannel } from '@/redux/features/channel-cluster-slice';
+import { makePostReques } from '@/utils/makePostReq';
+import { BASE_URL } from '@/utils/constants';
 
 const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   handleCloseModal,
   channelClusterId,
+  title, 
+  shouldUpdate, 
+  existingData
 }) => {
-  const { dispatch, channelClusters } = useSettings();
+  // const { dispatch, channelClusters } = useSettings();
 
-  const { register, handleSubmit } = useForm<AddTradeChannelFormValues>();
+  const { register, handleSubmit, setValue } = useForm<AddTradeChannelFormValues>(); 
 
-  const onSubmit: SubmitHandler<AddTradeChannelFormValues> = (data) => {
-    const newData = { ...data, channelClusterId };
+  // FILLING INPUTS WITH USER INFO IN CASE OF EDITING USER INFO
+  useEffect (() => {
+    setValue ("tradeChannelName", existingData as string); 
+  }, [])
 
-    dispatch(addNewTradeChannel(newData));
+  const onSubmit: SubmitHandler<AddTradeChannelFormValues> = async (data) => {
+    const newData = { ...data, channelClusterId }; 
+
+    // if (editToggle) {
+    //   const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
+    // } else {
+    //   const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
+    // }
+
+    const newDataD = {
+      name: data.tradeChannelName, 
+      id_company: "661e46da0c5460e02b3c492b", 
+      channel_cluster_id: channelClusterId
+    }
+
+    const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
+
+    // dispatch(addNewTradeChannel(newDataD)); 
 
     handleCloseModal();
   };
@@ -34,7 +58,8 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
             <InputField
               name="tradeChannelName"
               register={register('tradeChannelName')}
-              placeholder="Trade channel Name"
+              placeholder={"Trade channel Name"}
+              // placeholder={ title ? title : "Trade channel Name"}
             />
           }
         />
@@ -42,7 +67,11 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
 
       {/* Submit button */}
       <div className="w-full pt-[2%]">
-        <Button type="submit">Add Trade Channel</Button>
+        <Button type="submit">
+          {
+            shouldUpdate ? title : "Add Trade Channel"
+          }
+        </Button>
       </div>
     </form>
   );

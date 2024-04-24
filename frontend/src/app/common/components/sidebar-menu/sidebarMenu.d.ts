@@ -2,7 +2,7 @@ export type SidebarMenuProps = {
   icon?: any;
   title: string | undefined;
   url?: string;
-  sidebarToggle: boolean;
+  sidebarToggleState: boolean;
   submenus?: Array<{
     subTitle: string;
     url: string;

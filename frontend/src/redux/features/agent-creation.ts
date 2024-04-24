@@ -25,6 +25,7 @@ const initialState: IAgentCreation = {
   settingPageNavigation: SettingsDisplayNavigationList, 
   detailPageNavigation: AgentNavigationList, 
   dateOfBirth: "",
+  deleteUrl: "", 
 };
 
 // Create the slice
@@ -33,16 +34,36 @@ export const agentCreation = createSlice({
   initialState,
   reducers: {
 
+    resetAfterFormSubmission: (state, action) => {
+      state = state; 
+    }, 
+
     addUser: (state, action) => {
       const { user } = action.payload; 
       state.currentUser = user
       state.users = [...state.users as AgentFormValuesType, user]; 
     }, 
 
+    setDeleteUrl: (state, action) => {
+      const { url } = action.payload; 
+      state.deleteUrl = url;     
+    }, 
+
+    toggleShowDataFieldUI: (state, action) => {
+      const { val } = action.payload; 
+      state.showDataFieldUI = val; 
+    }, 
+
     addSalesRepAgents: (state, action) => {
       const { salesRepsAgent } = action.payload; 
+      console.log("why why why: ", salesRepsAgent)
       state.currentSalesRepsAgent = salesRepsAgent
       state.salesRepsAgents = [...state.salesRepsAgents as AgentFormValuesMainTypeMain, salesRepsAgent]; 
+    }, 
+
+    addSalesRepAgentsAtOnce: (state, action) => {
+      const { salesRepsAgent } = action.payload; 
+      state.salesRepsAgents = salesRepsAgent; 
     }, 
 
     selectDetailViewTab: (state, action) => {
@@ -161,13 +182,16 @@ export const agentCreation = createSlice({
 
 // Export actions and reducer
 export const { 
+  toggleShowDataFieldUI, 
   makeStepDone, 
   activateStep, 
   toggleShowForm, 
   toggleCancelCreation, 
   toggleShowPreview, 
+  resetAfterFormSubmission, 
   toggleShowAgentCreationModal, 
   addUser, 
+  setDeleteUrl, 
   addSalesRepAgents, 
   toggleAgentDetailView, 
   toggleOptionsContainer, 
@@ -175,5 +199,6 @@ export const {
   addDateOfBirth, 
   toggleShowUploadCSVModal, 
   selectSettingsTab, 
+  addSalesRepAgentsAtOnce, 
 } = agentCreation.actions;
 export default agentCreation.reducer;

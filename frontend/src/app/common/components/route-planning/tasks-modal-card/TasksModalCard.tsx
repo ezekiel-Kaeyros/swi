@@ -61,10 +61,8 @@ const TasksModalCard = ({ posId }: { posId?: number }) => {
         <Button
           startContent={<Image src={TaskIcon} alt="Task icon" />}
           className={`${
-            tasksLength > 0
-              ? 'bg-buttonPrimary'
-              : 'bg-transparent border-dashed '
-          } rounded-full py-4 px-8 w-fit border`}
+            tasksLength > 0 ? 'bg-buttonPrimary' : 'bg-transparent bg-white'
+          } rounded-full py-4 px-5 w-fit border text-black text-base`}
         >
           {tasksLength >= 1 ? (
             <div className="flex items-center">
@@ -74,7 +72,7 @@ const TasksModalCard = ({ posId }: { posId?: number }) => {
               }`}</div>
             </div>
           ) : (
-            'Add activities'
+            'Add Activities'
           )}
         </Button>
       </PopoverTrigger>

@@ -11,9 +11,26 @@ import React from 'react';
 import MenuIcon from '../../../../../../../public/icons/menuIcon.svg';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
 import { removePointOfSalesFromRoute } from '@/redux/features/route-planning-slice';
+import useMakeActions from '@/app/hooks/useMakeActions';
+import { BASE_URL } from '@/utils/constants';
 
 const MoreInfoToolTip = ({ id }: { id: number | string }) => {
+
   const { dispatch, selectedRouteId } = useRoutePlanning();
+
+  const { makeDeleteAction } = useMakeActions ()
+
+  // DELETE METHOD TO EXECUTE TO REMOVE A CHANNEL CLUSTER
+  const deleteChannelCluster = () => {
+    let confirmAction = confirm ("Are you sure to execute this action?")
+    console.log( `${ BASE_URL }/pos/${ id }`, "??????>>>>" )
+    // return
+    if (confirmAction) {
+      makeDeleteAction (`${ BASE_URL }/pos/${ id }`)
+    } else {
+      console.log("hi"); 
+    }
+  }
 
   return (
     <Popover placement="right-start" offset={10}>
@@ -35,13 +52,13 @@ const MoreInfoToolTip = ({ id }: { id: number | string }) => {
                 <li className="cursor-pointer">View</li>
                 <li
                   className="cursor-pointer"
-                  onClick={() =>
-                    dispatch(
-                      removePointOfSalesFromRoute({
-                        routeId: selectedRouteId,
-                        posId: id,
-                      })
-                    )
+                  onClick={() => deleteChannelCluster ()
+                    // dispatch(
+                    //   removePointOfSalesFromRoute({
+                    //     routeId: selectedRouteId,
+                    //     posId: id,
+                    //   })
+                    // )
                   }
                 >
                   Remove

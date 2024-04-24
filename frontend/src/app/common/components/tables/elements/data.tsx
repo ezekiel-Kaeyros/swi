@@ -1,6 +1,4 @@
-import React from "react";
-
-
+import React from 'react';
 
 // const users = [
 //   {
@@ -207,115 +205,116 @@ import React from "react";
 
 // export {columns, users, statusOptions};
 
-import statusIcon from "../../../../../../public/icons/stepPassed.png"; 
-import serialNumberIcon from "../../../../../../public/icons/table/serialNumber.png"; 
-import nameIcon from "../../../../../../public/icons/table/name.png"; 
-import calendarIcon from "../../../../../../public/icons/calendar.png"; 
-import userPositionIcon from "../../../../../../public/icons/table/userPosition.png"; 
-import regionIcon from "../../../../../../public/icons/table/region.png"; 
-import stepPassedIcon from "../../../../../../public/icons/stepPassed.png"; 
-import actionIcon from "../../../../../../public/icons/table/action.png"; 
-import { departmentData, genderData, provincesData } from '@/services/selectFieldsData';
+import statusIcon from '../../../../../../public/icons/stepPassed.png';
+import serialNumberIcon from '../../../../../../public/icons/table/serialNumber.png';
+import nameIcon from '../../../../../../public/icons/table/name.png';
+import calendarIcon from '../../../../../../public/icons/calendar.png';
+import userPositionIcon from '../../../../../../public/icons/table/userPosition.png';
+import regionIcon from '../../../../../../public/icons/table/region.png';
+import stepPassedIcon from '../../../../../../public/icons/stepPassed.png';
+import actionIcon from '../../../../../../public/icons/table/action.png';
+import {
+  departmentData,
+  genderData,
+  provincesData,
+} from '@/services/selectFieldsData';
 
 const agentColumns = [
   { img: serialNumberIcon, name: 'Serial Number', uid: 'id', sortable: true },
-  { img: nameIcon, name: 'Sales Name', uid: 'salesName', sortable: true },
-  { img: calendarIcon, name: 'Date Of Birth', uid: 'dateOfBirth', sortable: true },
-  { img: regionIcon, name: 'Gender', uid: 'contactDetails', sortable: true }, // 
+  { img: nameIcon, name: 'Sales Name', uid: 'salesName' },
+  { img: calendarIcon, name: 'Date Of Birth', uid: 'dateOfBirth' },
+  { img: regionIcon, name: 'Gender', uid: 'gender' }, // 
   { img: regionIcon, name: 'Contact', uid: 'contactDetails' }, // 
   { img: regionIcon, name: 'Email', uid: 'emailAddress' }, // 
   { img: regionIcon, name: 'Country', uid: 'country' }, // 
   { img: regionIcon, name: 'City', uid: 'city' }, // 
   { img: regionIcon, name: 'Region', uid: 'region' }, // 
-  { img: regionIcon, name: 'Street Address', uid: 'streetAddress' }, 
   { img: userPositionIcon, name: 'Job Title', uid: 'jobTitle' }, 
   { img: regionIcon, name: 'Department', uid: 'departement' }, // 
   { img: regionIcon, name: 'Reporting Mnger', uid: 'reportingManager' }, // 
   { img: regionIcon, name: 'Street Address', uid: 'streetAddress' }, // 
   { img: calendarIcon, name: 'Start Date', uid: 'startDate' }, 
-  { img: stepPassedIcon, name: 'Status', uid: 'status', sortable: true },
+  { img: stepPassedIcon, name: 'Status', uid: 'status' },
   { img: actionIcon, name: 'ACTIONS', uid: 'actions' },
 ];
 
-
 const agentData = [
   {
-    id: 1, 
-    salesName: "Thierry Monthé",
-    dateOfBirth: "12/03/2024",
+    id: 1,
+    salesName: 'Thierry Monthé',
+    dateOfBirth: '12/03/2024',
     gender: genderData[0].id,
-    contactDetails: "527687948",
-    emailAddress: "thierry.monthe@kaeyros-analytics.de",
-    country: "Cameroon",
+    contactDetails: '527687948',
+    emailAddress: 'thierry.monthe@kaeyros-analytics.de',
+    country: 'Cameroon',
     city: provincesData[9].id,
-    region: provincesData[9].id, 
-    streetAddress: "deido",
-    jobTitle: "CEO", 
-    departement: departmentData[4].id, 
-    reportingManager: departmentData[4].id, 
-    startDate: "12/03/2024",
-    status: true, 
-    avatar: "TM", 
-    team: departmentData[0]
-  }, 
+    region: provincesData[9].id,
+    streetAddress: 'deido',
+    jobTitle: 'CEO',
+    departement: departmentData[4].id,
+    reportingManager: departmentData[4].id,
+    startDate: '12/03/2024',
+    status: true,
+    avatar: 'TM',
+    team: departmentData[0],
+  },
   {
-    id: 2, 
-    salesName: "Eric Mballa",
-    dateOfBirth: "12/03/2024",
+    id: 2,
+    salesName: 'Eric Mballa',
+    dateOfBirth: '12/03/2024',
     gender: genderData[0].id,
-    contactDetails: "527687948",
-    emailAddress: "eric.mballa-analytics.com",
-    country: "Cameroon",
+    contactDetails: '527687948',
+    emailAddress: 'eric.mballa-analytics.com',
+    country: 'Cameroon',
     city: provincesData[0].id,
-    region: provincesData[0].id, 
-    streetAddress: "deido",
-    jobTitle: "Sales Manager", 
-    departement: departmentData[0].id, 
-    reportingManager: departmentData[0].id, 
-    startDate: "12/03/2024",
-    status: true, 
-    avatar: "EM", 
-    team: departmentData[0]
-  }, 
+    region: provincesData[0].id,
+    streetAddress: 'deido',
+    jobTitle: 'Sales Manager',
+    departement: departmentData[0].id,
+    reportingManager: departmentData[0].id,
+    startDate: '12/03/2024',
+    status: true,
+    avatar: 'EM',
+    team: departmentData[0],
+  },
   {
-    id: 3, 
-    salesName: "Leslie Fonepi",
-    dateOfBirth: "12/03/2024",
+    id: 3,
+    salesName: 'Leslie Fonepi',
+    dateOfBirth: '12/03/2024',
     gender: genderData[0].id,
-    contactDetails: "527687948",
-    emailAddress: "fonepi.leslie@kaeyros-analytics.de",
-    country: "Cameroon",
+    contactDetails: '527687948',
+    emailAddress: 'fonepi.leslie@kaeyros-analytics.de',
+    country: 'Cameroon',
     city: provincesData[1].id,
-    region: provincesData[1].id, 
-    streetAddress: "deido",
-    jobTitle: "Sales Agent", 
-    departement: departmentData[1].id, 
-    reportingManager: departmentData[1].id, 
-    startDate: "12/03/2024",
-    status: false, 
-    avatar: "FL", 
-    team: departmentData[0]
-  }, 
+    region: provincesData[1].id,
+    streetAddress: 'deido',
+    jobTitle: 'Sales Agent',
+    departement: departmentData[1].id,
+    reportingManager: departmentData[1].id,
+    startDate: '12/03/2024',
+    status: false,
+    avatar: 'FL',
+    team: departmentData[0],
+  },
   {
-    id: 4, 
-    salesName: "Ariel Mboma",
-    dateOfBirth: "12/03/2024",
+    id: 4,
+    salesName: 'Ariel Mboma',
+    dateOfBirth: '12/03/2024',
     gender: genderData[0].id,
-    contactDetails: "527687948",
-    emailAddress: "viallymboma1@gmail.com",
-    country: "Cameroon",
+    contactDetails: '527687948',
+    emailAddress: 'viallymboma1@gmail.com',
+    country: 'Cameroon',
     city: provincesData[8].id,
-    region: provincesData[8].id, 
-    streetAddress: "deido",
-    jobTitle: "Route planner", 
-    departement: departmentData[1].id, 
-    reportingManager: departmentData[1].id, 
-    startDate: "12/03/2024",
-    status: true, 
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d", 
-    team: departmentData[0]
-  }, 
-
+    region: provincesData[8].id,
+    streetAddress: 'deido',
+    jobTitle: 'Route planner',
+    departement: departmentData[1].id,
+    reportingManager: departmentData[1].id,
+    startDate: '12/03/2024',
+    status: true,
+    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026024d',
+    team: departmentData[0],
+  },
 ];
 
 const columns = [
@@ -345,7 +344,6 @@ const statusOptions = [
 //   {name: "STATUS", uid: "status", sortable: true},
 //   {name: "ACTIONS", uid: "actions"},
 // ];
-
 
 // const users = [
 //   {

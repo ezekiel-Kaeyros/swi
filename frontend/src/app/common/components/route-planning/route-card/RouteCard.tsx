@@ -3,7 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { RouteCardProps } from './routeCard';
 import Image from 'next/image';
 
+import route from '../../../../../../public/images/routing.svg';
+import profil from '../../../../../../public/images/Image.svg';
+import timer from '../../../../../../public/images/timer.svg';
+import shop from '../../../../../../public/images/shop.svg';
+import detail from '../../../../../../public/images/Frame 477.svg';
+import distance from '../../../../../../public/images/Frame 474.svg';
+
 import eyeIcon from '../../../../../../public/icons/eyeIcon.svg';
+import eyeShow from '../../../../../../public/images/eye.svg';
+import eyeHidde from '../../../../../../public/images/eye-slash.svg';
+
 import ShopIcon from '../../../../../../public/icons/pointOfSale.svg';
 import TimeIcon from '../../../../../../public/icons/timeIcon.svg';
 import closedEyeIcon from '../../../../../../public/icons/eyeClosedIcon.svg';
@@ -17,6 +27,10 @@ import {
 import AnimateClick from '../../animate-click/AnimateClick';
 import { useRouter } from 'next/navigation';
 import { calculateTotalTimeFormated } from '../utils/utils';
+import { frame } from 'framer-motion';
+import FilterModal from '../modals/FilterModal';
+import EditRoute from '../modals/EditRoute';
+import UserAssignModalCard from '../user-assign-modal-card/UserAssignModalCard';
 
 const RouteCard: React.FC<RouteCardProps> = ({
   id,
@@ -27,22 +41,27 @@ const RouteCard: React.FC<RouteCardProps> = ({
   profilePicture,
 }) => {
   const [toggleEye, setToggleEye] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
 
-  const { dispatch, routes } = useRoutePlanning();
+  const { dispatch, routes, selectedRouteId } = useRoutePlanning();
 
   const { push } = useRouter();
 
-  useEffect(() => {
-    dispatch(selectedRoute({ selectedRouteId: id }));
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //   // dispatch(selectedRoute({ selectedRouteId: id }));
+  //   // if (selectedRouteId==id) {
+  //   //   alert('ok')
+  //   // }
+  // }, [dispatch, id, selectedRouteId]);
 
   const handleViewRoute = (id: number | string): void => {
     setToggleEye((prev) => !prev);
   };
 
   const handleEditRoute = (id: number | string): void => {
-    dispatch(displayAllRoutes({ showAllRoutes: false }));
-    dispatch(toggleMaps({ toggle: true }));
+    // dispatch(displayAllRoutes({ showAllRoutes: false }));
+    // dispatch(toggleMaps({ toggle: true }));
     push(`/route-preparation/${id}`);
   };
 
@@ -56,8 +75,84 @@ const RouteCard: React.FC<RouteCardProps> = ({
   console.log('salesName', salesName);
 
   return (
-    <div className="bg-cardDark  justify-between w-full  rounded-xl p-4">
-      <div className="flex items-center w-full">
+    <>
+      <FilterModal
+        isOpen={showModal}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      />
+    
+      <div
+        className={`bg-cardDark  justify-between w-full  rounded-xl p-4 ${
+          selectedRouteId == id ? 'border-3 border-[#3772FF]' : ''
+        }`}
+      >
+        <div className="w-full justify-between flex items-center">
+          <div className="flex gap-2">
+            <Image src={route} alt="" />
+            <span>{routeName && routeName}</span>
+          </div>
+          <EditRoute
+           
+            id={id}
+            edit={() => {
+              handleEditRoute(id);
+            }}
+          />
+        
+        </div>
+        <div className="flex gap-2">
+          <div className="px-2 py-1 flex bg-[#05522B] text-[#6DE2A6] rounded-lg gap-1">
+            {' '}
+            <Image src={timer} alt="" />
+            <span className="text-xs">{activitiesDuration}</span>
+          </div>
+          <div className="px-2 py-1 flex bg-[#F3F3F3] text-[#585757] rounded-lg gap-1">
+            {' '}
+            <Image src={shop} alt="" />
+            <span className="text-xs">
+              {numberOfPos
+                ? `${numberOfPos} Shop${parseInt(numberOfPos) >= 1 && 's'}`
+                : ``}
+            </span>
+          </div>
+        </div>
+
+        <div className="my-6 flex items-center  gap-2">
+          <Image src={distance} alt="" className="h-full" />
+          <div className=" text-xs ">
+            <div className="mb-8">
+              <span className="text-[#BABABA]">Start point</span>
+              <br />
+              <span>Santa lucia bonaberi</span>
+            </div>
+
+            <div>
+              <span className="text-[#BABABA]">End point</span>
+              <br />
+              <span>Boutique japoma</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-between items-center ">
+          <div
+            className="px-4 py-2 flex bg-[#3772FF] text-[#F7F9FF] rounded-xl gap-1 cursor-pointer"
+            onClick={() => handleViewRoute(id)}
+          >
+            {' '}
+            <Image src={!toggleEye ? eyeShow : eyeHidde} alt="" />
+            <span className="text-xs">Hide route</span>
+          </div>
+
+          <div className=" flex  text-[#BABABA] gap-1 items-center ">
+            {' '}
+            <Image src={profil} alt="" />
+            <span className="text-xs"> Abriel Mboma</span>
+          </div>
+        </div>
+        {/* <div className="flex items-center w-full">
         <div className="flex justify-between w-full">
           <div>
             <h1 className="mb-2">{routeName && routeName}</h1>
@@ -91,10 +186,10 @@ const RouteCard: React.FC<RouteCardProps> = ({
             </h1>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* Duration and toggle buttons */}
-      <div className="flex mt-6 items-center justify-between">
+        {/* Duration and toggle buttons */}
+        {/* <div className="flex mt-6 items-center justify-between">
         <div className="flex items-center">
           <Image src={TimeIcon} alt="Timer icon" />
           <h1 className="font-bold ml-1">{totalTime}</h1>
@@ -127,8 +222,9 @@ const RouteCard: React.FC<RouteCardProps> = ({
             </div>
           </AnimateClick>
         </div>
+      </div> */}
       </div>
-    </div>
+    </>
   );
 };
 

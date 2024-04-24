@@ -12,7 +12,7 @@ export type PointOfSalesCardProps = {
   secondStat: string;
   secondStatIcon?: string;
   category: string;
-  channelCluster: string | number;
+  channelCluster: string | Object | IChannelCluster;
   tradeChannel: string | number;
   totalActivitiesDuration?: number | undefined;
   handleSelected?: (id: number | string) => void;

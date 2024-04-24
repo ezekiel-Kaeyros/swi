@@ -6,13 +6,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/utils/utils';
 import AnimateClick from '../animate-click/AnimateClick';
+import { Spinner } from '@nextui-org/react';
 
 interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   href?: string;
+  isLoading?: boolean;
   icon?: any;
-  onclickMethod?: any
+  onclickMethod?: any;
+  svg?: any;
 }
 
 const buttonVariants = cva(
@@ -42,7 +45,9 @@ const Button: FC<ButtonProps> = ({
   className,
   href,
   icon,
+  svg, 
   children,
+  isLoading = false,
   ...props
 }) => {
   if (href) {
@@ -53,9 +58,11 @@ const Button: FC<ButtonProps> = ({
             href={href}
             className={cn(buttonVariants({ variant, className }))}
           >
-            <span className="mr-2">
+            <span className="gap-4">
               {icon ? <Image src={icon} alt={'Icon'} /> : ''}
+              {svg ? svg : ''}
             </span>
+            
             {children}
           </Link>
         ) : (
@@ -82,13 +89,22 @@ const Button: FC<ButtonProps> = ({
   return (
     <AnimateClick>
       <button {...props} className={cn(buttonVariants({ variant, className }))}>
-        <div className="flex items-center justify-center whitespace-nowrap font-medium text-[13px]">
-          <span className="mr-2">
-            {icon ? <Image width={ 15 } src={icon} alt={'Icon'} /> : ''}
-          </span>
-          <div className='mt-[.2rem] font-bold font-articulat'>
-          {children}
-          </div>
+        <div className=" whitespace-nowrap font-medium ">
+          {!isLoading ? (
+            <div className="flex  items-center justify-center text-[13px]">
+              <span className="gap-4">
+                {icon ? <Image width={15} src={icon} alt={'Icon'} /> : ''}
+                {svg ? svg : ''}
+              </span>
+              <div className="justify-center items-center font-bold font-articulat">
+                {children}
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center -my-1">
+              <Spinner />
+            </div>
+          )}
         </div>
       </button>
     </AnimateClick>

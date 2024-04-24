@@ -2,11 +2,23 @@
 'use client';
 import React from 'react'
 import { useClientFormStep } from './useClientFormStep';
-import { toggleAgentDetailView, toggleCancelCreation, toggleShowAgentCreationModal, toggleShowPreview, toggleShowUploadCSVModal } from '@/redux/features/agent-creation';
+import { resetAfterFormSubmission, toggleAgentDetailView, toggleCancelCreation, toggleShowAgentCreationModal, toggleShowDataFieldUI, toggleShowPreview, toggleShowUploadCSVModal } from '@/redux/features/agent-creation';
 
 const useToggleModal = () => {
 
-    const { dispatch } = useClientFormStep ()
+    const { dispatch, showDataFieldUI } = useClientFormStep ();
+
+    const showTableWithData = () => {
+        dispatch(toggleShowDataFieldUI({
+            val: true, 
+        }));
+    }
+
+    const reset = () => {
+        dispatch(resetAfterFormSubmission({
+            toggleValue: false, 
+        }));
+    }
 
     const closeAgentCreationModal = () => {
 
@@ -40,6 +52,12 @@ const useToggleModal = () => {
         }));
     }
 
+    const hideAgentPreviewInfo = () => {
+        dispatch(toggleShowPreview({
+            toggleValue: false, 
+        }));
+    }
+
     // FUNCTION TO SHOW CANCEL MODAL
     const openCanceModal = () => {
         dispatch(toggleCancelCreation({
@@ -60,12 +78,15 @@ const useToggleModal = () => {
     }
 
     return {
+        reset, 
         closeAgentCreationModal, 
         closeCanceModal, 
         showAgentPreviewInfo, 
+        hideAgentPreviewInfo, 
         openCanceModal, 
         hideAgentDetails, 
         showAgentDetails, 
+        showTableWithData, 
     }
 }
 

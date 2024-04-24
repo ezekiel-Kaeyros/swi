@@ -8,6 +8,11 @@ import {
   updatePointOfSalesOrder,
 } from '@/redux/features/route-planning-slice';
 import { Button } from '../../button/Button';
+import POSFilter from '../../pos-filter/POSFilter';
+import Shop from '../../../../../../public/icons/shop.svg';
+import Box from '../../../../../../public/icons/posBox.svg';
+import FolderConnection from '../../../../../../public/icons/folder-connection.svg';
+import Coffee from '../../../../../../public/icons/coffee.svg';
 
 const PointOfSalesList = () => {
   const { routes, toggleMapsValue, dispatch, selectedRouteId } =
@@ -82,9 +87,37 @@ const PointOfSalesList = () => {
           )}
         </Droppable>
       ) : null}
-
       {/* Create route button */}
-      <div className="ml-auto w-full py-8">
+
+      {/*⚠️ This is POS fileter compenent. Please do not delete excepte already used */}
+      {/* <div className="rounded-full bg-[#242424] flex items-center p-4 justify-between w-[60%]">
+        <POSFilter icon={Shop} bgColor="#323232" col={`#fff`} stat="All" />
+        <POSFilter
+          icon={Box}
+          bgColor="#5F05D1"
+          col={`#DFCDF6`}
+          stat="Wholesalling"
+        />
+        <POSFilter
+          icon={FolderConnection}
+          bgColor="#D99125"
+          col={`#F7E9D3`}
+          stat="Modern trade"
+        />
+        <POSFilter
+          icon={Coffee}
+          bgColor="#28666E"
+          col={`#AED0D4`}
+          stat="General trade"
+        />
+        <POSFilter
+          icon={Coffee}
+          bgColor="#BD2D87"
+          col={`#F2D5E7`}
+          stat="E-commerce"
+        />
+      </div> */}
+      {/* <div className="ml-auto w-full py-8">
         <Button
           variant={
             currentRoute?.pointOfSales?.length < 2 ? 'disabled' : 'default'
@@ -95,7 +128,7 @@ const PointOfSalesList = () => {
         >
           {!toggleMapsValue ? 'Save route' : 'Edit route'}
         </Button>
-      </div>
+      </div> */}
     </DragDropContext>
   );
 };

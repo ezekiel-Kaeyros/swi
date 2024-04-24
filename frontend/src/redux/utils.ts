@@ -229,6 +229,8 @@ export function addContentIfNotExist(
   keyToBeUpdated: string | number,
   description: string[]
 ) {
+
+  console.log("channelClusters", channelClusters)
   // Find the cluster with the specified ID
   const clusterToUpdate = channelClusters?.find(
     (cluster: { id: number | string }) =>

@@ -12,8 +12,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <main className="flex flex-col lg:flex-row">
-      <div className="w-7/12 overflow-y-scroll h-screen">{children}</div>
-      <div className="w-9/12 ">
+      <div className="w-7/12 overflow-y-scroll h-[90vh]">{children}</div>
+      <div className="w-9/12 h-[80vh]">
         <div className="m-8">
           <MapTabNavigation />
         </div>

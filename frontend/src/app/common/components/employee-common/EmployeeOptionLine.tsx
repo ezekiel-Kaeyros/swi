@@ -17,7 +17,7 @@ import { departmentData, genderData, provincesData } from '@/services/selectFiel
 const EmployeeOptionLine = () => {
 
     const { showOptionCountainer } = useClientFormStep (); 
-    const { toggleOptionContainer } = useTogglePopup (true)
+    const { toggleOptionContainer, toggleAgentCreationModal } = useTogglePopup (true)
     const { thirdStepObj, currentUser }: {
         thirdStepObj: any, currentUser: AgentFormValueType
     } = useGetStepObject (); 
@@ -38,6 +38,8 @@ const EmployeeOptionLine = () => {
         { id: 4, label: "Reporting Manager", name: findElementInSelectList(departmentData, currentUser?.reportingManager)?.name }, 
         { id: 5, label: "Start Date", name: currentUser?.startDate }, 
     ]
+
+    // const { toggleAgentCreationModal } = useTogglePopup (true); 
 
 
   return (
@@ -86,7 +88,7 @@ const EmployeeOptionLine = () => {
                 {/* <Button icon={ optionsContainericon } type='button' className='rounded-sm bg-transparent w-[50px] flex justify-center bg-normalInputBg' onClick={ toggleOptionContainer }>
                  </Button>  */}
                 {
-                    showOptionCountainer && <OptionContainer />
+                    showOptionCountainer && <OptionContainer firstAction={ toggleAgentCreationModal } />
                 }
             </div>
         </div>

@@ -4,7 +4,7 @@ import BackButton from '@/app/common/components/back-button/BackButton';
 import { pointOfSales } from '@/utils/pointOfSalesData';
 
 const PointOfSale = async ({ params: { id } }: { params: { id: string } }) => {
-  const posDetails = pointOfSales.find((pos) => pos?.id.toString() === id);
+  const posDetails = pointOfSales.find((pos) => pos?.id?.toString() === id);
   console.log('id', id);
 
   console.log('pos details', posDetails);

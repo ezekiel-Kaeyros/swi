@@ -7,11 +7,16 @@ import { updateSelectedPlace } from '@/redux/features/create-point-of-sale-slice
 import { usePathname } from 'next/navigation';
 import InfoViewRoutes from '../infoView/InfoViewRoutes';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useSettings } from '@/app/hooks/useSettings';
+import { IChannelCluster } from '@/redux/features/types';
 
 export default function PosMap() {
   const position = { lat: 3.8852761566538545, lng: 11.502079803888337 };
 
-  const { pointOfSales, dispatch } = usePointOfSales();
+  const { pointOfSales, dispatch } = usePointOfSales(); 
+  const { channelClusters } = useSettings();
+
+  console.log("pointOfSales___", pointOfSales, channelClusters)
 
   const { selectedRouteId, routes } = useRoutePlanning();
 
@@ -49,29 +54,48 @@ export default function PosMap() {
   console.log('path', pathname);
 
   return (
-    <Map
-      center={position}
-      zoom={15}
-      mapId={'6fc7264e643ee8b1'}
-      onClick={handleMapClick}
-    >
-      {pointOfSales?.map((pos: any) => {
-        console.log('position of poss', pos.position);
-        return (
-          <AdvancedMarkerWrapper
-            position={pos.position}
-            active={true}
-            key={pos.id}
-            markerColor={pos.markerColor}
-          >
-            {hasNumberInUrl(pathname) ? (
-              <InfoViewRoutes shopDetails={pos} />
-            ) : (
-              <InfoView shopDetails={pos} />
-            )}
-          </AdvancedMarkerWrapper>
-        );
-      })}
-    </Map>
+      <Map
+        center={position}
+        zoom={15}
+        mapId={'6fc7264e643ee8b1'}
+        onClick={handleMapClick}
+      >
+        {pointOfSales?.map((pos: any) => {
+          console.log('position of poss', pos.position);
+
+          const position = {
+            lat: pos?.latitude, 
+            lng: pos?.longitude, 
+          }
+
+          const foundChannelCluster = channelClusters?.find((cc: IChannelCluster) => {
+            console.log (cc, "||||")
+            // if (cc._id === pos?.channelCluster) {
+            //   return cc
+            // }
+            return cc._id === pos?.channelCluster
+          })
+          console.log(foundChannelCluster, "||||")
+          return (
+            <AdvancedMarkerWrapper
+              // position={pos.position}
+              position={ position }
+              active={true}
+              // key={pos.id}
+              key={pos._id}
+              // markerColor={pos.markerColor}
+              markerColor={ foundChannelCluster?.color as any }
+            >
+              {hasNumberInUrl(pathname) ? (
+                <InfoViewRoutes shopDetails={pos} />
+              ) : (
+                <InfoView shopDetails={pos} />
+              )}
+            </AdvancedMarkerWrapper>
+          );
+        })}
+      </Map>
+    // <div className='h-[90vh]'>
+    // </div>
   );
 }

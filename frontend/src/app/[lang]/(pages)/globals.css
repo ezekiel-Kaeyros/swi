@@ -3,11 +3,31 @@
 @tailwind utilities;
 
 
+@layer utilities {
+  .big-parent:hover > .immediate-child {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .grand-child {
+    /* background-color: green; */
+  }
+
+  .playground-bg {
+    background-image: url("../../../../public//images/image.png"); 
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
 
 @font-face {
   font-family: "articulat";
   src: url("../../../../public/fonts/articulat/Articulat_CF_OTF/ArticulatCF-Regular.otf"); 
   font-weight: normal;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax()); */
 
   /* Add additional formats if needed */
 }
@@ -24,5 +44,61 @@
 
 body {
   overflow-y: hidden; 
+  background-color: #1C1C1C;
   /* font-family: "articulat"; */
+}
+
+circle.fg {
+  transform: rotate(-90deg);
+  transform-origin: 125px 125px;
+}
+
+
+.circular-progress {
+  --size: 250px;
+  --half-size: calc(var(--size) / 2);
+  --stroke-width: 20px;
+  --radius: calc((var(--size) - var(--stroke-width)) / 2);
+  --circumference: calc(var(--radius) * pi * 2);
+  --dash: calc((var(--progress) * var(--circumference)) / 100);
+}
+
+.circular-progress circle {
+  cx: var(--half-size);
+  cy: var(--half-size);
+  r: var(--radius);
+  stroke-width: var(--stroke-width);
+  fill: none;
+  stroke-linecap: round;
+}
+
+.circular-progress circle.bg {
+  stroke: #ddd;
+}
+
+.circular-progress circle.fg {
+  transform: rotate(-90deg);
+  transform-origin: var(--half-size) var(--half-size);
+  stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+  transition: stroke-dasharray 0.3s linear 0s;
+  stroke: #5394fd;
+}
+
+@keyframes progress-animation {
+  from {
+    --progress: 0;
+  }
+  to {
+    --progress: 100;
+  }
+}
+
+.circular-progress {
+  animation: progress-animation 5s linear 0s 1 forwards;
+}
+
+@property --progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
 }

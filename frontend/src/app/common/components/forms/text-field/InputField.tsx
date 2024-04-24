@@ -5,10 +5,12 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   register?: any;
   icon?: string;
   title?: string;
+  svg?: any;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
   register,
+  svg, 
   title,
   name,
   icon,
@@ -26,7 +28,7 @@ const InputField: React.FC<InputFieldProps> = ({
         </label>
       )}
       <input
-        className="appearance-none relative border rounded-xl w-full py-4 px-12 leading-tight border-gray-300 bg-transparent focus:outline-none focus:border-buttonPrimary focus:dark:bg-cardDark dark:text-white pr-16"
+        className="appearance-none relative rounded-xl w-full py-4 px-12 leading-tight bg-bgColorDark focus:outline-none focus:border-buttonPrimary focus:dark:bg-bgColorDark dark:text-white pr-16"
         id={name}
         type={type ? type : 'text'}
         placeholder={placeholder}
@@ -41,6 +43,13 @@ const InputField: React.FC<InputFieldProps> = ({
           alt="Icon"
         />
       )}
+      {svg ? 
+      (
+        <div className="absolute ml-4 mt-auto mb-auto left-0 top-[30%]">
+          { svg }
+        </div>
+      )
+      : "" }
     </div>
   );
 };
