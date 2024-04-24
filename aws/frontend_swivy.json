@@ -1,0 +1,53 @@
+{
+    "family": "swivifrontend",
+    "containerDefinitions": [
+        {
+            "name": "swivifrontend",
+            "image": "ezekielkaeyros/swivyfrontend",
+            "cpu": 512,
+            "memory": 1024,
+            "memoryReservation": 1024,
+            "portMappings": [
+                {
+                    "name": "swivifrontend-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 3000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "dockerLabels": {
+                "traefik.enable": "true",
+                "traefik.http.routers.swivyfrontend.rule": "Host(`swivy.net`)"
+            },
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/swivi",
+                    "awslogs-region": "eu-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::108165532263:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::108165532263:role/ecsTaskExecutionRole",
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "512",
+    "memory": "1024",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}
