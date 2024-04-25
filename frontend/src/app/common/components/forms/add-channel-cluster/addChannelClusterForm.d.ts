@@ -2,6 +2,7 @@ export type AddChannelClusterFormValues = {
   name: string;
   color: string; 
   company?: string; 
+  id?: number | string;
 };
 
 export type AddChannelClusterFormProps = {

@@ -5,6 +5,7 @@ import { useClientFormStep } from './useClientFormStep';
 import { selectDetailViewTab, selectSettingsTab } from '@/redux/features/agent-creation';
 import { navigationTabsInPOS, navigationTabsInRTT, navigationTabsInRTTProfile, toggleTrackingListElement } from '@/redux/features/create-point-of-sale-slice';
 import { useSettings } from './useSettings';
+import { toggleStateToAllChannelClusterBuilder } from '@/redux/features/channel-cluster-slice';
 
 const useChangeNavigationItem = () => {
 
@@ -51,6 +52,12 @@ const useChangeNavigationItem = () => {
         }));
     }
 
+    const toggleStateToAllChannelCB = (id: any) => {
+        dispatch(toggleStateToAllChannelClusterBuilder({
+            id, 
+        }));
+    }
+
     return {
         selectNavigationItem, 
         selectNavigationItemDetailViewTabs, 
@@ -58,6 +65,7 @@ const useChangeNavigationItem = () => {
         selectNavigationTabsInRTT, 
         selectNavigationTabsInRTTProfile, 
         toggleRTTProfileElement, 
+        toggleStateToAllChannelCB, 
         posDisplayNavigationList, 
         realTimeTrackingNavigationList, 
         trackingProfileNavigationList, 

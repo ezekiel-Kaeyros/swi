@@ -4,7 +4,7 @@ import { BASE_URL } from '@/utils/constants';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import useMakeGetRequest from './useMakeGetRequest';
-import { loadAllChannelCluster, loadAllTradeChannels } from '@/redux/features/channel-cluster-slice';
+import { addToggleStateToAllChannelCluster, loadAllChannelCluster, loadAllTradeChannels } from '@/redux/features/channel-cluster-slice';
 import { useClientFormStep } from './useClientFormStep';
 import useMakeGetRequestRevalidate from './useMakeGetRequestRevalidate';
 import { loadAllPointOfSale } from '@/redux/features/create-point-of-sale-slice';
@@ -20,17 +20,20 @@ export const useSettings = () => {
   let { data, isLoading } = useMakeGetRequestRevalidate (`${ BASE_URL }/channelCluster`); 
   // GET REQUEST FOR ALL TRADE CHANNEL
   let { data: tradeChannelsLoad } = useMakeGetRequestRevalidate (`${ BASE_URL }/tradeChannel`); 
-  
+
 
   // ACTION TO LOAD ALL CHANNEL CLUSTERS FROM REQUEST
   dispatch(loadAllChannelCluster({
     allChannelCluster: data, 
   }));
 
+  // dispatch(addToggleStateToAllChannelCluster({}));
+
   // LOAD ALL TRADE CHANNELS FROM REQUEST
   dispatch(loadAllTradeChannels({
     allTradeChannel: tradeChannelsLoad, 
   }));
+
 
   // FORMATING CHANNEL CLUSTERS FOR SELECT FIELDS
   const channeClusterForSelectField = tranformChannelCluster(data)
@@ -39,7 +42,7 @@ export const useSettings = () => {
 
   const { data: posData } = useMakeGetRequestRevalidate (`${ BASE_URL }/pos`); 
 
-  console.log(tradeChannelsLoad, "let let...")
+  // console.log(tradeChannelsLoad, "let let...")
 
   // LOAD ALL CHANNEL CLUSTERS FROM REQUEST
   dispatch(loadAllPointOfSale({
@@ -66,5 +69,18 @@ export const useSettings = () => {
     (state: RootState) => state?.ActivityReducer.activities
   );
 
-  return { dispatch, trackingList, channeClusterForSelectField, extractedtArrayfromChannelCluster, isLoading, channelClusters, tradeChannels, activities, companies, data };
+
+  const locaChannelClusters = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer.locaChannelClusters
+  );
+
+  const locaTradeChannels = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer.locaTradeChannels
+  );
+
+  const localCategories = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer.localCategories
+  );
+
+  return { dispatch, locaChannelClusters, locaTradeChannels, localCategories, trackingList, channeClusterForSelectField, extractedtArrayfromChannelCluster, isLoading, channelClusters, tradeChannels, activities, companies, data };
 };

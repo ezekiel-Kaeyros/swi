@@ -16,9 +16,6 @@ const ChannelCluster = () => {
         channelClusters && channelClusters.length > 0 ? 
         <div className="grid pt-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {channelClusters?.map((element: any) => {
-            console.log(element, "elements"
-              
-            )
             return(
             <ChannelClusterCard
               id={element?._id}
@@ -41,24 +38,6 @@ const ChannelCluster = () => {
         :
         <LoadingUIBoxes loadingTitle='Loading Agents table' />
       }
-      {/* <div className="grid pt-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {channelClusters?.map((element: any) => (
-          <ChannelClusterCard
-            id={element?._id}
-            key={element?._id}
-            name={element?.name}
-            content={element?.trade_channels_id}
-            color={element?.color}
-          />
-          // <ChannelClusterCard
-          //   id={parseInt(`${element?.id}`)}
-          //   key={element?.id}
-          //   name={element?.name}
-          //   content={element?.tradeChannel}
-          //   color={element?.color}
-          // />
-        ))}
-      </div> */}
 
       {/* <ChannelClusterEmptyCard /> */}
     </div>

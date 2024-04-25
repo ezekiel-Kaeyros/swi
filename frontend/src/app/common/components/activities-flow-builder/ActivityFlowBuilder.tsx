@@ -68,11 +68,11 @@ const ActivityFlowBuilder = ({ channelClustersData }: any) => {
 
     const { channelClusters, companies, dispatch } = useSettings();
 
-    useEffect (() => {
-        dispatch(loadCompanies({
-            comp: data
-        }))
-    }, [data])
+    // useEffect (() => {
+    //     dispatch(loadCompanies({
+    //         comp: data
+    //     }))
+    // }, [data])
 
 
   return (
@@ -370,8 +370,8 @@ const ActivityFlowBuilder = ({ channelClustersData }: any) => {
                             <button onClick={() => console.log("hellooo")} className='relative group rounded-xl p-[10px] bg-newPrimaryDark'>
                                 {/* addRect(canvas) */}
                                 <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3 6H9" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6 9V3" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3 6H9" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M6 9V3" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
 
                                 <div className='grand-child absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>
@@ -548,13 +548,13 @@ const ActivityFlowBuilder = ({ channelClustersData }: any) => {
 
                     <button onClick={ handleScaleUp }>
                         <svg width="25" height="25" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M8 12V4" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M8 12V4" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
                     <button onClick={ handleScaleDown }>
                         <svg width="25" height="25" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
 

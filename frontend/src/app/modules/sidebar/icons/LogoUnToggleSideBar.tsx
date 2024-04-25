@@ -10,7 +10,7 @@ const LogoUnToggleSideBar = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1938_25708)">
+      <g clipPath="url(#clip0_1938_25708)">
         <path
           d="M51.831 0V23.9795L58.5294 24V0.0102718L51.831 0Z"
           fill="white"
@@ -54,7 +54,7 @@ const LogoUnToggleSideBar = () => {
         />
       </g>
       <defs>
-        <clipPath id="clip0_1938clip-path_25708">
+        <clipPath id="clip0_1938clipPath_25708">
           <rect width="120" height="24" fill="white" />
         </clipPath>
       </defs>

@@ -15,7 +15,7 @@ const RTTProfileViewModule = () => {
     const pathName = usePathname ()
     let { selectNavigationTabsInRTTProfile } = useChangeNavigationItem (); 
     const { trackingProfileNavigationList } = useClientFormStep (); 
-    console.log(pathName.split('/')[pathName.split('/').length - 1], "pathname")
+    // console.log(pathName.split('/')[pathName.split('/').length - 1], "pathname")
 
   return (
     <div className='px-[1rem] py-[2rem] flex flex-col gap-5 h-[90vh]'>

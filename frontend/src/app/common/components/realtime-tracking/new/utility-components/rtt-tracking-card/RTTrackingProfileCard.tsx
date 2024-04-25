@@ -2,7 +2,6 @@
 import CircularProgressBar from '@/app/common/components/circular-progress-bar/CircularProgressBar';
 import { CarIcon, CheckingActivitiesIcon, ChevronDowngIcon, ShopIcon, ShopWhiteIcon, WarningIcon } from '@/app/common/components/svgs/SvgsIcons';
 import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
-import { toggleTrackingListElement } from '@/redux/features/create-point-of-sale-slice';
 import React, { useState } from 'react'
 
 const RTTrackingProfileCard = ({ id, data }: any) => {
@@ -10,9 +9,6 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
   const { toggleRTTProfileElement, dispatch } = useChangeNavigationItem (); 
 
   const handleToggle = (id: any) => {
-    // dispatch(toggleTrackingListElement({
-    //     id, 
-    // }));
     toggleRTTProfileElement (id)
   }
 

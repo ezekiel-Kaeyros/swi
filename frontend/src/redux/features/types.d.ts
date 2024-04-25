@@ -1,5 +1,14 @@
 import { OptionTypes } from "@/app/[lang]/(pages)/components/agents-creation/agents-form/select-field/selectTypes";
 
+export type PositionType = {
+  x: number, 
+  y: number, 
+}
+
+export type IChannelClusterDataType = {
+  name: number, 
+  id: number | string, 
+}
 export interface IChannelCluster {
   id: number | string;
   color?: { hex: string; fadeHex: string };
@@ -7,7 +16,42 @@ export interface IChannelCluster {
   trade_channels_id?: [];
   tradeChannel?: any[];
   _id?: number | string;
+  opened?: boolean; 
+  type?: string; 
+  position?: PositionType; 
+  data?: IChannelClusterDataType; 
+  width?: number, 
+  height?: number, 
 }
+
+export type TradeChannel = {
+  _id?: string,
+  id?: number | string, 
+  name: string,
+  id_company?: string,
+  channel_cluster_id?: string,
+  categories_id?: string[], 
+  type?: string; 
+  position?: PositionType; 
+  data?: IChannelClusterDataType; 
+  width?: number, 
+  height?: number, 
+}
+export interface ICategory {
+  id?: string | number;
+  name?: string;
+  id_company?: string;
+  trade_chanel_id?: string;
+  description?: any[]
+
+  type?: string; 
+  position?: PositionType; 
+  data?: IChannelClusterDataType; 
+  width?: number, 
+  height?: number, 
+}
+export type ICategories = ICategory[]
+export type TradeChannels = TradeChannel []
 
 export interface IActivity {
   id: number | string;

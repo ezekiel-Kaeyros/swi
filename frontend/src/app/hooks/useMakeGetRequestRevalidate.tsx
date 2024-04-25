@@ -9,7 +9,13 @@ const useMakeGetRequestRevalidate = (url: string) => {
   const { data, error, isLoading, isValidating } = useSWR(url, async () => {
     const result = await makeGetReques (url)
     // console.log(result, "at the source: >>><<<>>><<<")
-    return result
+    const finalResult = result?.map((fin: any) => {
+      return {
+        ...fin, 
+        opened: false, 
+      }
+    })
+    return finalResult
   }, { refreshInterval: 30000, keepPreviousData: true }); 
 
   return { data, isLoading, isError: error, isValidating }

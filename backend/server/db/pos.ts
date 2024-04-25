@@ -2,9 +2,9 @@ import { Pos } from '../models';
 import { IPos } from '../models/pos';
 
 
-export const findAllPos = async (): Promise<any[]> => {
+export const findAllPos = async (): Promise<IPos[]> => {
     try {
-      const pos = await Pos.find().populate('channelCluster');
+      const pos = await Pos.find();
       return pos;
     } catch (error) {
       console.error('Error finding all pos:', error.message);

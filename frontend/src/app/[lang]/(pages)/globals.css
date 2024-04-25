@@ -69,7 +69,7 @@ circle.fg {
   r: var(--radius);
   stroke-width: var(--stroke-width);
   fill: none;
-  stroke-linecap: round;
+  strokeLinecap: round;
 }
 
 .circular-progress circle.bg {

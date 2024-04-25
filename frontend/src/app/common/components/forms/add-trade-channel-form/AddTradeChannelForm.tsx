@@ -8,18 +8,21 @@ import {
 } from './addTradeChannel';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSettings } from '@/app/hooks/useSettings';
-import { addNewTradeChannel } from '@/redux/features/channel-cluster-slice';
+import { addNewTradeChannel, createLocalTradeChannel, editLocalTradeChannel } from '@/redux/features/channel-cluster-slice';
 import { makePostReques } from '@/utils/makePostReq';
 import { BASE_URL } from '@/utils/constants';
+import { TradeChannel } from '@/redux/features/types';
 
 const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   handleCloseModal,
   channelClusterId,
   title, 
   shouldUpdate, 
-  existingData
+  existingData, 
+  tradeChannelId, 
+  tcID
 }) => {
-  // const { dispatch, channelClusters } = useSettings();
+  const { dispatch } = useSettings();
 
   const { register, handleSubmit, setValue } = useForm<AddTradeChannelFormValues>(); 
 
@@ -29,23 +32,48 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   }, [])
 
   const onSubmit: SubmitHandler<AddTradeChannelFormValues> = async (data) => {
-    const newData = { ...data, channelClusterId }; 
-
-    // if (editToggle) {
-    //   const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
-    // } else {
-    //   const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
+    
+    // const newData = { ...data, channelClusterId }; 
+    // const newDataD = {
+    //   name: data.tradeChannelName, 
+    //   id_company: "661e46da0c5460e02b3c492b", 
+    //   channel_cluster_id: channelClusterId
     // }
 
-    const newDataD = {
-      name: data.tradeChannelName, 
-      id_company: "661e46da0c5460e02b3c492b", 
-      channel_cluster_id: channelClusterId
-    }
-
-    const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
+    // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER
+    // const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
 
     // dispatch(addNewTradeChannel(newDataD)); 
+
+    console.log (tcID, data, shouldUpdate, "{{{{{{{")
+
+    let newDataD: TradeChannel = {
+      name: data.tradeChannelName, 
+      channel_cluster_id: channelClusterId as any, 
+      position: {
+        x: 400, 
+        y: 200
+      }, 
+      // id: tcID ? tcID : 1, 
+      type: 'tradeChannelCreation', 
+    }
+
+    console.log (newDataD, "newDataD...")
+
+    if (shouldUpdate) {
+      newDataD = {
+        ...newDataD, 
+        id: tradeChannelId as any, 
+        position: {
+          x: 400, 
+          y: 200
+        }, 
+        type: 'tradeChannelCreation', 
+      }
+      dispatch(editLocalTradeChannel(newDataD)); 
+    } else {
+      dispatch(createLocalTradeChannel(newDataD)); 
+    }
 
     handleCloseModal();
   };

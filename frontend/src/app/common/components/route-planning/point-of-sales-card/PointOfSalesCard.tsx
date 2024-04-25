@@ -106,7 +106,7 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
 
   const totalDurationPerPos = sumDurations(currentPos?.tasks);
 
-  console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
+  // console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
 
   return (
     <div

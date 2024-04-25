@@ -8,11 +8,11 @@ import { IChannelCluster } from '@/redux/features/types';
 const PointOfSalesList = () => {
   const { channelClusters, channeClusterForSelectField } = useSettings();
 
-  console.log(channelClusters, channeClusterForSelectField, "[[[[[[[")
+  // console.log(channelClusters, channeClusterForSelectField, "[[[[[[[")
 
   const { pointOfSales } = usePointOfSales();
 
-  console.log("///...", pointOfSales)
+  // console.log("///...", pointOfSales)
 
   // console.log('point of sales', pointOfSales);
   const getChannelClusterNameById = (id: string | number) => {
@@ -23,7 +23,7 @@ const PointOfSalesList = () => {
     return foundChannel?.name;
   };
 
-  console.log(pointOfSales, 'this is my pointofSales');
+  // console.log(pointOfSales, 'this is my pointofSales');
   return (
     <div className="space-y-6 ">
       {/* Point of sales list */}

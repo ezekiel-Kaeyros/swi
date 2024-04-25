@@ -6,13 +6,21 @@ import { BASE_URL } from '@/utils/constants'
 import React from 'react'
 import Sidebar from '../../components/activity-flow-builder/sidebar-elements/Sidebar';
 import MainCanvas from '../../components/activity-flow-builder/canvas-elements/MainCanvas';
+import { useSettings } from '@/app/hooks/useSettings';
+import { ReactFlowProvider } from 'reactflow';
 
 const ActivityModule = () => {
+  
+  const { channelClusters, dispatch } = useSettings();
+
+  // console.log("///////")
 
   return (
     <div className='p-4 flex flex-row'>
-      <Sidebar />
-      <MainCanvas />
+      <ReactFlowProvider>
+        <Sidebar channelClusters={ channelClusters } />
+        <MainCanvas />
+      </ReactFlowProvider>
     </div>
   )
 }

@@ -168,6 +168,66 @@ export const CheckingActivitiesIcon = ({ height, width}: any) => {
     )
 }
 
+export const ChannelClusterDotIcon = ({ height, width, color}: any) => {
+    return (
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="8" height="8" rx="4" fill={ color }/>
+        </svg>
+    )
+}
+
+export const DropdownPlusIcon = ({ height, width, color}: any) => {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill={color} xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M8 12V4" stroke="#BABABA" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    )
+}
+
+export const CloseIcon = ({ height, width, color}: any) => {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill={color} xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    )
+}
+
+export const TradeChannelIcon = ({ height, width, color}: any) => {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 10.3333C10 12.7267 8.06004 14.6667 5.66671 14.6667C3.27337 14.6667 1.33337 12.7267 1.33337 10.3333C1.33337 7.94 3.27337 6 5.66671 6C5.78004 6 5.90003 6.00667 6.01337 6.01334C8.1267 6.18 9.82005 7.87333 9.98672 9.98666C9.99338 10.1 10 10.22 10 10.3333Z" fill="#5F05D1"/>
+        <path opacity="0.4" d="M14.6667 5.66667C14.6667 8.06 12.7267 10 10.3333 10C10.22 10 10.1 9.99333 9.98667 9.98667C9.82001 7.87333 8.12666 6.18001 6.01333 6.01334C6.00666 5.90001 6 5.78 6 5.66667C6 3.27334 7.94 1.33334 10.3333 1.33334C12.7267 1.33334 14.6667 3.27334 14.6667 5.66667Z" fill="#5F05D1"/>
+        <path d="M3.7267 1.33334H2.00004C1.63337 1.33334 1.33337 1.63334 1.33337 2V3.72667C1.33337 4.32 2.05337 4.62 2.47337 4.2L4.20003 2.47334C4.61337 2.05334 4.32004 1.33334 3.7267 1.33334Z" fill="#5F05D1"/>
+        <path d="M12.2733 14.6667H14C14.3666 14.6667 14.6666 14.3667 14.6666 14V12.2733C14.6666 11.68 13.9466 11.38 13.5266 11.8L11.8 13.5267C11.3866 13.9467 11.68 14.6667 12.2733 14.6667Z" fill="#5F05D1"/>
+        </svg>
+    )
+}
+
+export const DustbinIcon = ({ height, width, color}: any) => {
+    return (
+        <svg width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.5348 2.615C9.72983 2.535 8.92483 2.475 8.11483 2.43V2.425L8.00483 1.775C7.92983 1.315 7.81983 0.625 6.64983 0.625H5.33983C4.17483 0.625 4.06483 1.285 3.98483 1.77L3.87983 2.41C3.41483 2.44 2.94983 2.47 2.48483 2.515L1.46483 2.615C1.25483 2.635 1.10483 2.82 1.12483 3.025C1.14483 3.23 1.32483 3.38 1.53483 3.36L2.55483 3.26C5.17483 3 7.81484 3.1 10.4648 3.365C10.4798 3.365 10.4898 3.365 10.5048 3.365C10.6948 3.365 10.8598 3.22 10.8798 3.025C10.8948 2.82 10.7448 2.635 10.5348 2.615Z" fill="#BABABA"/>
+            <path d="M9.61487 4.07C9.49487 3.945 9.32987 3.875 9.15987 3.875H2.83987C2.66987 3.875 2.49987 3.945 2.38487 4.07C2.26987 4.195 2.20487 4.365 2.21487 4.54L2.52487 9.67C2.57987 10.43 2.64987 11.38 4.39487 11.38H7.60487C9.34987 11.38 9.41988 10.435 9.47487 9.67L9.78487 4.545C9.79487 4.365 9.72987 4.195 9.61487 4.07ZM6.82987 8.875H5.16487C4.95987 8.875 4.78987 8.705 4.78987 8.5C4.78987 8.295 4.95987 8.125 5.16487 8.125H6.82987C7.03487 8.125 7.20487 8.295 7.20487 8.5C7.20487 8.705 7.03487 8.875 6.82987 8.875ZM7.24987 6.875H4.74987C4.54487 6.875 4.37487 6.705 4.37487 6.5C4.37487 6.295 4.54487 6.125 4.74987 6.125H7.24987C7.45487 6.125 7.62487 6.295 7.62487 6.5C7.62487 6.705 7.45487 6.875 7.24987 6.875Z" fill="#BABABA"/>
+        </svg>
+    )
+}
+
+
+
+
+
+
+{/* <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> */}
+
+
+
+
+
+
+
 
 
 

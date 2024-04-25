@@ -3,9 +3,7 @@ FROM node:20.9.0-alpine AS BUILD_IMAGE
 WORKDIR /app
 COPY package*.json ./
 COPY next.config.js ./
-RUN npm install 
-RUN npm install fabric
-RUN npm install --save-dev @types/fabric
+RUN npm install
 COPY . .
 RUN  npm run build
 #

@@ -14,7 +14,7 @@ const SearchAndFilterPosForRTT = () => {
   const searchParams = useSearchParams ()
 
   const filterRoutes = (e: any) => {
-    console.log("<<<<<<<", e.target.value)
+    // console.log("<<<<<<<", e.target.value)
     const writtenSearchParam = new URLSearchParams (searchParams)
     writtenSearchParam.set ("search", e.target.value)
     router.push(`${ pathName }?${ writtenSearchParam.toString() }`)

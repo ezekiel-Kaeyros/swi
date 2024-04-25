@@ -6,7 +6,7 @@ import NavigationItem from '../../../../common/components/genericNavigation/Navi
 
 const GenericNavigation = ({ settingPageNavigation, genericActionBoolean, settinPStyle, agentDStyle, genericAction }: any) => {
   // const { settingPageNavigation } = useClientFormStep();
-  console.log("settingPageNavigation, settinPStyle, agentDStyle", settingPageNavigation, settinPStyle, agentDStyle)
+  // console.log("settingPageNavigation, settinPStyle, agentDStyle", settingPageNavigation, settinPStyle, agentDStyle)
 
   return (
     <div className="flex flex-row">

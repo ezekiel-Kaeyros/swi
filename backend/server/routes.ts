@@ -109,12 +109,12 @@ router.get('/pos', PosController.getPos)
 router.get('/pos/:id', PosController.getOnePos)
 router.post(
   '/pos',
-  schemaValidator('/pos'),
+  // schemaValidator('/pos'),
   PosController.savePos
 )
 router.put(
   '/pos/:id',
-  schemaValidator('/pos'),
+  // schemaValidator('/pos'),
   PosController.updatePos
 )
 router.delete('/pos/:id', PosController.deletePos)
@@ -166,7 +166,7 @@ router.post(
 )
 router.put(
   '/channelCluster/:id',
-  schemaValidator('/channelCluster'),
+  // schemaValidator('/channelCluster'),
   ChannelClusterController.updateChannelCluster
 )
 router.delete('/channelCluster/:id', ChannelClusterController.deleteChannelCluster)

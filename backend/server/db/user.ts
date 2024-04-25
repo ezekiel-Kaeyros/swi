@@ -62,6 +62,7 @@ export const updateUser = async (id: string, fieldsToUpdate: any) => {
 };
 
 export const deleteUser = async (id: string) => {
-  const user = await User.findByIdAndRemove(id);
+  // const user = await User.findByIdAndRemove(id);
+  const user = await User.findByIdAndDelete(id);
   return user;
 };

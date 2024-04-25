@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AddSubCategoryFormValues,
   AddSubCategoryProps,
@@ -17,10 +17,13 @@ import { removeElementById } from './utils';
 import { useSettings } from '@/app/hooks/useSettings';
 import { makePostReques, makePutReques } from '@/utils/makePostReq';
 import { BASE_URL } from '@/utils/constants';
+import { createLocalCategory, editLocalCategory } from '@/redux/features/channel-cluster-slice';
+import { ICategory } from '@/redux/features/types';
 // import { addSubCategory } from '@/redux/features/channel-cluster-slice';
 
 const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
   tradeChannelId,
+  catID, 
   editToggle, 
   clusterId, 
   dataTtoEdit, 
@@ -28,29 +31,39 @@ const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
 }) => {
   const { dispatch } = useSettings();
 
+  
+
   const [descriptionInputs, setDescriptionInputs] = useState<any[]>([]);
-  const { register, handleSubmit } = useForm<AddSubCategoryFormValues>();
+  const { register, handleSubmit, setValue } = useForm<AddSubCategoryFormValues>();
+
+  useEffect (() => {
+    // IF SHOULD UPDATE IS TRUE THEN SET THE VALUE (THIS IS USED ONLY FOR UPDATE)
+    if (editToggle) setValue ("name", dataTtoEdit as string); 
+  }, [])
+
   const onSubmit: SubmitHandler<any> = async (data: { [key: string]: string }) => {
     let name: string = data?.name;
-    const descriptionValues: string[] = Object?.keys(data)
-      .filter((key: string) => key?.startsWith('description'))
-      .map((key) => data[key]);
 
-    const newDataD = {
-      name: name, 
-      id_company: "661e46da0c5460e02b3c492b", 
-      description: descriptionValues.length > 0 ? [descriptionValues[0]] : "", // NOT ADDED IN BE YET: FILE backend/server/controllers/category.ts LINE 47 (I ASKED BACKEND TEAM)
-      trade_chanel_id: tradeChannelId
-    }
+    // THE BELOW LINES OF CODE WORK FOR API REQUEST ALREADY
+    // const descriptionValues: string[] = Object?.keys(data)
+    //   .filter((key: string) => key?.startsWith('description'))
+    //   .map((key) => data[key]);
 
-    if (editToggle) {
-      // CANT DELETE BECAUSE WE ARE NOT ABLE TO GET CATEGORY ID DINAMYCALLY (COMING SOON)
-      // const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
-    } else {
-      const result = await makePostReques (`${ BASE_URL }/category`, newDataD)
-    }
+    // const newDataD = {
+    //   name: name, 
+    //   id_company: "661e46da0c5460e02b3c492b", 
+    //   description: descriptionValues.length > 0 ? [descriptionValues[0]] : "", // NOT ADDED IN BE YET: FILE backend/server/controllers/category.ts LINE 47 (I ASKED BACKEND TEAM)
+    //   trade_chanel_id: tradeChannelId
+    // }
 
-    // THIS CODE IS FOR DUMMY DATA
+    // if (editToggle) {
+    //   // CANT DELETE BECAUSE WE ARE NOT ABLE TO GET CATEGORY ID DINAMYCALLY (COMING SOON)
+    //   // const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
+    // } else {
+    //   const result = await makePostReques (`${ BASE_URL }/category`, newDataD)
+    // }
+
+    // THIS OLD CODE IS FOR DUMMY DATA
     // let dataToBeSent = {
     //   channelClusterId: clusterId,
     //   idToBeUpdated: tradeChannelId,
@@ -59,6 +72,30 @@ const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
     // };
     // dispatch(addSubCategory(dataToBeSent));
 
+    let newData: ICategory = {
+      ...data, 
+      name: data.name, 
+      position: {
+        x: 800, 
+        y: 300
+      }, 
+      type: 'categoryCreation', 
+    }
+
+    if (dataTtoEdit) {
+      newData = {
+        ...data, 
+        id: catID, 
+        position: {
+          x: 800, 
+          y: 300
+        }, 
+        type: 'categoryCreation', 
+      }
+      dispatch(editLocalCategory(newData)); 
+    } else {
+      dispatch(createLocalCategory(newData)); 
+    }
     handleCloseModal();
   };
 
@@ -78,7 +115,7 @@ const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
     setDescriptionInputs(removeElementById(descriptionInputs, id));
   };
 
-  console.log('array');
+  // console.log('array');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

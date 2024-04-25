@@ -30,6 +30,7 @@ const RealTimeMap = () => {
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
+  // }, []); //
   }, [position]);
 
   const { dispatch, routes, selectedRouteId } = useRoutePlanning();

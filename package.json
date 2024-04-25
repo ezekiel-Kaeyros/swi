@@ -13,6 +13,11 @@
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@vis.gl/react-google-maps": "^0.4.1",
-    "husky": "^8.0.3"
+    "fabric": "^5.3.0",
+    "husky": "^8.0.3",
+    "react-draggable": "^4.4.6"
+  },
+  "devDependencies": {
+    "@types/fabric": "^5.3.7"
   }
 }

@@ -19,7 +19,7 @@ const NavigationItem: React.FC<NavigationItemType> = ({ id, label, textColor, se
     let { selectNavigationItem } = useChangeNavigationItem (); 
     let { selectNavigationItemDetailViewTabs } = useChangeNavigationItem (); 
 
-    console.log("textColor.....", genericActionBoolean, textColor, color)
+    // console.log("textColor.....", genericActionBoolean, textColor, color)
 
     if(genericActionBoolean === true) {
         return (

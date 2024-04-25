@@ -4,7 +4,7 @@ import { IChannelCluster } from "@/redux/features/types"
 export const tranformChannelCluster = (data: IChannelCluster[]) => {
 
     const newData = data?.map((channelCluster: IChannelCluster) => {
-        console.log(channelCluster, "insisde the map functions...")
+        // console.log(channelCluster, "insisde the map functions...")
         return {
           id: channelCluster?._id, 
           name: channelCluster?.name, 

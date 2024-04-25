@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const addClick = useSelector(
     (state: RootState) => state.pointOfSaleViewReducer.toggleMap
   );
-  console.log('should the map be clicked', addClick);
+  // console.log('should the map be clicked', addClick);
 
   return (
     <main className="flex flex-col lg:flex-row">
