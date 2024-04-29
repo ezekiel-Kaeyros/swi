@@ -8,13 +8,14 @@ import {
   AddChannelClusterFormProps,
   AddChannelClusterFormValues,
 } from './addChannelClusterForm';
-import InputField from '../text-field/InputField';
+// import InputField from '../text-field/InputField';
 import { Button } from '../../button/Button';
 import { useSettings } from '@/app/hooks/useSettings';
 import { createChannelCluster, createLocalChannelCluster, editLocalChannelCluster } from '@/redux/features/channel-cluster-slice';
 import { BASE_URL } from '@/utils/constants';
 
 import { makePostReques, makePutReques } from '@/utils/makePostReq';
+import InputField from '../text-field/InputField';
 
 const AddChannelClusterForm: React.FC<AddChannelClusterFormProps> = ({
   handleCloseModal, 
@@ -42,45 +43,23 @@ const AddChannelClusterForm: React.FC<AddChannelClusterFormProps> = ({
   }, [])
 
   const onSubmit: SubmitHandler<AddChannelClusterFormValues> = async (data) => {
-    let channelCluster = { 
-      ...data, 
-      color, 
-      position: {
-        x: 10, 
-        y: 100
-      }, 
-      type: 'channelClusterCreation', 
-    };
-
     // MAKE A PUT REQUEST IF shouldUpdate IS TRUE ELSE DO POST REQUEST
-    // if (shouldUpdate) {
-    //   const newDataS = {
-    //     name: data.name, 
-    //     id_company: "661d4c7ef54892933566b0be", 
-    //     color: color.hex, 
-    //     id: channelClusterIdForUpdate, 
-    //   }
-    //   const result = await makePutReques (`${ BASE_URL }/channelCluster/${ channelClusterIdForUpdate }`, newDataS)
-    // } else {
-    //   const newDataS = {
-    //     name: data.name, 
-    //     id_company: "661d4c7ef54892933566b0be", 
-    //     color: color.hex, 
-    //   }
-    //   const result = await makePostReques (`${ BASE_URL }/channelCluster`, newDataS)
-    // }    
-
-    // THEN DISPATCH THE ACTION TO THE STATE
-    dispatch(createChannelCluster(channelCluster)); 
     if (shouldUpdate) {
-      channelCluster = {
-        ...channelCluster, 
-        id: channelClusterIdForUpdate
+      const newDataS = {
+        name: data.name, 
+        id_company: "661d4c7ef54892933566b0be", 
+        color: color.hex, 
+        id: channelClusterIdForUpdate, 
       }
-      dispatch(editLocalChannelCluster(channelCluster)); 
+      const result = await makePutReques (`${ BASE_URL }/channelCluster/${ channelClusterIdForUpdate }`, newDataS)
     } else {
-      dispatch(createLocalChannelCluster(channelCluster)); 
-    }
+      const newDataS = {
+        name: data.name, 
+        id_company: "661d4c7ef54892933566b0be", 
+        color: color.hex, 
+      }
+      const result = await makePostReques (`${ BASE_URL }/channelCluster`, newDataS)
+    }    
 
     // CLOSE MODAL
     handleCloseModal();

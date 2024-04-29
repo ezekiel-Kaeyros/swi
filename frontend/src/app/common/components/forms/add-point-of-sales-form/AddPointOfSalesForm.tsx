@@ -153,7 +153,6 @@ const AddPointOfSalesForm = () => {
       totalActivitiesDuration: data.totalActivitiesDuration, //
       // image: data.image, // will be added later
     }
-
     
     // console.log("finalPosData...:", finalPosData)
     // return

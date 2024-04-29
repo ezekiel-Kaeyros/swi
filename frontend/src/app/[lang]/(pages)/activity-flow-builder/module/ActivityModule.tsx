@@ -16,12 +16,13 @@ const ActivityModule = () => {
   // console.log("///////")
 
   return (
-    <div className='p-4 flex flex-row'>
-      <ReactFlowProvider>
-        <Sidebar channelClusters={ channelClusters } />
-        <MainCanvas />
-      </ReactFlowProvider>
-    </div>
+    // <div className='p-4 flex flex-row'>
+    //   <ReactFlowProvider>
+    //     <Sidebar channelClusters={ channelClusters } />
+    //     <MainCanvas />
+    //   </ReactFlowProvider>
+    // </div>
+    <Sidebar channelClusters={ channelClusters } />
   )
 }
 

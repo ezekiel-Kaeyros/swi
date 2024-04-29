@@ -137,3 +137,19 @@ export const activities: IActivity[] = [
     category: 3,
   },
 ];
+
+
+export const priorities = [
+  {
+    id: "srfhi727i22983090hfjhshk&92", 
+    name: "Low"
+  }, 
+  {
+    id: "srfhi7276475dhkji2298309092", 
+    name: "Medium"
+  }, 
+  {
+    id: "srfhi7adfsyue$27i2298309092", 
+    name: "High"
+  }, 
+]

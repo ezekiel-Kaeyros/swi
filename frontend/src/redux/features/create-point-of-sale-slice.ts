@@ -96,7 +96,7 @@ export const pointOfSaleView = createSlice({
 
     loadAllPointOfSale: (state, action) => {
       const { allPointOfSales } = action?.payload; 
-      console.log(allPointOfSales, "Loaded all POS")
+      // console.log(allPointOfSales, "Loaded all POS")
       state.pointOfSales = allPointOfSales
     },
 

@@ -19,8 +19,8 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   title, 
   shouldUpdate, 
   existingData, 
-  tradeChannelId, 
-  tcID
+  // tradeChannelId, 
+  // tcID
 }) => {
   const { dispatch } = useSettings();
 
@@ -33,47 +33,47 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
 
   const onSubmit: SubmitHandler<AddTradeChannelFormValues> = async (data) => {
     
-    // const newData = { ...data, channelClusterId }; 
-    // const newDataD = {
-    //   name: data.tradeChannelName, 
-    //   id_company: "661e46da0c5460e02b3c492b", 
-    //   channel_cluster_id: channelClusterId
-    // }
+    const newData = { ...data, channelClusterId }; 
+    const newDataD = {
+      name: data.tradeChannelName, 
+      id_company: "661e46da0c5460e02b3c492b", 
+      channel_cluster_id: channelClusterId
+    }
 
     // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER
-    // const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
+    const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
 
     // dispatch(addNewTradeChannel(newDataD)); 
 
-    console.log (tcID, data, shouldUpdate, "{{{{{{{")
+    // console.log (tcID, data, shouldUpdate, "{{{{{{{")
 
-    let newDataD: TradeChannel = {
-      name: data.tradeChannelName, 
-      channel_cluster_id: channelClusterId as any, 
-      position: {
-        x: 400, 
-        y: 200
-      }, 
-      // id: tcID ? tcID : 1, 
-      type: 'tradeChannelCreation', 
-    }
+    // let newDataD: TradeChannel = {
+    //   name: data.tradeChannelName, 
+    //   channel_cluster_id: channelClusterId as any, 
+    //   position: {
+    //     x: 400, 
+    //     y: 200
+    //   }, 
+    //   // id: tcID ? tcID : 1, 
+    //   type: 'tradeChannelCreation', 
+    // }
 
-    console.log (newDataD, "newDataD...")
+    // console.log (newDataD, "newDataD...")
 
-    if (shouldUpdate) {
-      newDataD = {
-        ...newDataD, 
-        id: tradeChannelId as any, 
-        position: {
-          x: 400, 
-          y: 200
-        }, 
-        type: 'tradeChannelCreation', 
-      }
-      dispatch(editLocalTradeChannel(newDataD)); 
-    } else {
-      dispatch(createLocalTradeChannel(newDataD)); 
-    }
+    // if (shouldUpdate) {
+    //   newDataD = {
+    //     ...newDataD, 
+    //     id: tradeChannelId as any, 
+    //     position: {
+    //       x: 400, 
+    //       y: 200
+    //     }, 
+    //     type: 'tradeChannelCreation', 
+    //   }
+    //   dispatch(editLocalTradeChannel(newDataD)); 
+    // } else {
+    //   dispatch(createLocalTradeChannel(newDataD)); 
+    // }
 
     handleCloseModal();
   };

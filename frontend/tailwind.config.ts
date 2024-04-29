@@ -136,10 +136,37 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'sheet-up': {
+          from: {
+            transform: 'translateY(97%)',
+          },
+          to: {
+            transform: 'translateY(10%)',
+          },
+        },
+        'sheet-down': {
+          from: {
+            transform: 'translateY(10%)',
+          },
+          to: {
+            transform: 'translateY(-90%)',
+          },
+        },
+        'sheet-up-to-down': {
+          from: {
+            transform: 'translateY(50%)',
+          },
+          to: {
+            transform: 'translateY(10%)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'sheet-up': 'sheet-up 0.4s ease-in-out forwards',
+        'sheet-down': 'sheet-down 0.4s ease-in-out forwards',
+        'sheet-up-to-down': 'sheet-up-to-down 0.4s ease-in-out forwards',
       },
     },
     fontFamily: {

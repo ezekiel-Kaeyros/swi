@@ -1,17 +1,19 @@
 "use client"
 import React from 'react'
 import useMakeGetRequestRevalidate from './useMakeGetRequestRevalidate'
-import { BASE_URL } from '@/utils/constants'
+import { AGENT_USEQUERY_KEY, BASE_URL } from '@/utils/constants'
 import { AgentFormValuesMainTypeMain, GetAgentDataType } from '@/redux/features/types'
 import { provincesData } from '@/services/selectFieldsData'
 
 const useTranformAgentData = () => {
 
   // REQUEST TO GET ALL AGENTS DATA FROM BACKEND
-  const { data: rawData } = useMakeGetRequestRevalidate (`${ BASE_URL }/salesrep`); 
+  const { data: rawData, refetch } = useMakeGetRequestRevalidate (`${ BASE_URL }/salesrep`, AGENT_USEQUERY_KEY); 
 
   // TRANSFORMING AGENT DATA
   const agentData: AgentFormValuesMainTypeMain = rawData?.map ((dat: GetAgentDataType) => {
+
+    console.log(">>><<<", dat)
 
     const findCity = provincesData.find((prov) =>{
       if (prov.extra === dat?.city) {

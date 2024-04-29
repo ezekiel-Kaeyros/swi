@@ -1,0 +1,115 @@
+/* {
+    top: 72px;
+    left: 78px;
+    margin-top: 72px;
+    bottom: 72px;
+    padding: 32px 16px 32px 16px;
+    gap: 20px;
+    opacity: 0px;
+} */
+
+.page-location-detail {
+    display: flex;
+    flex-direction: row;
+    padding: 6px;
+    /* font-family: 'Articulat CF'; */
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    height: 36px;
+    gap: 8px;
+    opacity: 0px;
+    margin-top: 30px;
+
+}
+
+.page-location-detail .exact-name{
+    /* font-family: Articulat CF; */
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+}
+
+.delivery-detail {
+    display: flex;
+    justify-content: space-between;
+    word-spacing: 20px;
+}
+
+.delivery-detail .agent-profile-detail {
+    height: 56px;
+    gap: 0px;
+    display: column;
+    justify-content: space-between;
+    opacity: 0px;
+}
+
+.delivery-detail .detail {
+    /* font-family: Articulat CF; */
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: left;
+}
+
+.delivery-detail .detail, .delivery-detail .detail .activity-log  {
+    display: flex;
+    flex-direction: row;
+}
+
+.delivery-detail .detail .activity-log {
+    height: 24px;
+    padding: 6px 6px 6px 6px;
+    gap: 6px;
+    border-radius: 6px;
+    border: 1px 0px 0px 0px #F3F3F3;
+    opacity: 0px;
+    color: gray;
+    background-color: #fff;
+}
+
+.agent-profile-detail .name {
+    /* font-family: "Articulat CF"; */
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    text-align: left;
+}
+
+.left-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.time-remaining {
+    height: 24px;
+    padding: 6px 6px 6px 6px;
+    gap: 6px;
+    border-radius: 6px;
+    background-color: #05522B;
+    opacity: 0px;
+    color: #6DE2A6;
+}
+
+.delivery-destination-cards {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px
+}
+
+.card {
+    width: 265px;
+    gap: 0px;
+    border-radius: 6px;
+    opacity: 0px;
+    border: 1px 0px 0px 0px #F3F3F3;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

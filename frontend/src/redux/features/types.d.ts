@@ -6,14 +6,23 @@ export type PositionType = {
 }
 
 export type IChannelClusterDataType = {
-  name: number, 
+  name: string, 
   id: number | string, 
+  color?: string; 
+  frequency?: number; 
+  duration?: number; 
+  priority?: string; 
+  trade_chanel_id?: []; 
+  description?: string;
+  channelCluster?: any[], 
+  tradeChannel?: any[],
+  category?: any[], 
 }
 export interface IChannelCluster {
   id: number | string;
   color?: { hex: string; fadeHex: string };
   name: string;
-  trade_channels_id?: [];
+  trade_channels_id?: any[];
   tradeChannel?: any[];
   _id?: number | string;
   opened?: boolean; 
@@ -29,7 +38,8 @@ export type TradeChannel = {
   id?: number | string, 
   name: string,
   id_company?: string,
-  channel_cluster_id?: string,
+  channel_cluster_id?: string, 
+  channel_cluster_ids?: any[],
   categories_id?: string[], 
   type?: string; 
   position?: PositionType; 
@@ -41,7 +51,8 @@ export interface ICategory {
   id?: string | number;
   name?: string;
   id_company?: string;
-  trade_chanel_id?: string;
+  trade_chanel_id?: []; 
+  // trade_chanel_ids?: [], 
   description?: any[]
 
   type?: string; 
@@ -64,6 +75,28 @@ export interface IActivity {
   status: boolean;
   priority?: string;
   description?: string;
+}
+
+export interface IActivityNew {
+  id: number | string;
+  name: string;
+  frequency: number;
+  duration: number;
+  channelCluster: []; 
+  tradeChannel: string[];
+  category: string[];
+  status?: boolean;
+  description?: string;
+
+  frequency?: number; 
+  duration?: number; 
+  priority?: string; 
+
+  type?: string; 
+  position?: PositionType; 
+  data?: IChannelClusterDataType; 
+  width?: number, 
+  height?: number, 
 }
 
 export interface IFormStep {

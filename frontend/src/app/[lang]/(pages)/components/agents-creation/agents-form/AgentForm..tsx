@@ -379,7 +379,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                     <SelectField
                       name="departement"
                       register={register('departement', {
-                        required: true,
+                        // required: true,
                         onChange: (e) => {
                           fillSelect(
                             e,

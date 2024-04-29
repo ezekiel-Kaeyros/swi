@@ -17,6 +17,7 @@ const LayoutComponent = ({ children, lang }: any) => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   if (!apiKey) {
+    console.log('gjkfdhgdrkg---------------');
     throw new Error('Missing Google Maps API key');
   }
 

@@ -23,7 +23,7 @@ import { ICategory } from '@/redux/features/types';
 
 const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
   tradeChannelId,
-  catID, 
+  // catID, 
   editToggle, 
   clusterId, 
   dataTtoEdit, 
@@ -45,23 +45,23 @@ const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
     let name: string = data?.name;
 
     // THE BELOW LINES OF CODE WORK FOR API REQUEST ALREADY
-    // const descriptionValues: string[] = Object?.keys(data)
-    //   .filter((key: string) => key?.startsWith('description'))
-    //   .map((key) => data[key]);
+    const descriptionValues: string[] = Object?.keys(data)
+      .filter((key: string) => key?.startsWith('description'))
+      .map((key) => data[key]);
 
-    // const newDataD = {
-    //   name: name, 
-    //   id_company: "661e46da0c5460e02b3c492b", 
-    //   description: descriptionValues.length > 0 ? [descriptionValues[0]] : "", // NOT ADDED IN BE YET: FILE backend/server/controllers/category.ts LINE 47 (I ASKED BACKEND TEAM)
-    //   trade_chanel_id: tradeChannelId
-    // }
+    const newDataD = {
+      name: name, 
+      id_company: "661e46da0c5460e02b3c492b", 
+      description: descriptionValues.length > 0 ? [descriptionValues[0]] : "", // NOT ADDED IN BE YET: FILE backend/server/controllers/category.ts LINE 47 (I ASKED BACKEND TEAM)
+      trade_chanel_id: tradeChannelId
+    }
 
-    // if (editToggle) {
-    //   // CANT DELETE BECAUSE WE ARE NOT ABLE TO GET CATEGORY ID DINAMYCALLY (COMING SOON)
-    //   // const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
-    // } else {
-    //   const result = await makePostReques (`${ BASE_URL }/category`, newDataD)
-    // }
+    if (editToggle) {
+      // CANT DELETE BECAUSE WE ARE NOT ABLE TO GET CATEGORY ID DINAMYCALLY (COMING SOON)
+      // const result = await makePutReques (`${ BASE_URL }/tradeChannel/${  }`, newDataD)
+    } else {
+      const result = await makePostReques (`${ BASE_URL }/category`, newDataD)
+    }
 
     // THIS OLD CODE IS FOR DUMMY DATA
     // let dataToBeSent = {
@@ -72,30 +72,31 @@ const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
     // };
     // dispatch(addSubCategory(dataToBeSent));
 
-    let newData: ICategory = {
-      ...data, 
-      name: data.name, 
-      position: {
-        x: 800, 
-        y: 300
-      }, 
-      type: 'categoryCreation', 
-    }
 
-    if (dataTtoEdit) {
-      newData = {
-        ...data, 
-        id: catID, 
-        position: {
-          x: 800, 
-          y: 300
-        }, 
-        type: 'categoryCreation', 
-      }
-      dispatch(editLocalCategory(newData)); 
-    } else {
-      dispatch(createLocalCategory(newData)); 
-    }
+    // let newData: ICategory = {
+    //   ...data, 
+    //   name: data.name, 
+    //   position: {
+    //     x: 800, 
+    //     y: 300
+    //   }, 
+    //   type: 'categoryCreation', 
+    // }
+
+    // if (dataTtoEdit) {
+    //   newData = {
+    //     ...data, 
+    //     id: catID, 
+    //     position: {
+    //       x: 800, 
+    //       y: 300
+    //     }, 
+    //     type: 'categoryCreation', 
+    //   }
+    //   dispatch(editLocalCategory(newData)); 
+    // } else {
+    //   dispatch(createLocalCategory(newData)); 
+    // }
     handleCloseModal();
   };
 

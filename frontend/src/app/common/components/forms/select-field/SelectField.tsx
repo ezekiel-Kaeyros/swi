@@ -40,7 +40,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         name={name}
         {...register}
         id={name}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttonPrimary focus:border-buttonPrimary block w-full py-4 px-4 dark:bg-cardDark dark:border-gray-400 dark:placeholder-gray-100 dark:text-white dark:focus:ring-buttonPrimary dark:focus:border-buttonPrimary"
+        className="bg-gray-50 text-gray-900 text-sm focus:ring-buttonPrimary focus:border-buttonPrimary block w-full py-4 px-4 dark:bg-bgColorDark rounded-xl dark:border-gray-400 dark:placeholder-gray-100 dark:text-white dark:focus:ring-buttonPrimary dark:focus:border-buttonPrimary"
       >
         <option value="">
           Select an option
