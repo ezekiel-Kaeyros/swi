@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 COPY next.config.js ./
 RUN npm install
+RUN npm install fabric
+RUN npm install --save-dev @types/fabric
 COPY . .
 RUN  npm run build
 #
