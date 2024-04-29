@@ -8,7 +8,7 @@ RUN npm install fabric
 RUN npm install --save-dev @types/fabric
 COPY . .
 RUN  npm run build
-#
+##
 
 # Production Stage
 FROM node:20.9.0-alpine AS PRODUCTION_STAGE
