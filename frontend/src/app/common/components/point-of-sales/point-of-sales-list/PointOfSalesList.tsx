@@ -17,7 +17,7 @@ const PointOfSalesList = () => {
   // console.log('point of sales', pointOfSales);
   const getChannelClusterNameById = (id: string | number) => {
     const foundChannel = channelClusters?.find(
-      (cluster) => cluster?._id! === id?.toString()
+      (cluster: any) => cluster?._id! === id?.toString()
     );
 
     return foundChannel?.name;
@@ -31,7 +31,9 @@ const PointOfSalesList = () => {
 
         // GETTING THE CHANNEL CLUSTERS OBJECT CORRESPONDING TO THE POS USING THE ID
         const foundChannelCluster = channelClusters?.find((cc: IChannelCluster) => {
-          return cc._id === pos?.channelCluster
+          console.log ("loglog", cc, pos)
+          return cc._id === pos?.channelCluster as string
+          // return
         })
         return(
         <div
@@ -40,14 +42,14 @@ const PointOfSalesList = () => {
         >
           <PointOfSalesCard
             tradeChannel={pos?.tradeChannel}
-            category={`${getChannelClusterNameById(pos?.channelCluster)}`}
+            category={`${getChannelClusterNameById(pos?.category)}`}
             channelCluster={ foundChannelCluster }
             isRoutePlanning={false}
             key={pos?.id}
             contact={`${pos?.contact}`}
-            id={pos?._id as string}
+            id={pos?.id as string}
             shopName={`${pos?.name}`}
-            shopOwner={`${pos?.owner}`}
+            shopOwner={`${pos?.shopOwner}`}
             shopLocation={`${pos?.location}`}
             firstStat={`${pos?.firstStat}`}
             secondStat={`${pos?.secondStat}`}

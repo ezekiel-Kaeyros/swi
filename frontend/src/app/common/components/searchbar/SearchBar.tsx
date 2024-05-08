@@ -55,6 +55,7 @@ const SearchBar: React.FC<SearchbarProps> = ({
       formatResult={formatResult}
       styling={{
         height: '50px',
+        // width: '100%',
         border: '1px solid #414C50',
 
         zIndex: 20,

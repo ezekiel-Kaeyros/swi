@@ -98,21 +98,22 @@ const Card: React.FC<CardProps> = ({ destination }) => {
         </div>
       </div>
 
-      <ul className='m-4 gap-2'>
+      <ul className='gap-2'>
         {destination.activities.map((activity, index) => (
-          <li key={index} className='mt-1.5'>
-            <div className='text-base font-medium text-left'>
-                {activity.activity}
-            </div>
-            <div className='flex flex-row justify-between'>
-                <div>
+          <li key={index} className='my-2.5' >
+            <div className='flex flex-col'>
+              <div className='text-base font-medium text-left gap-5'>
+                  {activity.activity}
+                <div className='flex flex-row justify-between'>
                     {activity.status === 'completed' && <CompletedIcon/>}
                     {activity.status === 'pending' && <PendingIcon/>}
+                    <span className='text-xs' style={{
+                      color: "#585757"
+                    }}>
+                      {activity.startTime}
+                    </span>
                 </div>
-                <div className='w-9 h-4 gap-1 rounded-md text-xs font-medium text-left'
-                     style={{color: '#585757',}}>
-                    {activity.startTime}
-                </div>
+              </div>
             </div>
           </li>
         ))}

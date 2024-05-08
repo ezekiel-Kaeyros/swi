@@ -12,6 +12,8 @@ import GenericNavigation from '@/app/[lang]/(pages)/components/settings-navigati
 // import { POSDisplayNavigationList } from '@/services/simulationData';
 import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
 import { useClientFormStep } from '@/app/hooks/useClientFormStep';
+import { AddPOSSvgIcon } from '@/app/common/components/svgs/SvgsIcons';
+import Link from 'next/link';
 
 const PointOfSales = () => {
   let { selectNavigationTabsInPOS } = useChangeNavigationItem (); 
@@ -24,11 +26,16 @@ const PointOfSales = () => {
       <div className=" flex flex-col items-start justify-between ">
         <GenericNavigation settingPageNavigation={ posDisplayNavigationList } genericAction={ selectNavigationTabsInPOS } settinPStyle={ false } genericActionBoolean={ true } agentDStyle={ false } />
         <SearchBar />
+        
         <TabNavigation />
         <div>
-          <Button href={`/point-of-sales/create`} icon={AddPOSIcon}>
-            Add
-          </Button>
+          <Link className='bg-settingViewBottomBorderColor px-3 py-2 flex flex-row gap-2 justify-center items-center rounded-3xl' href={ `/point-of-sales/create`}>
+            <AddPOSSvgIcon />
+            Create Point of Sales
+          </Link>
+          {/* <Button href={`/point-of-sales/create`} >
+            
+          </Button> */}
         </div>
       </div>
       <div className='overflow-y-auto h-full px-3 py-3 mt-5'>

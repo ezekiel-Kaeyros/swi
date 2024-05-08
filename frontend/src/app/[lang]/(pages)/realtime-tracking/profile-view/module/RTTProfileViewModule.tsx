@@ -42,7 +42,7 @@ const RTTProfileViewModule = () => {
                 <span className='font'>Sales agent</span>
             </div>
             <div className='flex items-end'>
-                <DoubleConnectedChip contentChipOne="2/10 shops" contentChipTwo="4hr30mins left" svgIcon={ <ShopIcon /> } bgColor1='bg-white' bgColor2={"bg-activeBgColor"} />
+                <DoubleConnectedChip contentChipOne="2/10 shops" contentChipTwo="4hr30mins left" svgIcon={ <ShopIcon height="12" width="12" color="none" /> } bgColor1='bg-white' bgColor2={"bg-activeBgColor"} />
             </div>
         </div>
 
@@ -51,7 +51,7 @@ const RTTProfileViewModule = () => {
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row gap-2 items-center'>
                 <h1 className='text-slate-500'>Last update: 12:23</h1>
-                <RecuringIcon />
+                <RecuringIcon height="16" width="16" color="none" />
             </div>
             <div>
             <h1 className='text-slate-500'>Mon 11 jan 2024</h1>

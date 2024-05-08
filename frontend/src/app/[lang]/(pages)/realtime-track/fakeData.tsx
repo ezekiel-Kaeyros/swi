@@ -13,12 +13,12 @@ export const agentDelivery = {
             activities: [
             {
                 activity: "sales prospection",
-                startTime: "14:00:00",
+                startTime: "14:00",
                 status: "pending"
             },
             {
                 activity: "sales of new product prospection",
-                startTime: "11:00:00",
+                startTime: "11:00",
                 status: "pending"
             },
             ]

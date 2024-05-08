@@ -1,17 +1,19 @@
 'use client';
 import { AppDispatch, RootState } from '@/redux/store';
-import { BASE_URL, CHANNEL_CLUSTER_USEQUERY_KEY, POS_USEQUERY_KEY, TRADE_CHANNEL_USEQUERY_KEY } from '@/utils/constants';
+import { ACTIVITIES_ITEMS_USEQUERY_KEY, ACTIVITIES_USEQUERY_KEY, BASE_URL, CHANNEL_CLUSTER_USEQUERY_KEY, POS_USEQUERY_KEY, TRADE_CHANNEL_USEQUERY_KEY } from '@/utils/constants';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import useMakeGetRequest from './useMakeGetRequest';
-import { addToggleStateToAllChannelCluster, loadAllChannelCluster, loadAllTradeChannels } from '@/redux/features/channel-cluster-slice';
-import { useClientFormStep } from './useClientFormStep';
-import useMakeGetRequestRevalidate from './useMakeGetRequestRevalidate';
+// import useMakeGetRequest from './useMakeGetRequest';
+import { addToggleStateToAllChannelCluster, createEdges, deleteEdge, loadAllChannelCluster, loadAllTradeChannels, loadLocalChannelClusterFromDBData } from '@/redux/features/channel-cluster-slice';
+// loadLocalChannelClusterFromDBData
+// import { useClientFormStep } from './useClientFormStep';
+import useMakeGetRequestRevalidate, { useMakeGetRequestRevalidateD } from './useMakeGetRequestRevalidate';
 import { loadAllPointOfSale } from '@/redux/features/create-point-of-sale-slice';
-import { IChannelCluster } from '@/redux/features/types';
+// import { IChannelCluster } from '@/redux/features/types';
 import { extractArrayfromChannelCluster, tranformChannelCluster } from '@/utils/transformUsingMap';
 import { TrackingListTypes } from '@/services/simulationData';
-import { createEdges } from '@/redux/features/activities-slice';
+
+// import { loadActivitiesFromDB, loadAllActivities } from '@/redux/features/activities-slice';
 
 export const useSettings = () => {
 
@@ -22,13 +24,13 @@ export const useSettings = () => {
   // GET REQUEST FOR ALL TRADE CHANNEL
   let { data: tradeChannelsLoad } = useMakeGetRequestRevalidate (`${ BASE_URL }/tradeChannel`, TRADE_CHANNEL_USEQUERY_KEY); 
 
-
   // ACTION TO LOAD ALL CHANNEL CLUSTERS FROM REQUEST
   dispatch(loadAllChannelCluster({
     allChannelCluster: data, 
   }));
 
-  // dispatch(addToggleStateToAllChannelCluster({}));
+  // LOAD ALL CHANNEL CLUSTER IN THE CANVAS
+  console.log("data...data./", data)
 
   // LOAD ALL TRADE CHANNELS FROM REQUEST
   dispatch(loadAllTradeChannels({
@@ -43,8 +45,6 @@ export const useSettings = () => {
 
   const { data: posData } = useMakeGetRequestRevalidate (`${ BASE_URL }/pos`, POS_USEQUERY_KEY); 
 
-  // console.log(tradeChannelsLoad, "let let...")
-
   // LOAD ALL CHANNEL CLUSTERS FROM REQUEST
   dispatch(loadAllPointOfSale({
     allPointOfSales: posData, 
@@ -54,16 +54,27 @@ export const useSettings = () => {
     (state: RootState) => state?.ChannelClusterReducer.selectedCatID
   );
 
+  const selectedTCID = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer.selectedTCID
+  );
+  const selectedCCID = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer.selectedCCID
+  );
+
   const channelClusters = useSelector(
     (state: RootState) => state?.ChannelClusterReducer.channelCluster
   );
 
+  // dispatch(loadLocalChannelClusterFromDBData({
+  //   allChannelCluster: channelClusters, 
+  // }));
+
   const tradeChannels = useSelector(
-    (state: RootState) => state?.ChannelClusterReducer.tradeChannels
+    (state: RootState) => state?.ChannelClusterReducer?.tradeChannels
   );
 
   const companies = useSelector(
-    (state: RootState) => state?.ChannelClusterReducer.companies
+    (state: RootState) => state?.ChannelClusterReducer?.companies
   );
 
   const trackingList: TrackingListTypes = useSelector(
@@ -76,37 +87,58 @@ export const useSettings = () => {
 
 
   const locaChannelClusters = useSelector(
-    (state: RootState) => state?.ChannelClusterReducer.locaChannelClusters
+    (state: RootState) => state?.ChannelClusterReducer?.locaChannelClusters
   );
 
   const locaTradeChannels = useSelector(
-    (state: RootState) => state?.ChannelClusterReducer.locaTradeChannels
+    (state: RootState) => state?.ChannelClusterReducer?.locaTradeChannels
   );
 
   const localCategories = useSelector(
-    (state: RootState) => state?.ChannelClusterReducer.localCategories
+    (state: RootState) => state?.ChannelClusterReducer?.localCategories
+  );
+  
+  const lastestHightCC = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer?.lastestHightCC
   );
 
   const localActivities = useSelector(
     (state: RootState) => state?.ActivityReducer.localActivities
   );
 
+  
+
   const priorities = useSelector(
     (state: RootState) => state?.ActivityReducer.priorities
   );
 
   const edgesConnectingNodes = useSelector(
-    (state: RootState) => state?.ActivityReducer.edgesConnectingNodes
+    (state: RootState) => state?.ChannelClusterReducer.edgesConnectingNodes
   );
 
-  const connectTwoNodes = (source: string, target: string) => {
+  const connectTwoNodes = (source: string, target: string, arrowType: any) => {
     dispatch(createEdges({
-      source, target
+      source, target, arrowType
     }));
+  }
+
+  const deleteAndEdge = (id: string) => {
+    dispatch(deleteEdge({
+      id
+    }))
   }
 
   
   
 
-  return { dispatch, connectTwoNodes, selectedCatID, edgesConnectingNodes, priorities, localActivities, locaChannelClusters, locaTradeChannels, localCategories, trackingList, channeClusterForSelectField, extractedtArrayfromChannelCluster, isLoading, channelClusters, tradeChannels, activities, companies, data };
+  return { dispatch, deleteAndEdge, connectTwoNodes, selectedCatID, 
+    edgesConnectingNodes, priorities, lastestHightCC, 
+    localActivities, locaChannelClusters, 
+    locaTradeChannels, localCategories, 
+    trackingList, channeClusterForSelectField, 
+    extractedtArrayfromChannelCluster, isLoading, 
+    channelClusters, tradeChannels, activities, 
+    selectedTCID, selectedCCID, 
+    companies, data 
+  };
 };

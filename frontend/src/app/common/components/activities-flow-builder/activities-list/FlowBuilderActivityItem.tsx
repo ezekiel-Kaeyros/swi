@@ -32,14 +32,17 @@ const ActivityStatus = ({ type }: { type: string }) => {
 };
 
 function FlowBuilderActivityItem({
-  data: { name, frequency, duration, priority, category, description, channelCluster, tradeChannel, ...data },
+  data: { name, frequency, duration, priority, category, description, channelCluster, tradeChannel, ...data }, cClusterToDisplay,
 }: {
-  data: IActivityNew;
+  data: IActivityNew; 
+  cClusterToDisplay?: []
 }) {
 
   const dataToUpdate = {
     name, frequency, duration, time: duration, priority, category, description, channelCluster, tradeChannel
   }
+
+  console.log("cClusterToDisplay", cClusterToDisplay)
 
   const { priorities, locaChannelClusters, locaTradeChannels } = useSettings(); 
 
@@ -84,9 +87,9 @@ function FlowBuilderActivityItem({
           </span>
           <div className="justify-between items-center flex gap-[8px]">
             <div onClick={ () => editActivity () }>
-              <EditSvgIcon />
+              <EditSvgIcon height="38" width="38" color="none" />
             </div>
-            <DetailsSvgIcon />
+            <DetailsSvgIcon height="20" width="20" color="none" />
           </div>
         </div>
         <span className="text-[14px] leading-[20px] line-clamp-2  font-articulat font-normal text-deemGray">
@@ -96,14 +99,14 @@ function FlowBuilderActivityItem({
         <div className="flex justify-between gap-5 h-[20px]">
           <div className="flex gap-[8px]">
             <div className="flex gap-1 items-center justify-center">
-              <ClockSvgIcon />
+              <ClockSvgIcon height="12" width="12" color="none" />
               <span className="text-[14px] leading-[20px]  font-articulat font-semibold text-deemGray">
                 {`${duration >= 0 ? duration + 'minute' : duration + 'minutes'}`}
               </span>
             </div>
             <div className="flex gap-1 item-center justify-center">
               <span className="flex my-auto">
-                <RepeatSvgIcon />
+                <RepeatSvgIcon height="12" width="12" color="none"/>
               </span>
               <span className="text-[14px] leading-[20px]  font-articulat font-semibold text-deemGray">
                 {`${
@@ -116,6 +119,25 @@ function FlowBuilderActivityItem({
             <ActivityStatus type={prioritiesName?.name as string} />
           </div>
         </div>
+        <div className='grid grid-cols-[repeat(auto-fill,minmax(50px,170px))]'>
+          {
+            cClusterToDisplay && cClusterToDisplay?.length > 0 ? 
+              cClusterToDisplay.map ((cmap: any) => {
+                return (
+                    <div key={cmap?._id} style={{
+                      backgroundColor: cmap?.channelClusters[0]?.color as string
+                      // backgroundColor: `"${cmap?.channelClusters[0]?.color as string}"`
+                    }} className='rounded-xl w-[100%] p-1 whitespace-nowrap flex justify-center'>
+                      {
+                        cmap?.channelClusters[0]?.name
+                      }
+                    </div>
+                )
+              })
+              : 
+              ""
+          }
+        </div>
       </div>
       <CustomModal
           title={shouldUpdateActivity ? "Update Activity" : "Create Activity"}
@@ -123,14 +145,7 @@ function FlowBuilderActivityItem({
           onClose={() => setOpenModal(false)}
           classStyle="bg-cardDark  h-8/10 xl:h-fit xl:max-w-[28rem] align-self-center"
       >
-          {/* <AddChannelClusterForm 
-              channelClusterIdForUpdate={data.id}
-              handleCloseModal={handleCloseModal} 
-              title={ " Channel Cluster"} 
-              shouldUpdate={shouldUpdateActivity} 
-              existingData={ data.name }
-          /> */}
-          <AddActivityForm handleCloseModal={ handleCloseModal } shouldUpdate={ shouldUpdateActivity } dataToUpdate={ dataToUpdate }/>
+        <AddActivityForm handleCloseModal={ handleCloseModal } shouldUpdate={ shouldUpdateActivity } dataToUpdate={ dataToUpdate } id={data.id as string}/>
       </CustomModal>
       
     </>

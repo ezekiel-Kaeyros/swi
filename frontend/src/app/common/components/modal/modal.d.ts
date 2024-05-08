@@ -4,7 +4,7 @@ export type ModalPropsType = {
   title?: string;
   children: ReactNode;
   isOpen: boolean;
-  onClose: any;
+  onClose: () => void;
   closeButtonTitle?: string;
   validateButtonTitle?: string;
   classStyle?: string;

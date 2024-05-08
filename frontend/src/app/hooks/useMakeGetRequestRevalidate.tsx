@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 // const queryClient = new QueryClient();
 
 const useMakeGetRequestRevalidate = (url: string, key?: string) => {
+  // SWR METHOD
   // const { data, error, isLoading, isValidating } = useSWR(url, async () => {
   //   const result = await makeGetReques (url)
   //   // console.log(result, "at the source: >>><<<>>><<<")
@@ -21,25 +22,31 @@ const useMakeGetRequestRevalidate = (url: string, key?: string) => {
   //   })
   //   return finalResult
   // }, { 
-  //   // refreshInterval: 30000, 
+  //   refreshInterval: 10000, 
   //   keepPreviousData: true 
   // }); 
 
-  return useQuery({ queryKey: [key ? key : "global"], queryFn: async () => {
-    const result = await makeGetReques (url)
-    const finalResult = result?.map((fin: any) => {
-      return {
-        ...fin, 
-        opened: false, 
-      }
-    }); 
-    console.log("finalResult>>>", finalResult)
-    return finalResult
-  }})
-
-  // console.log("finalResult>>>", data)
-
   // return { data, isLoading, isError: error }
+
+  // REACT QUERY METHOD
+  const result = useQuery({ 
+    queryKey: [key ? key : "global"], 
+    queryFn: async () => {
+      const result = await makeGetReques (url)
+      const finalResult = result?.map((fin: any) => {
+        return {
+          ...fin, 
+          opened: false, 
+        }
+      }); 
+      console.log("finalResult>>>", finalResult)
+      return finalResult
+    }, 
+    refetchInterval: 10000
+  })
+  console.log("----------", result.data)
+  return result;
+
 }
 
 export default useMakeGetRequestRevalidate; 

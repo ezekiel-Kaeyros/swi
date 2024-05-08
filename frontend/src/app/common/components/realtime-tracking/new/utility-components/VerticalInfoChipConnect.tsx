@@ -19,7 +19,7 @@ const VerticalInfoChipConnect: React.FC<VerticalInfoChipConnectType> = ({ presen
                 { svgIconOne }
                 {/* <LocationIcon /> */}
             </div>
-            <WhiteVerticalLineIcon />
+            <WhiteVerticalLineIcon height={'41'} width={'2'} color={'none'} />
             <div className='bg-tomatoBg rounded-full p-2'>
                 { svgIconTwo }
                 {/* <CarIcon /> */}

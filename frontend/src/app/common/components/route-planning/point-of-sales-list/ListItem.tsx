@@ -15,10 +15,13 @@ const ListItem = ({
   snapshot: any;
 }) => {
   const { channelClusters } = useSettings();
+  console.log('channel cluster', channelClusters);
 
   const getChannelClusterNameById = (id: string | number) => {
     const foundChannel = channelClusters?.find(
-      (cluster) => cluster?.id.toString() === id?.toString()
+      (cluster: any) => {
+        console.log(cluster, "bnbnbnbnbnbn", id)
+        return cluster?._id!.toString() === id?.toString()}
     );
 
     return foundChannel?.name;
@@ -33,7 +36,7 @@ const ListItem = ({
       {...provided.dragHandleProps}
     >
       <PointOfSalesCard
-        category={`${getChannelClusterNameById(item?.channelCluster)}`}
+        category={`${getChannelClusterNameById(item?.category)}`}
         channelCluster={item?.id}
         totalActivitiesDuration={item?.totalActivitiesDuration}
         tradeChannel={item?.tradeChannel}

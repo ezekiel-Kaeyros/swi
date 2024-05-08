@@ -24,6 +24,7 @@ import Image from 'next/image';
 import InputField from '@/app/common/components/forms/text-field/InputField';
 import CreateRouteModal from '@/app/common/components/route-planning/modals/CreateRouteModal';
 
+
 const RoutePreparation = () => {
 
   const { routes, dispatch } = useRoutePlanning();

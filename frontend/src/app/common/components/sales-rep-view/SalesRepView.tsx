@@ -5,6 +5,7 @@ import { Tab, Tabs } from '@nextui-org/react';
 import Activity from '../realtime-tracking/activity/Activity';
 import RealTimeMap from '../maps/RealTimeMap';
 
+
 const SalesRepView = () => {
   const { routes, selectedRouteId } = useRoutePlanning();
   console.log('routes', routes);

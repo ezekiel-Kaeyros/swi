@@ -1,18 +1,18 @@
 "use client";
 
-import { ChannelClusterDotIcon, CloseIcon, DropdownPlusIcon } from '@/app/common/components/svgs/SvgsIcons'
+import { ChannelClusterDotIcon, CloseIcon, DropdownPlusIcon, TradeChannelSvgIcon } from '@/app/common/components/svgs/SvgsIcons'
 import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
 import { useSettings } from '@/app/hooks/useSettings'
 import { addToggleStateToAllChannelCluster, createLocalChannelClusterFromDBData, toggleStateToAllChannelClusterBuilder } from '@/redux/features/channel-cluster-slice'
+// filterNodes
 import { IChannelCluster } from '@/redux/features/types'
 import React, { useEffect, useState } from 'react'
 import TradeChannelFlowComp from '../flow-components/TradeChannelFlowComp';
+import BaseFlowComponent from '../flow-components/base-flow-components/BaseFlowComponent';
+import { useConnectNodes } from '@/app/hooks/useConnectNodes';
+import { MarkerType } from 'reactflow';
 
 const Sidebar = ({ channelClusters }: { channelClusters: IChannelCluster[] }) => {
-  // { channelClusters }: { channelClusters: IChannelCluster[]}
-  // const { dispatch } = useSettings();
-
-  // console.log(channelClusters, ">//>//")
 
   const [toggleDropdown, setToggleDropDown ] = useState (false)
   const [concernedID, setConcernedID ] = useState (null)
@@ -20,6 +20,8 @@ const Sidebar = ({ channelClusters }: { channelClusters: IChannelCluster[] }) =>
   const { toggleStateToAllChannelCB, dispatch } = useChangeNavigationItem (); 
 
   const [toggleSideBar, setToggleSideBar ] = useState (false)
+
+  const { connectTwoNodes, deleteAndEdge } = useConnectNodes (); 
 
   return (
     <div className={``}>
@@ -33,33 +35,41 @@ const Sidebar = ({ channelClusters }: { channelClusters: IChannelCluster[] }) =>
         {
             channelClusters?.length > 0 ? 
                 channelClusters?.map ((channel: IChannelCluster) => {
-                    // console.log(channel, ">>>///...")
+                          
                     return (
                       <div key={ channel?._id } className='flex flex-col'>
 
                         <div className='flex flex-row justify-between items-center'>
                           <div onClick={() => {
-                            // toggleStateToAllChannelCB (channel?._id)
-                            // SELECTING EXISTING CC TO DISPLAY IT ON THE CANVAS
-                            dispatch(createLocalChannelClusterFromDBData({
-                              _id: channel?._id, 
-                              name: channel?.name, 
-                              color: channel?.color,
-                            }));
+                            // SELECTING EXISTING CC TO DISPLAY IT ON THE CANVAS (Not used now)
+                            // dispatch(createLocalChannelClusterFromDBData({
+                            //   _id: channel?._id, 
+                            //   name: channel?.name, 
+                            //   color: channel?.color, 
+                            //   tradeChannels: channel?.trade_channels_id, 
+                            // }));
+
+                            // CREATING EDGES BASED ON NODE
+                            channel?.trade_channels_id?.forEach(element => {
+                              connectTwoNodes (channel?._id as any, element?._id, MarkerType.Arrow)
+                              element?.categories_id?.forEach((cats: any) => {
+                                connectTwoNodes (element?._id as any, cats?._id, MarkerType.Arrow)
+                              });
+                            });
+
                           }} className='cursor-pointer flex flex-row items-center gap-3'>
-                            <ChannelClusterDotIcon color={ channel?.color } />
+                            <ChannelClusterDotIcon color={`${channel?.color}`} height="8" width="8" />
                             { channel.name }
                           </div>
                           <div className='cursor-pointer' onClick={(e) => {
                             setConcernedID (channel?._id as any)
                             setToggleDropDown (toggleDropdown => !toggleDropdown)
-                            // toggleStateToAllChannelCB (channel?._id)
                           }}>
                             {
                               toggleDropdown && concernedID === channel?._id ?
-                                <CloseIcon color={ "white" } />
+                                <CloseIcon color="white" height="16" width="16" />
                                 :
-                                <DropdownPlusIcon color={ "white" } />
+                                <DropdownPlusIcon color="white" height="16" width="16" />
                             }
                           </div>
                         </div>
@@ -69,12 +79,21 @@ const Sidebar = ({ channelClusters }: { channelClusters: IChannelCluster[] }) =>
                             channel?.trade_channels_id && channel?.trade_channels_id?.length > 0 ? 
                               channel?.trade_channels_id?.map((trdChn: any) => {
                                 return (
-                                  <div key={ trdChn.id }>
-                                    <TradeChannelFlowComp data={trdChn} />
+                                  <div key={ trdChn.id } style={{
+                                    backgroundColor: `${ channel?.color }`
+                                  }} className='bg-newPrimaryDark rounded-xl p-5 flex flex-col w-[300px]'>
+                                    <BaseFlowComponent 
+                                      flowCompName={ trdChn?.name }
+                                      headerTitle={ "Trade Channel" }
+                                      id={ trdChn.id }
+                                      executeSomthing={() => console.log("hi")}
+                                    >
+                                      <TradeChannelSvgIcon color='#BF9BED' />
+                                    </BaseFlowComponent>
                                   </div>
                                 )
                               })
-                              
+
                               :
                               "No Trade Channel"
                           }

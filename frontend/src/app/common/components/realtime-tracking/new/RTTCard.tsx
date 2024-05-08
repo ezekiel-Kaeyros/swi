@@ -25,7 +25,7 @@ const RTTCard = ({ routeObj }: any) => {
         <div className='flex flex-row gap-4 justify-between'>
             <div className='flex flex-row gap-4 items-center'>
                 <div className=''>
-                    <CurvyRouteIcon />
+                    <CurvyRouteIcon height="20" width="20" color="none" />
                 </div>
                 <Link href={ `/realtime-tracking/profile-view/${routeObj?.id}` }>
                     <h1 className='text-[20px] font-bold'>{ routeObj?.posName }</h1>
@@ -47,14 +47,14 @@ const RTTCard = ({ routeObj }: any) => {
         <VerticalInfoChipConnect
             presentLoc={ routeObj?.presentLocation }
             nextLoc={ routeObj?.nextDestination }
-            svgIconOne={ <LocationIcon /> }
-            svgIconTwo={ <CarIcon /> }
+            svgIconOne={ <LocationIcon height="20" width="20" color="none" /> }
+            svgIconTwo={ <CarIcon height="12" width="12" color="none"/> }
         />
 
         <div className='flex flex-row gap-1 items-center justify-between'>
             <div>
                 <Link className='font-bold bg-settingViewBottomBorderColor rounded-full p-3 py-2 flex flex-row items-center gap-2' href={ `/realtime-tracking/profile-view/${routeObj?.id}` }>
-                    <EyeIcon /> 
+                    <EyeIcon height="20" width="20" color="none" /> 
                     <span className='text-[12px]'>
                         Track Route
                     </span>

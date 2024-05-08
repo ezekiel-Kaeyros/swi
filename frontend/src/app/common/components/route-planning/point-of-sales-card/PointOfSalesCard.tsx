@@ -61,20 +61,22 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
   const getColor = (channelClusterId: string | number) => {
     // return the exact color
     const activeChannelCluster = channelClusters?.find(
-      (cluster) => cluster?.id === channelClusterId
+      (cluster: any) => cluster?.id === channelClusterId
     );
 
-    return activeChannelCluster?.color?.hex;
+    return activeChannelCluster?.color;
+    // return activeChannelCluster?.color?.hex;
   };
 
   // Fetch card 4 colors
   const getFadeColor = (channelClusterId: string | number) => {
     // return the exact color
     const activeChannelCluster = channelClusters?.find(
-      (cluster) => cluster?.id === channelClusterId
+      (cluster: any) => cluster?.id === channelClusterId
     );
 
-    return activeChannelCluster?.color?.fadeHex;
+    return activeChannelCluster?.color;
+    // return activeChannelCluster?.color?.fadeHex;
   };
 
   // Get time of each task and sum them
@@ -153,7 +155,7 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
       <div className="flex  justify-between mt-4  items-center">
         {isRoutePlanning && (
           <div className="flex space-x-4 justify-start items-center flex-wrap max-w-sm bg-[#242424] px-4 py-2 rounded-full">
-            <DurationIcon color={getColor(channelCluster)} />{' '}
+            <DurationIcon color={getColor(channelCluster) as string} />{' '}
             <h1>
               {totalDurationPerPos
                 ? convertMinutesToHoursAndMinutes(totalDurationPerPos)

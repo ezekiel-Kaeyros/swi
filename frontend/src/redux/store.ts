@@ -5,8 +5,10 @@ import pointOfSaleViewReducer from './features/create-point-of-sale-slice';
 import ChannelClusterReducer from './features/channel-cluster-slice';
 import ActivityReducer from './features/activities-slice';
 import AgentCreationReducer from './features/agent-creation';
+import EdgesReducer from './features/edges-slice';
 import ToggleSideBarReducer from './design/toggle-sidebar-slice';
-import HeaderReducer from '@/app/common/components/header/slice/header-title-slice';
+import HeaderReducer from '@/app/common/components/header/slice/header-title-slice'; 
+// 
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +18,7 @@ export const store = configureStore({
     ChannelClusterReducer,
     ActivityReducer, 
     AgentCreationReducer, 
+    EdgesReducer, 
     // ActivityReducer,
     ToggleSideBarReducer,
     HeaderReducer,

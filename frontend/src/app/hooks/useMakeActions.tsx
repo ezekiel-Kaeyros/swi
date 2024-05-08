@@ -27,11 +27,14 @@ const useMakeActions = () => {
             // console.log("result,,,,,", result)
 
             // METHOD 2 (2 seconds)
+            console.log("lnt++--", url)
             const response = await fetch (url, {
               method: "DELETE",
             })
 
             const result =  await response.json()
+
+            console.log(result, "lnt++", url)
 
             // CLEARING AND RESTING BACK ALL STATES
             hideAgentPreviewInfo (); 

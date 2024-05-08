@@ -13,7 +13,20 @@ export const routes = [
         contact: '690 000 540',
         firstStat: '50 000 XAF',
         secondStat: '+4%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 1,
         category: 1,
         city: 'Douala',
@@ -30,7 +43,20 @@ export const routes = [
         contact: '691 040 540',
         firstStat: '150 000 XAF',
         secondStat: '+1%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 2,
         category: 1,
         city: 'Douala',
@@ -55,7 +81,20 @@ export const routes = [
         contact: '681 040 540',
         firstStat: '105 000 XAF',
         secondStat: '+20%',
-        channelCluster: 2,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 1,
         category: 3,
         city: 'Douala',
@@ -72,7 +111,20 @@ export const routes = [
         contact: '651 040 540',
         firstStat: '20 000 XAF',
         secondStat: '+15%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 3,
         category: 1,
         city: 'Douala',
@@ -97,7 +149,20 @@ export const routes = [
         contact: '695 040 540',
         firstStat: '100 000 XAF',
         secondStat: '+15%',
-        channelCluster: 2,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 1,
         category: 2,
         city: 'Douala',
@@ -114,7 +179,20 @@ export const routes = [
         contact: '671 040 540',
         firstStat: '15 000 XAF',
         secondStat: '+2%',
-        channelCluster: 4,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 1,
         category: 1,
         city: 'Douala',
@@ -131,7 +209,20 @@ export const routes = [
         contact: '690 040 540',
         firstStat: '35 000 XAF',
         secondStat: '+4%',
-        channelCluster: 4,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 2,
         category: 1,
         city: 'Douala',
@@ -157,7 +248,20 @@ export const routes = [
         contact: '661 040 540',
         firstStat: '200 000 XAF',
         secondStat: '+5%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 2,
         category: 2,
         position: {
@@ -175,7 +279,20 @@ export const routes = [
         contact: '661 040 540',
         firstStat: '200 000 XAF',
         secondStat: '+9%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 2,
         category: 2,
         position: {
@@ -193,7 +310,20 @@ export const routes = [
         contact: '661 040 540',
         firstStat: '200 000 XAF',
         secondStat: '+9%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 2,
         category: 2,
         position: {
@@ -219,7 +349,20 @@ export const routes = [
         contact: '651 040 540',
         firstStat: '20 000 XAF',
         secondStat: '+15%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 3,
         category: 1,
         position: {
@@ -237,7 +380,20 @@ export const routes = [
         contact: '651 040 540',
         firstStat: '105 000 XAF',
         secondStat: '+20%',
-        channelCluster: 2,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 1,
         category: 3,
         city: 'Yaoundé',
@@ -255,7 +411,20 @@ export const routes = [
         contact: '690 000 540',
         firstStat: '50 000 XAF',
         secondStat: '+4%',
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 1,
         category: 1,
         city: 'Yaoundé',
@@ -277,7 +446,20 @@ export const routes = [
           lat: 3.8767141069274462,
           lng: 11.512965233515592,
         },
-        channelCluster: 1,
+        channelCluster: [
+          {
+            id: 1,
+            name: "whole sale"
+          },
+          {
+            id: 23,
+            name: "retail shop"
+          },
+          {
+            id: 60,
+            name: "category A"
+          }
+        ],
         tradeChannel: 2,
         category: 1,
         city: 'Douala',

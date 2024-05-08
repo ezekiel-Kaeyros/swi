@@ -12,6 +12,7 @@ export type ActivityFormValues = {
 };
 
 export type ActivityFormValuesFrontEnd = {
+  id?: string;
   name: string;
   channelCluster?: string[];
   tradeChannel?: string[];
@@ -27,5 +28,6 @@ export type ActivityFormValuesFrontEnd = {
 export type ActivityFormProps = {
   handleCloseModal: () => void;
   shouldUpdate?: boolean; 
+  id?: string;
   dataToUpdate?: ActivityFormValuesFrontEnd; 
 };

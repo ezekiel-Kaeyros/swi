@@ -49,3 +49,12 @@ jobs:
         run: |
           
           docker push ezekielkaeyros/swivyfrontend:latest
+
+      - name: Build sales_rep
+        run: |
+          cd sales-repview && \
+          docker build -t ezekielkaeyros/swivy_sales_rep .
+
+      - name: Push to Dockerhub for sales_rep
+        run: |
+          docker push ezekielkaeyros/swivy_sales_rep:latest

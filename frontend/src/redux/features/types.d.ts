@@ -8,19 +8,24 @@ export type PositionType = {
 export type IChannelClusterDataType = {
   name: string, 
   id: number | string, 
-  color?: string; 
+  color?: string | { hex: string; fadeHex: string } | string; 
+  activityParentID?: string, 
   frequency?: number; 
   duration?: number; 
+  time?: number; 
   priority?: string; 
   trade_chanel_id?: []; 
   description?: string;
   channelCluster?: any[], 
   tradeChannel?: any[],
   category?: any[], 
+  categories_id?: string | any[], 
+  activities_ids?: any[], 
+  channel_cluster_id?: string, 
 }
 export interface IChannelCluster {
-  id: number | string;
-  color?: { hex: string; fadeHex: string };
+  id: string;
+  color?: { hex: string; fadeHex: string } | string;
   name: string;
   trade_channels_id?: any[];
   tradeChannel?: any[];
@@ -40,7 +45,7 @@ export type TradeChannel = {
   id_company?: string,
   channel_cluster_id?: string, 
   channel_cluster_ids?: any[],
-  categories_id?: string[], 
+  categories_id?: any[], 
   type?: string; 
   position?: PositionType; 
   data?: IChannelClusterDataType; 
@@ -48,11 +53,12 @@ export type TradeChannel = {
   height?: number, 
 }
 export interface ICategory {
-  id?: string | number;
+  id?: string;
   name?: string;
   id_company?: string;
   trade_chanel_id?: []; 
   // trade_chanel_ids?: [], 
+  activities_ids?: [], 
   description?: any[]
 
   type?: string; 
@@ -75,14 +81,16 @@ export interface IActivity {
   status: boolean;
   priority?: string;
   description?: string;
+  activitieItems?: any[]; 
 }
 
 export interface IActivityNew {
   id: number | string;
+  _id?: string;
   name: string;
   frequency: number;
   duration: number;
-  channelCluster: []; 
+  channelCluster: any[]; 
   tradeChannel: string[];
   category: string[];
   status?: boolean;
@@ -90,14 +98,53 @@ export interface IActivityNew {
 
   frequency?: number; 
   duration?: number; 
-  priority?: string; 
+  priority?: string;
+  activityParentID?: string;  
 
   type?: string; 
   position?: PositionType; 
+  activityParentID?: string; 
   data?: IChannelClusterDataType; 
   width?: number, 
   height?: number, 
 }
+
+
+// {
+//   "id": "04888fb7-34b6-4499-9d86-4e7cfca93774",
+//   "name": "Selling Ndole",
+//   "position": {
+//       "x": 1189.7118586380316,
+//       "y": 38.27115182819068
+//   },
+//   "type": "activityCreation",
+//   "width": 321,
+//   "height": 158,
+//   "frequency": "4",
+//   "duration": "34",
+//   "priority": "srfhi7276475dhkji2298309092",
+//   "description": "Descriptions", 
+//   "data": {
+//       "name": "Selling Ndole",
+//       "id": "49243140-608c-45d6-904c-a658628d7f0b",
+//       "frequency": "4",
+//       "duration": "34",
+//       "priority": "srfhi7276475dhkji2298309092",
+//       "description": "Descriptions",
+//       "channelCluster": "8cf73487-d744-4efc-b360-1756338a58dc",
+//       "tradeChannel": "349ffa85-ede7-47a9-9654-66ac55d7d712",
+//       "category": "6be86258-148a-4b73-85f2-fa2edd0ff9fd"
+//   },
+//   "channelCluster": "8cf73487-d744-4efc-b360-1756338a58dc",
+//   "tradeChannel": "349ffa85-ede7-47a9-9654-66ac55d7d712",
+//   "category": "6be86258-148a-4b73-85f2-fa2edd0ff9fd",
+//   "selected": true,
+//   "positionAbsolute": {
+//       "x": 1189.7118586380316,
+//       "y": 38.27115182819068
+//   },
+//   "dragging": false
+// }
 
 export interface IFormStep {
   id: string | number, 

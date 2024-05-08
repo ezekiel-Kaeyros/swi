@@ -1,9 +1,4 @@
-import Image from 'next/image';
-import Link from 'next/link';
-
 import Card from '@/app/common/components/card/Card';
-import LeftIcon from '../../../../../../public/icons/arrowLeftIcon.svg';
-import AnimateClick from '@/app/common/components/animate-click/AnimateClick';
 import AddPointOfSalesForm from '@/app/common/components/forms/add-point-of-sales-form/AddPointOfSalesForm';
 import BackButton from '@/app/common/components/back-button/BackButton';
 

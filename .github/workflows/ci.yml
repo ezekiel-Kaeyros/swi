@@ -11,9 +11,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Login Dockerhub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: create .env file
+      - name: Create .env file
         run: |
           cd backend && \
           touch .env && \
@@ -34,18 +35,27 @@ jobs:
 
       - name: Build the Docker image for backend
         run: |
-          cd backend && docker build -t ezekielkaeyros/swivybackend .
+          cd backend && \
+          docker build -t ezekielkaeyros/swivybackend .
 
       - name: Push to Dockerhub for backend
         run: |
- 
           docker push ezekielkaeyros/swivybackend:latest
 
       - name: Build the Docker image for frontend
         run: |
-          cd frontend && docker build -t ezekielkaeyros/swivyfrontend .
+          cd frontend && \
+          docker build -t ezekielkaeyros/swivyfrontend .
 
       - name: Push to Dockerhub for frontend
         run: |
-        
           docker push ezekielkaeyros/swivyfrontend:latest
+
+      - name: Build sales_rep
+        run: |
+          cd sales-repview && \
+          docker build -t ezekielkaeyros/swivy_sales_rep .
+
+      - name: Push to Dockerhub for sales_rep
+        run: |
+          docker push ezekielkaeyros/swivy_sales_rep:latest

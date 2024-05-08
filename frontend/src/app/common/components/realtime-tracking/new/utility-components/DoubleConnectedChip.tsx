@@ -29,7 +29,7 @@ const DoubleConnectedChip: React.FC<DoubleConnectedChipType> = ({ contentChipOne
             
             <div className={ `${textColor ? textColor : "text-slate-500"}` }>{ contentChipOne }</div>
         </div>
-        <ConnectorIcon />
+        <ConnectorIcon height={'10'} width={'30'} color={'none'} />
         <div className={`py-1 px-2 rounded-xl ${ bgColor2 ? bgColor2 : "bg-transparent" } flex justify-center items-center1`}>
             {/* { truncateText(routeObj?.remainingTime, 5) } */}
             { contentChipTwo }

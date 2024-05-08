@@ -13,7 +13,7 @@ const AllDirections = () => {
 
     const { dispatch, routes, selectedRouteId } = useRoutePlanning();
     const { pointOfSales } = usePointOfSales();
-    console.log('ALL ROUTES', routes);
+    console.log('ALL ROUTES', routes, pointOfSales);
 
     const position = { lat: 61.2176, lng: -149.8997 };
     return (
@@ -29,11 +29,11 @@ const AllDirections = () => {
                 })
               }
                 
-              { pointOfSales?.map((pos: any) =>
-                  (<AdvancedMarkerWrapper position={pos.position} active={true} key={pos.id} markerColor='red'>
+              { pointOfSales?.map((pos: any) =>{
+                  return (<AdvancedMarkerWrapper position={pos.position} active={true} key={pos.id} markerColor='red'>
                       <InfoView shopDetails={pos}/>
                   </AdvancedMarkerWrapper>
-                  )
+                  )}
               )}
             </Map>
     );

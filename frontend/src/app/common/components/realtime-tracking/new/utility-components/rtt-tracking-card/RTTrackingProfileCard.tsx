@@ -19,7 +19,7 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
       <div className='flex flex-row justify-between'>
           <div className='flex flex-row items-center gap-2'>
               <div className={`${ data?.backgroundColor } rounded-full h-[30px] w-[30px] flex justify-center items-center`}>
-                  <ShopIcon height="20" width="20" />
+                  <ShopIcon height="20" width="20" color={'none'} />
               </div>
               <span>{ data.checkedTime }</span>
           </div>
@@ -27,13 +27,13 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
               <h1>{ data.posName }</h1>
           </div>
           <div className={`flex flex-row items-center p-2 justify-center ${data.backgroundColor} ${ data.color } gap-1 rounded-lg`}>
-              <WarningIcon height={ "20"} width={ "20" } />
+              <WarningIcon height={ "20"} width={ "20" } color={'none'} />
               <span className='text-[14px] mt-1'>{ data.timeGrading }</span>
           </div>
           <div onClick={ () => {            
             handleToggle (id)
           } } className='flex items-center cursor-pointer'>
-              <ChevronDowngIcon width="20" height="20" />
+              <ChevronDowngIcon width="20" height="20" color={'none'} />
           </div>
       </div>
       <div className={`${ data.opened ? "transition-all duration-1000" : "translate-y-[-30%] opacity-0 h-0 transition-all duration-1000 hidden" }`}>
@@ -41,7 +41,7 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
                 <div className='flex flex-row justify-between'>
                     <div className='flex flex-row justify-start gap-2'>
                         <div className={`${ data?.backgroundColor } rounded-xl h-[40px] w-[40px] flex justify-center items-center`}>
-                            <ShopIcon height="30" width="30" />
+                            <ShopIcon height="30" width="30" color={'none'} />
                         </div>
                         <div >
                             <h1 className='text-[18x] '>{ data.posName }</h1>
@@ -57,7 +57,7 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
           <div className={`p-[2rem]`}>
               <div className='flex flex-row gap-3'>
                   <div>
-                      <CarIcon height={ "30" } width={"30" } />
+                      <CarIcon height={ "30" } width={"30" } color={'none'} />
                   </div>
                   <div>
                       <h1 className='text-[18x] '>Driving</h1>
@@ -68,7 +68,7 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
               </div>
               <div className='flex flex-row gap-3'>
                   <div>
-                      <ShopWhiteIcon height={ "30" } width={"30" } />
+                      <ShopWhiteIcon height={ "30" } width={"30" } color={'none'} />
                   </div>
                   <div >
                       <h1 className='text-[18x] '>Arrived at point of sales</h1>
@@ -79,7 +79,7 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
               </div>
               <div className='flex flex-row gap-3'>
                   <div>
-                      <CheckingActivitiesIcon height={ "30" } width={"30" } />
+                      <CheckingActivitiesIcon height={ "30" } width={"30" } color={'none'} />
                   </div>
                   <div>
                       <h1 className='text-[18x] '>Checking activities</h1>
@@ -90,7 +90,7 @@ const RTTrackingProfileCard = ({ id, data }: any) => {
               </div>
               <div className='flex flex-row gap-3'>
                   <div>
-                      <CarIcon height={ "30" } width={"30" } />
+                      <CarIcon height={ "30" } width={"30" } color={'none'} />
                   </div>
                   <div >
                       <h1 className='text-[18x] '>Leaving area</h1>

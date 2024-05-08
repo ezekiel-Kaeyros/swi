@@ -2,7 +2,7 @@ import { IPointOfSalesType } from './types';
 
 export const pointOfSalesSearch = [
   {
-    id: 1,
+    id: "1",
     name: 'Santa Lucia',
     shopLocation: 'Bonamoussadi',
     shopOwner: 'M. Adamou',
@@ -11,7 +11,7 @@ export const pointOfSalesSearch = [
     secondStat: '+4%',
   },
   {
-    id: 2,
+    id: "2",
     name: 'Dovv',
     shopLocation: 'Bonamoussadi',
     shopOwner: 'M. Jean',
@@ -20,7 +20,7 @@ export const pointOfSalesSearch = [
     secondStat: '+2%',
   },
   {
-    id: 3,
+    id: "3",
     name: 'City Market',
     shopLocation: 'Yaoundé',
     shopOwner: 'M. Cyrille',
@@ -30,7 +30,7 @@ export const pointOfSalesSearch = [
   },
   ,
   {
-    id: 4,
+    id: "4",
     name: 'Friends Food',
     shopLocation: 'Bonamoussadi',
     shopOwner: 'M. Pierre',
@@ -43,7 +43,7 @@ export const pointOfSalesSearch = [
     },
   },
   {
-    id: 5,
+    id: "5",
     name: 'Dovv',
     shopLocation: 'Bonamoussadi',
     shopOwner: 'M. Philippe',
@@ -54,8 +54,21 @@ export const pointOfSalesSearch = [
       lat: 4.092247398846078,
       lng: 9.750153660455327,
     },
-    channelCluster: 1,
-    tradeChannel: 1,
+    channelCluster:  [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
   },
   {
@@ -70,8 +83,21 @@ export const pointOfSalesSearch = [
       lat: 4.089113839149167,
       lng: 9.746375054397431,
     },
-    channelCluster: 1,
-    tradeChannel: 1,
+    channelCluster:  [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
   },
   {
@@ -86,8 +112,21 @@ export const pointOfSalesSearch = [
       lat: 4.097632206938936,
       lng: 9.740860432855897,
     },
-    channelCluster: 1,
-    tradeChannel: 1,
+    channelCluster:  [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
   },
   {
@@ -102,16 +141,28 @@ export const pointOfSalesSearch = [
       lat: 4.099323027950734,
       lng: 9.74163290902514,
     },
-    channelCluster: 1,
-    tradeChannel: 1,
+    channelCluster:  [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
   },
 ];
 
 export const pointOfSales: IPointOfSalesType[] = [
   {
-
-  //  _ id: 1,
+    //  _ id: 1,
     id: "1",
     name: 'Santa Lucia',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -119,8 +170,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '690 000 540',
     firstStat: '50 000 XAF',
     secondStat: '+4%',
-    channelCluster: 1,
-    tradeChannel: 1,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
     city: 'Douala',
     markerColor: 'red',
@@ -128,9 +192,12 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 4.092504234375929,
       lng: 9.74694573843821,
     },
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "2",
+    //  _ id: "2",
     id: "2",
     name: 'Dovv',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -142,14 +209,30 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 4.092247398846078,
       lng: 9.750153660455327,
     },
-    channelCluster: 1,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 1,
     city: 'Douala',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "3",
+    //  _ id: "3",
     id: "3",
     name: 'Rond Point',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -157,8 +240,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '681 040 540',
     firstStat: '105 000 XAF',
     secondStat: '+20%',
-    channelCluster: 2,
-    tradeChannel: 1,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 3,
     city: 'Douala',
     markerColor: 'red',
@@ -166,9 +262,12 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 4.0858605692570675,
       lng: 9.734873742544274,
     },
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "4",
+    //  _ id: "4",
     id: "4",
     name: 'Friends Food',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -176,8 +275,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '651 040 540',
     firstStat: '20 000 XAF',
     secondStat: '+15%',
-    channelCluster: 1,
-    tradeChannel: 3,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "3",
     category: 1,
     position: {
       lat: 4.092795154942231,
@@ -185,9 +297,12 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Douala',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "5",
+    //  _ id: "5",
     id: "5",
     name: 'Dovv',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -195,8 +310,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '661 040 540',
     firstStat: '200 000 XAF',
     secondStat: '+5%',
-    channelCluster: 1,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 2,
     position: {
       lat: 4.092247398846078,
@@ -204,9 +332,12 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Douala',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "6",
+    //  _ id: "6",
     id: "6",
     name: 'Victory Garden',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -214,8 +345,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '671 040 540',
     firstStat: '15 000 XAF',
     secondStat: '+2%',
-    channelCluster: 4,
-    tradeChannel: 1,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
     position: {
       lat: 4.089113839149167,
@@ -223,9 +367,12 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Douala',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "7",
+    //  _ id: "7",
     id: "7",
     name: 'Carrefour Yoro Joss',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -233,8 +380,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '690 040 540',
     firstStat: '35 000 XAF',
     secondStat: '+4%',
-    channelCluster: 4,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 1,
     position: {
       lat: 4.097632206938936,
@@ -242,9 +402,12 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Douala',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
-  //  _ id: "8",
+    //  _ id: "8",
     id: "8",
     name: 'Commissariat 12eme de bonamoussadi',
     shopLocation: 'Bonamoussadi, Douala, Cameroun',
@@ -252,8 +415,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '695 040 540',
     firstStat: '100 000 XAF',
     secondStat: '+15%',
-    channelCluster: 2,
-    tradeChannel: 1,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 2,
     city: 'Douala',
     markerColor: 'red',
@@ -261,11 +437,14 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 4.099323027950734,
       lng: 9.74163290902514,
     },
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
 
   // Yaoundé boutique
   {
-  //  _ id: "9",
+    //  _ id: "9",
     id: "9",
     name: 'Boutique JOSS',
     shopLocation: 'Ecole de police, Yaoundé, Cameroun',
@@ -273,8 +452,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '690 000 540',
     firstStat: '50 000 XAF',
     secondStat: '+4%',
-    channelCluster: 1,
-    tradeChannel: 1,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 1,
     city: 'Yaoundé',
     markerColor: 'red',
@@ -282,6 +474,9 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 3.8789440279811314,
       lng: 11.50974300516794,
     },
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
     // _id: "10",
@@ -296,11 +491,27 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 3.8767141069274462,
       lng: 11.512965233515592,
     },
-    channelCluster: 1,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 1,
     city: 'Douala',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
     // _id: "11",
@@ -311,8 +522,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '651 040 540',
     firstStat: '105 000 XAF',
     secondStat: '+20%',
-    channelCluster: 2,
-    tradeChannel: 1,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "1",
     category: 3,
     city: 'Yaoundé',
     markerColor: 'red',
@@ -320,6 +544,9 @@ export const pointOfSales: IPointOfSalesType[] = [
       lat: 3.8851676805034,
       lng: 11.503557405136277,
     },
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
     // _id: "12",
@@ -330,8 +557,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '651 040 540',
     firstStat: '20 000 XAF',
     secondStat: '+15%',
-    channelCluster: 1,
-    tradeChannel: 3,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "3",
     category: 1,
     position: {
       lat: 3.887751066126671,
@@ -339,6 +579,9 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Yaoundé',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
     // _id: "13",
@@ -349,8 +592,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '661 040 540',
     firstStat: '200 000 XAF',
     secondStat: '+5%',
-    channelCluster: 1,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 2,
     position: {
       lat: 3.8927026231741797,
@@ -358,6 +614,9 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Yaoundé',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
     // _id: "14",
@@ -368,8 +627,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '661 040 540',
     firstStat: '200 000 XAF',
     secondStat: '+9%',
-    channelCluster: 1,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 2,
     position: {
       lat: 3.9001262311006943,
@@ -377,6 +649,9 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Yaoundé',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
   {
     // _id: "15",
@@ -387,8 +662,21 @@ export const pointOfSales: IPointOfSalesType[] = [
     contact: '661 040 540',
     firstStat: '200 000 XAF',
     secondStat: '+9%',
-    channelCluster: 1,
-    tradeChannel: 2,
+    channelCluster: [
+      {
+        id: "1",
+        name: "whole sale"
+      },
+      {
+        id: "23",
+        name: "retail shop"
+      },
+      {
+        id: "60",
+        name: "category A"
+      }
+    ],
+    tradeChannel: "2",
     category: 2,
     position: {
       lat: 3.884153084236937,
@@ -396,5 +684,8 @@ export const pointOfSales: IPointOfSalesType[] = [
     },
     city: 'Yaoundé',
     markerColor: 'red',
+    tasks: undefined,
+    description: undefined,
+    totalActivitiesDuration: undefined
   },
 ];

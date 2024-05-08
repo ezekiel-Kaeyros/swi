@@ -67,7 +67,8 @@ const TaskChip: FC<TaskChipProps> = ({
       (cluster) => cluster?.id === channelClusterId
     );
 
-    return activeChannelCluster?.color?.hex;
+    return activeChannelCluster?.color;
+    // return activeChannelCluster?.color?.hex;
   };
 
   function extractKeyValues(arrayOfObjects: any[], key: string | number) {

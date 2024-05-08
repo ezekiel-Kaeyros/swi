@@ -9,6 +9,7 @@ export async function calculateAndDisplayRoute(
 
     console.log('current route', currentRoute);
     const pos = currentRoute?.pointOfSales;
+    console.log("CURRENT ROUTE: ", currentRoute?.pointOfSales);
     const origin = {
       lat: pos[0].position.lat,
       lng: pos[0].position.lng,

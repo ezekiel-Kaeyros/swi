@@ -41,15 +41,15 @@ const SearchAndFilterPosForRTT = () => {
     <div className='flex flex-row items-center gap-3'>
         <InputField
             onChange={(e) => filterRoutes (e)}
-          svg={ <SearchIcon /> }
+          svg={ <SearchIcon height="30" width="30" color="none" /> }
           name="name"
           placeholder="Search Point of Sales"
         />
         <div className='bg-bgColorDark cursor-pointer p-4 flex justify-center items-center rounded-xl h-[50px]'>
-            <FilterIcon />
+            <FilterIcon height="25" width="25" color="none" />
         </div>
         <div className='bg-bgColorDark cursor-pointer p-4 flex justify-center items-center rounded-xl h-[50px]'>
-            <GridViewIcon />
+            <GridViewIcon height="25" width="25" color="none" />
         </div>
     </div>
   )

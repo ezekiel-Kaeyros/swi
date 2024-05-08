@@ -1,25 +1,42 @@
-export interface IPointOfSalesType {
+import { updateTasksInPointOfSales } from "@/redux/utils";
+
+export interface ChannelCluster {
   id: string;
-  _id?: string;
   name: string;
-  shopLocation: string;
-  location?: string
+}
+
+export interface IPointOfSalesType {
+  tasks: any;
+  description: any;
+  totalActivitiesDuration: any;
+  id: string;
+  name: string;
+  shopLocation: string; 
+  location?: string;
   shopOwner: string;
-  owner?: string; 
-  image?: string;
-  contact: string | number;
-  firstStat?: string | number;
-  secondStat?: string | number;
-  channelCluster: string | number;
-  tradeChannel: string | number;
-  category?: string | number;
-  tasks?: any; 
-  description?: string; 
-  totalActivitiesDuration?: number;
+  contact: string;
+  firstStat: string;
+  secondStat: string;
+  channelCluster: ChannelCluster[] | string; // Use ChannelCluster type here
+  tradeChannel: string;
+  category: number;
   city: string;
-  markerColor?: string;
+  markerColor: string,
   position: {
     lat: number;
     lng: number;
   };
+}
+
+export interface PointOfSaleChannel {
+  pointOfSaleId: string;
+  channelId: string;
+}
+
+export interface Route {
+  id: string;
+  routeName: string;
+  activitiesDuration: string;
+  pointOfSales: PointOfSale[];
+  salesRepresentatives: string[];
 }

@@ -22,7 +22,8 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   tradeChannelId, 
   tcID
 }) => {
-  const { dispatch } = useSettings();
+  // const { dispatch } = useSettings();
+  const { dispatch, locaTradeChannels } = useSettings (); 
 
   const { register, handleSubmit, setValue } = useForm<AddTradeChannelFormValues>(); 
 
@@ -60,7 +61,7 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
       channel_cluster_ids: [""],
     }
 
-    console.log (newDataD, "newDataD...")
+    // console.log (newDataD, "newDataD...")
 
     if (shouldUpdate) {
       newDataD = {
@@ -73,6 +74,17 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
         type: 'tradeChannelCreation', 
       }
       dispatch(editLocalTradeChannel(newDataD)); 
+
+      // const foundTradeC = locaTradeChannels?.find((foundTC: TradeChannel) => {
+      //   return foundTC?.id === tradeChannelLocalID
+      // })
+      // const newDataD = {
+      //     name: foundTradeC?.name, 
+      //     id_company: "661e46da0c5460e02b3c492b", 
+      //     channel_cluster_id: data?.id
+      // }
+      // // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER
+      // const result = await makePostReques (`${ BASE_URL }/${ TRADECHANNEL_API_URL }`, newDataD)
     } else {
       dispatch(createLocalTradeChannel(newDataD)); 
     }

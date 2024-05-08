@@ -44,7 +44,7 @@ const CanvasFloatingActionButtons = ({
           setOpenModal(true); 
           addChannelCluster ();
         } } className='relative group rounded-xl  p-[14px] bg-normalInputBg'>
-            <ChannelClusterSvgIcon />
+            <ChannelClusterSvgIcon height="20" width="20" color="none" />
             <div className='absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>
                 <span className={" text-slate-500 text-[12px] whitespace-nowrap "}>Channel Cluster</span>
             </div>
@@ -53,7 +53,7 @@ const CanvasFloatingActionButtons = ({
           setTradeCModal (true)
           addTradeChannel ();
         }} className='relative group rounded-xl  p-[14px] bg-normalInputBg'>
-            <TradeChannelSvgIcon backgroundColor='#323232' />
+            <TradeChannelSvgIcon color='#323232' height="20" width="20" />
             <div className='absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>
                 <span className={" text-slate-500 text-[12px] whitespace-nowrap "}>Trade Channel</span>
             </div>
@@ -62,7 +62,7 @@ const CanvasFloatingActionButtons = ({
           setCategoryModal (true)
           addCategory ();
         }} className='relative group rounded-xl  p-[14px] bg-normalInputBg'>
-            <CategorizationNoFillSvgIcon />
+            <CategorizationNoFillSvgIcon height={''} width={''} color={''} />
             <div className='absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>
                 <span className={" text-slate-500 text-[12px] whitespace-nowrap "}>Category</span>
             </div>

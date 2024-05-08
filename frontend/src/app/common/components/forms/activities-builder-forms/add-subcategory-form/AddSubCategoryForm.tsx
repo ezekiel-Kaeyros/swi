@@ -80,13 +80,14 @@ const AddSubCategoryForm: React.FC<AddSubCategoryProps> = ({
         y: 300
       }, 
       type: 'categoryCreation', 
-      trade_chanel_id: []
+      trade_chanel_id: [], 
+      activities_ids: [], 
     }
 
     if (dataTtoEdit) {
       newData = {
         ...data, 
-        id: catID, 
+        id: catID as string, 
         position: {
           x: 800, 
           y: 300
