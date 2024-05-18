@@ -51,10 +51,12 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
     (route) => route?.id?.toString() === selectedRouteId?.toString()
   );
 
+  console.log("channelCluster9999", channelCluster)
+
   // Compute total time for each POS
 
   const currentPos = currentRoute?.pointOfSales?.find(
-    (pos: { id: string | number }) => pos?.id.toString() === id.toString()
+    (pos: { _id: string | number }) => pos?._id.toString() === id.toString()
   );
 
   // Fetch card 3 colors
@@ -108,7 +110,7 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
 
   const totalDurationPerPos = sumDurations(currentPos?.tasks);
 
-  // console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
+  console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
 
   return (
     <div

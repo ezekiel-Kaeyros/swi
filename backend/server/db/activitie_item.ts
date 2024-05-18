@@ -50,7 +50,8 @@ export const updateActivityItem =  async(activityData: any): Promise<IActivityIt
             {
                 channelClusters: activityData.channelClusters,
                 tradeChannels: activityData.tradeChannels,
-                categories: activityData.categories
+                categories: activityData.categories,
+                status: activityData.status
             },
             {new: true}  
         )
@@ -66,9 +67,10 @@ export const updateActivityItem =  async(activityData: any): Promise<IActivityIt
 }
 
 export const deleteActivityItem =  async(activityData: any): Promise<any> =>{
+
     try{
         const deleteActivity = await ActivitieItem.findByIdAndDelete(
-            {_id: activityData.id }
+            {_id: activityData }
         )
         if (!deleteActivity){
             throw new Error('L\'activité  avec l\'ID fourni n\'a pas été trouvée.')

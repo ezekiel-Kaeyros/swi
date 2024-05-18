@@ -1,17 +1,4 @@
 import React, { ReactNode } from 'react';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/app/common/mobileComponents/components/customButtomSheetDrawer';
-import { Button } from '@/components/ui/button';
-import { useClickOutside } from '@/app/hooks/useClickOutside';
 
 const CloseIcone = () => {
   return (
@@ -55,7 +42,7 @@ function BottomSheet({
   title: string;
   description?: string;
   children: ReactNode;
-  type: 'Simple' | 'withDataActions';
+  type: 'Simple' | 'withDataActions' | 'empty';
 }) {
   return (
     <>
@@ -70,9 +57,26 @@ function BottomSheet({
         className={` ${className ? className : ''} ${
           isOpen ? 'transition-all' : 'hidden'
         }
-          bg-newPrimaryDark z-30  flex-col rounded-t-[10px]   mt-24 fixed bottom-0 left-0 right-0`}
+          bg-newPrimaryDark z-30  flex-col rounded-t-[30px]  mt-24 fixed bottom-0 left-0 right-0`}
       >
         <div className="  rounded-t-[16x] flex-1">
+          {type === 'empty' && (
+            <div className="p-4 w-full mx-auto flex  absolute z-10 bg-black/20 ">
+              <div
+                className="gap-[4px] cursor-pointer h-[48px] w-48px] p-[14px] rounded-full bg-black/30   transition-all"
+                onClick={() => close()}
+              >
+                <CloseIcone />
+              </div>
+              <div className="  w-full flex text-center justify-center items-center">
+                {' '}
+                <span className="text-[24px] -ml-[40px] leading-[28px] text-white font-bold text-black/30 ">
+                  {' '}
+                  Map
+                </span>
+              </div>
+            </div>
+          )}
           {type === 'Simple' && (
             <div className="p-4 w-full mx-auto flex  ">
               <div
@@ -106,7 +110,9 @@ function BottomSheet({
             </div>
           )}
 
-          <div className=" h-[100vh] overflow-hidden">{children}</div>
+          <div className=" h-[100vh] overflow-hidden rounded-t-[30px]">
+            {children}
+          </div>
         </div>
       </div>
     </>

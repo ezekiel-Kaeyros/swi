@@ -7,8 +7,9 @@ import { ThemeProvider } from '../../common/dark-mode/theme-provider/theme-provi
 import ReduxProvider from '@/redux/provider';
 
 import Header from '../../common/components/header/header';
-import { Providers } from '../../../providers/nextui/providers';
+import { Providers } from '../../../core/providers/nextui/providers';
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { ReactQueryProvider } from '@/core/providers/reactQueryProvider/ReactQueryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,24 +30,26 @@ export default function RootLayout({
   if (!apiKey) {
     throw new Error('Missing Google Maps API key');
   }
+
   return (
     <html lang={lang}>
       <Head>
         <meta name="description">{'Swivy'}</meta>
       </Head>
       <ReduxProvider>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Providers>
-            <APIProvider apiKey={apiKey}>
-              <body className={`${inter.className}  dark:bg-[#192428]`}>
-                <Header lang={lang} />
-                <div className="flex">
-                  <div className="w-full ">{children}</div>
-                </div>
-              </body>
-            </APIProvider>
-          </Providers>
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Providers>
+              <APIProvider apiKey={apiKey}>
+                <body className={`${inter.className}  dark:bg-newPrimaryDark`}>
+                  <div className="flex">
+                    <div className="w-full ">{children}</div>
+                  </div>
+                </body>
+              </APIProvider>
+            </Providers>
+          </ThemeProvider>
+        </ReactQueryProvider>
       </ReduxProvider>
     </html>
   );

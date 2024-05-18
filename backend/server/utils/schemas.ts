@@ -75,7 +75,8 @@ const posValidator = Joi.object().keys({
   });
 
 export default {
-  "/login": loginValidator,
+  "/login": loginValidator, 
+  "/signin": loginValidator,
   "/roles": roleValidator,
   "/users": userValidator,
   "/pos": posValidator,

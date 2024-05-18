@@ -23,22 +23,25 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
         {tabs.map((tab, index) => (
           <div
             key={index}
-            className={`tab underline-offset-8 cursor-pointer ${index === activeTab ? 'active' : ''}`}
+            className={`tab underline-offset-8 cursor-pointer ${
+              index === activeTab ? 'active' : ''
+            }`}
             onClick={() => handleTabClick(index)}
           >
             {tab.label}
           </div>
         ))}
-        <div className="absolute inset-y-0 h-0.5" style={{
-          left: `${activeTab * 100}%`,
-          backgroundColor: 'blue',
-          transition: 'left 0.3s ease-in-out',
-          fontWeight: 'bold', // Bold font for the line under the active tab
-        }}></div>
+        <div
+          className="absolute inset-y-0 h-0.5"
+          style={{
+            left: `${activeTab * 100}%`,
+            backgroundColor: 'blue',
+            transition: 'left 0.3s ease-in-out',
+            fontWeight: 'bold', // Bold font for the line under the active tab
+          }}
+        ></div>
       </div>
-      <div className="mt-1.5">
-        {tabs[activeTab].content}
-      </div>
+      <div className="mt-1.5">{tabs[activeTab].content}</div>
       <style jsx>{`
         .tab {
           padding-right: 30px;

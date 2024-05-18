@@ -7,8 +7,9 @@ var mongoose_1 = __importDefault(require("mongoose"));
 var Schema = mongoose_1.default.Schema;
 var PosSchema = new Schema({
     owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
+        trim: true,
+        required: false,
     },
     longitude: {
         type: Number,

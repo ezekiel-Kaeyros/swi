@@ -37,7 +37,8 @@ const RouteCard: React.FC<RouteCardProps> = ({
   numberOfPos,
   routeName,
   salesName,
-  activitiesDuration,
+  activitiesDuration, 
+  roadItems, 
   profilePicture,
 }) => {
   const [toggleEye, setToggleEye] = useState<boolean>(false);
@@ -61,7 +62,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
   const handleEditRoute = (id: number | string): void => {
     // dispatch(displayAllRoutes({ showAllRoutes: false }));
-    // dispatch(toggleMaps({ toggle: true }));
+    dispatch(toggleMaps({ toggle: true }));
     push(`/route-preparation/${id}`);
   };
 
@@ -85,7 +86,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
     
       <div
         className={`bg-cardDark  justify-between w-full  rounded-xl p-4 ${
-          selectedRouteId == id ? 'border-3 border-[#3772FF]' : ''
+          selectedRouteId as string == id ? 'border-3 border-[#3772FF]' : ''
         }`}
       >
         <div className="w-full justify-between flex items-center">
@@ -95,7 +96,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
           </div>
           <EditRoute
            
-            id={id}
+            id={id as string}
             edit={() => {
               handleEditRoute(id);
             }}
@@ -113,7 +114,8 @@ const RouteCard: React.FC<RouteCardProps> = ({
             <Image src={shop} alt="" />
             <span className="text-xs">
               {numberOfPos
-                ? `${numberOfPos} Shop${parseInt(numberOfPos) >= 1 && 's'}`
+                // ? `${numberOfPos} Shop${parseInt(numberOfPos) >= 1 && 's'}`
+                ? `${numberOfPos} Shop${ numberOfPos >= 1 && 's'}`
                 : ``}
             </span>
           </div>
@@ -122,16 +124,31 @@ const RouteCard: React.FC<RouteCardProps> = ({
         <div className="my-6 flex items-center  gap-2">
           <Image src={distance} alt="" className="h-full" />
           <div className=" text-xs ">
+            {/* {
+              roadItems && 
+              roadItems?.taskIds?.length > 0 ? 
+              roadItems?.taskIds?.map(() => {
+                return (
+                  <div className="mb-8">
+                    <span className="text-[#BABABA]">Start point</span>
+                    <br />
+                    <span>Santa lucia bonaberi</span>
+                  </div>
+                )
+              })
+              : 
+              "Loading starting and ending point"
+            } */}
             <div className="mb-8">
               <span className="text-[#BABABA]">Start point</span>
               <br />
-              <span>Santa lucia bonaberi</span>
+              <span> { roadItems && roadItems[0].posId?.name! }</span>
             </div>
 
             <div>
               <span className="text-[#BABABA]">End point</span>
               <br />
-              <span>Boutique japoma</span>
+              <span>{ roadItems && roadItems[roadItems.length - 1].posId?.name }</span>
             </div>
           </div>
         </div>
@@ -149,7 +166,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
           <div className=" flex  text-[#BABABA] gap-1 items-center ">
             {' '}
             <Image src={profil} alt="" />
-            <span className="text-xs"> Abriel Mboma</span>
+            <span className="text-xs"> { salesName }</span>
           </div>
         </div>
         {/* <div className="flex items-center w-full">

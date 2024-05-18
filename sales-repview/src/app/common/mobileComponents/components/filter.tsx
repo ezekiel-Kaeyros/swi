@@ -11,7 +11,7 @@ function Filter({
   selectCurrentShop?: (value: any) => void;
 }) {
   return (
-    <div className="flex mb-2  overflow-x-scroll overflow-hidden w-full gap-4 pb-4 pl-4">
+    <div className="flex mb-2   w-full gap-4 pb-4 px-4">
       {filter.map((filterItem, index) => (
         <span
           key={index}

@@ -31,7 +31,7 @@ const   ActivitiesController = {
         const activitie: any= await findActivityById(id);
 
         if (activitie){
-            response.json(400).json({success: true, data: activitie})
+            response.json({success: true, data: activitie})
         }else{
             response.status(404).json({success: false, error: 'Activitie not found'})
         }

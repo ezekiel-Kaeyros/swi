@@ -7,11 +7,13 @@ import useMakePostRequest from '@/app/hooks/useMakePostRequest';
 import useNavigateSteps from '@/app/hooks/useNavigateSteps';
 import useToggleModal from '@/app/hooks/useToggleModal';
 import useTranformUserData from '@/app/hooks/useTranformUserData';
-import { AgentFormValueMainTypeMain, AgentFormValueType } from '@/redux/features/types';
+import { getUserCookies } from '@/cookies/cookies';
+import { AgentFormValueMainTypeMain, AgentFormValueType, TokenType, UserDataInToken } from '@/redux/features/types';
 import {  genderData, provincesData } from '@/services/selectFieldsData';
 // departmentData,
 import { BASE_URL } from '@/utils/constants';
 import { findElementInSelectList } from '@/utils/updateUserValue';
+import { jwtDecode } from 'jwt-decode';
 import React, { useEffect, useState } from 'react'
 
 
@@ -58,6 +60,11 @@ const AgentOverview = () => {
 
   const [ shouldFetch, setShouldFetch ] = useState (false); 
 
+  const gettoken = getUserCookies();
+  console.log(gettoken, 'datagettoken');
+  const decodeToken: TokenType = jwtDecode (gettoken)
+  console.log(decodeToken, 'decodeToken');
+
   const finalData = {
     name: currentSalesRepsAgent?.salesName, 
     dateOfBirth: currentSalesRepsAgent?.dateOfBirth,
@@ -70,9 +77,15 @@ const AgentOverview = () => {
     streetAddress: currentSalesRepsAgent?.streetAddress, 
     job: currentSalesRepsAgent?.jobTitle, 
     departement: "OptionTypeString", 
-    reportingManager: findElementInSelectList(departmentData, currentSalesRepsAgent?.reportingManager)?.id, 
+    // reportingManager: findElementInSelectList(departmentData, currentSalesRepsAgent?.reportingManager)?.id, 
+    reportingManager: [decodeToken?.user?.userId], 
+    id_company: decodeToken?.user?.id_company, 
     startDate: currentSalesRepsAgent?.startDate, 
+    password: currentUser?.password, 
   }
+
+  console.log(finalData, "wait wait")
+  // return
 
   // const { data, isError, isLoading } = useMakePostRequest (`${ BASE_URL }/salesrep`, finalData, shouldFetch)
 

@@ -39,8 +39,12 @@ const Tabs: React.FC<{ tabs: Tab[]; filter?: React.ReactNode }> = ({
           </li>
         ))}
       </ul>
-      <div className="w-full whitespace-nowrap ">{filter && filter}</div>
-      <div className="h-100vh">{tabs[selectedTabIndex].content}</div>
+      <div className="w-full whitespace-nowrap  overflow-x-scroll overflow-y-hidden">
+        {filter && filter}
+      </div>
+      <div className="h-fit overflow-y-scroll">
+        {tabs[selectedTabIndex].content}
+      </div>
     </div>
   );
 };

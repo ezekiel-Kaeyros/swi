@@ -5,7 +5,7 @@ import CustomModal from '@/app/common/components/modal/Modal'
 import { ChannelClusterSvgIcon, DustbinIcon } from '@/app/common/components/svgs/SvgsIcons'
 import { useSettings } from '@/app/hooks/useSettings'
 import { copyLocalChannelCluster, deleteLocalChannelCluster, deleteLocalTradeChannel, linkLocalChannelClusterToTradeChannel } from '@/redux/features/channel-cluster-slice'
-import { IChannelClusterDataType, TradeChannel } from '@/redux/features/types'
+import { IChannelClusterDataType, TokenType, TradeChannel } from '@/redux/features/types'
 import React, { useState } from 'react'
 import { Handle, Position } from 'reactflow'
 import FlowCompHoverButtons from './flow-mini-components/FlowCompHoverButtons'
@@ -15,6 +15,8 @@ import { BASE_URL, CHANNELCLUSTER_API_URL, TRADECHANNEL_API_URL } from '@/utils/
 import { makePostReques } from '@/utils/makePostReq'
 import { useActivities } from '@/app/hooks/useActivities'
 import { generateId } from '@/utils/generateRandomID'
+import { getUserCookies } from '@/cookies/cookies'
+import { jwtDecode } from 'jwt-decode'
 
 const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => {
     const [ shouldUpdateCC, setShouldUpdateCC ] = useState (false)
@@ -70,13 +72,18 @@ const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => 
         })); 
     }
 
-    const creatTradeChannelInBE = async (tradeChannelLocalID: any) => {
+    const creatTradeChannelInBE = async (tradeChannelLocalID: any) => { 
+        const gettoken = getUserCookies();
+        // console.log(gettoken, 'datagettoken');
+        const decodeToken: TokenType = jwtDecode (gettoken)
+        // console.log(decodeToken, 'decodeToken');
         const foundTradeC = locaTradeChannels?.find((foundTC: TradeChannel) => {
             return foundTC?.id === tradeChannelLocalID
         })
         const newDataD = {
             name: foundTradeC?.name, 
-            id_company: "661e46da0c5460e02b3c492b", 
+            // id_company: "661e46da0c5460e02b3c492b", 
+            id_company: decodeToken?.user?.id_company,  
             channel_cluster_id: data?.id
         }
         // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER

@@ -1,13 +1,13 @@
 'use client';
 import { AppDispatch, RootState } from '@/redux/store';
-import { ACTIVITIES_ITEMS_USEQUERY_KEY, ACTIVITIES_USEQUERY_KEY, BASE_URL, CHANNEL_CLUSTER_USEQUERY_KEY, POS_USEQUERY_KEY, TRADE_CHANNEL_USEQUERY_KEY } from '@/utils/constants';
+import { ACTIVITIES_ITEMS_USEQUERY_KEY, ACTIVITIES_USEQUERY_KEY, BASE_URL, CATEGORY_API_URL, CATEGORY_USEQUERY_KEY, CHANNEL_CLUSTER_USEQUERY_KEY, POS_USEQUERY_KEY, ROUTE_API_URL, ROUTE_USEQUERY_KEY, TRADE_CHANNEL_USEQUERY_KEY } from '@/utils/constants';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 // import useMakeGetRequest from './useMakeGetRequest';
-import { addToggleStateToAllChannelCluster, createEdges, deleteEdge, loadAllChannelCluster, loadAllTradeChannels, loadLocalChannelClusterFromDBData } from '@/redux/features/channel-cluster-slice';
+import { createEdges, deleteEdge, loadAllCategories, loadAllChannelCluster, loadAllTradeChannels, loadLocalChannelClusterFromDBData } from '@/redux/features/channel-cluster-slice';
 // loadLocalChannelClusterFromDBData
 // import { useClientFormStep } from './useClientFormStep';
-import useMakeGetRequestRevalidate, { useMakeGetRequestRevalidateD } from './useMakeGetRequestRevalidate';
+import useMakeGetRequestRevalidate from './useMakeGetRequestRevalidate';
 import { loadAllPointOfSale } from '@/redux/features/create-point-of-sale-slice';
 // import { IChannelCluster } from '@/redux/features/types';
 import { extractArrayfromChannelCluster, tranformChannelCluster } from '@/utils/transformUsingMap';
@@ -21,8 +21,21 @@ export const useSettings = () => {
   
   // GET REQUEST FOR ALL CHANNEL CLUSTERS
   let { data, isLoading } = useMakeGetRequestRevalidate (`${ BASE_URL }/channelCluster`, CHANNEL_CLUSTER_USEQUERY_KEY); 
+
+  console.log(data, "ROUTE DATA1111")
   // GET REQUEST FOR ALL TRADE CHANNEL
   let { data: tradeChannelsLoad } = useMakeGetRequestRevalidate (`${ BASE_URL }/tradeChannel`, TRADE_CHANNEL_USEQUERY_KEY); 
+
+  let { data: categoryLoad } = useMakeGetRequestRevalidate (`${ BASE_URL }/${ CATEGORY_API_URL }`, CATEGORY_USEQUERY_KEY); 
+
+  // let { data: routeData } = useMakeGetRequestRevalidate (`${ BASE_URL }/${ ROUTE_API_URL }`, ROUTE_USEQUERY_KEY); 
+
+
+
+  // ACTION TO LOAD ALL CATEGORIES FROM REQUEST
+  dispatch(loadAllCategories({
+    allCategories: categoryLoad, 
+  }));
 
   // ACTION TO LOAD ALL CHANNEL CLUSTERS FROM REQUEST
   dispatch(loadAllChannelCluster({
@@ -68,6 +81,12 @@ export const useSettings = () => {
   // dispatch(loadLocalChannelClusterFromDBData({
   //   allChannelCluster: channelClusters, 
   // }));
+
+  const categories = useSelector(
+    (state: RootState) => state?.ChannelClusterReducer?.categories
+  );
+
+  // console.log(categories, "&&&&&&&&&&")
 
   const tradeChannels = useSelector(
     (state: RootState) => state?.ChannelClusterReducer?.tradeChannels
@@ -134,7 +153,7 @@ export const useSettings = () => {
   return { dispatch, deleteAndEdge, connectTwoNodes, selectedCatID, 
     edgesConnectingNodes, priorities, lastestHightCC, 
     localActivities, locaChannelClusters, 
-    locaTradeChannels, localCategories, 
+    locaTradeChannels, localCategories, categories,
     trackingList, channeClusterForSelectField, 
     extractedtArrayfromChannelCluster, isLoading, 
     channelClusters, tradeChannels, activities, 

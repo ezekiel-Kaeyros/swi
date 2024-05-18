@@ -1,4 +1,4 @@
-import { channelClusters } from '@/utils/channelCluster';
+import { channelClusters } from '@/core/utils/channelCluster';
 import { createSlice, current } from '@reduxjs/toolkit';
 import { IChannelCluster } from './types';
 import { addContentIfNotExist, addTradeChannel } from '../utils';

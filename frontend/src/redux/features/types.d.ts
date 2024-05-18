@@ -72,6 +72,7 @@ export type TradeChannels = TradeChannel []
 
 export interface IActivity {
   id: number | string;
+  _id?: string; 
   name: string;
   frequency: number;
   duration: number;
@@ -175,6 +176,7 @@ export type AgentFormValueType = {
   startDate: string; 
   avatar?: any
   team?: any, 
+  password?: string, 
   status?: boolean | Key | undefined | string, 
 };
 
@@ -283,6 +285,110 @@ export type GetAgentDataType = {
   createdAt: string;
   updatedAt: string;
   __v: number
+}
+
+
+// ROUTE PREPARATION TYPES FROM THE DATABSE
+
+export type BaseRouteActivityItem = {
+  _id: string,
+  priority: string,
+  channelClusters: string[],
+  tradeChannels: string[],
+  activitie: string,
+  categories: string[],
+  time: number,
+  frequency: number,
+  __v?: number
+}
+
+export type RouteActivitiesItem = {
+  _id: string
+  status?: boolean,
+  id: BaseRouteActivityItem, 
+}
+
+export type POSIdType = {
+  _id: string,
+  owner: string,
+  longitude: number,
+  latitude: number,
+  name: string,
+  location: string,
+  city: string,
+  firstStat: string,
+  secondStat: string,
+  channelCluster: string,
+  tradeChannel: string,
+  category: string,
+  createdAt?: any,
+  updatedAt?: any,
+  __v?: number
+}
+
+export type RoadItemType = {
+  _id: string,
+  taskIds: RouteActivitiesItem [],
+  roadId: string,
+  posId: POSIdType,
+  createdAt?: string,
+  updatedAt?: string,
+  __v?: number
+}
+
+export type SalesRepType = {
+  _id: string,
+  name: string,
+  dateOfBirth: string,
+  gender: string,
+  country: string,
+  region: string,
+  city: string,
+  streetAddress: string,
+  job: string,
+  departement: string,
+  reportingManager: string[],
+  startDate: string,
+  email: string,
+  createdAt?: string,
+  updatedAt?: string,
+  __v?: number
+}
+
+export type RoutePlanningType = {
+  _id?: string,
+  name?: string,
+  roadItems?: RoadItemType[],
+  saleRep?: SalesRepType,
+  createdAt?: string,
+  updatedAt?: string,
+  __v?: number
+}
+
+
+export type RouteRawTypeFromDB = {
+  _id: string,
+  name: string,
+  pos: POSIdType [],
+  saleRep: SalesRepType,
+  activities_items?: BaseRouteActivityItem [],
+  createdAt?: string,
+  updatedAt?: string,
+  __v?: 0
+}
+
+export type UserDataInToken = {
+  userId: string,
+  email: string,
+  role: string,
+  fullName: string,
+  id_company: string []
+}
+
+export type TokenType = {
+  user: UserDataInToken,
+  iat: number,
+  exp: number
 }
 
 // email: string;

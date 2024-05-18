@@ -10,7 +10,7 @@ import InfoWindowWrapper from './InfoWindowWrapper';
 import DefaultPOSMarker from '../../../../../public/icons/marker.svg';
 import Image from 'next/image';
 import Marker from '../markers/AddShopMarker';
-import { useToggleShopBarState } from '@/app/hooks/useToggleShopData';
+import { useToggleShopBarState } from '@/app/hooks/commons/useToggleShopData';
 import { toogleShopBottomSheet } from '@/redux/features/saleRep-slice';
 
 interface AdvancedMarkerProps {

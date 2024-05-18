@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { SlideInComponentProps } from './slideInComponent';
 import CloseSlidInIcon from '../../../../../public/icons/closeSlideInIcon.svg';
 import AnimateClick from '../animate-click/AnimateClick';
-import { useClickOutside } from '@/app/hooks/useClickOutside';
+import { useClickOutside } from '@/app/hooks/commons/useClickOutside';
 
 const SlideInComponent: React.FC<SlideInComponentProps> = ({
   title,

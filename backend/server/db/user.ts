@@ -36,6 +36,15 @@ export const updateUserResetPasswordToken = async (userId: string, token: string
 };
 
 export const createUser = async (body) => {
+  
+  // has password
+  // const salt = await bcryptjs.genSalt(10); 
+  // const hashedPassword = await bcryptjs.hash(password, salt); 
+
+  // const resultedBody = {
+  //   ...body, 
+    
+  // }
   const user = await User.create(body);
   return user;
 };

@@ -1,5 +1,5 @@
-import { pointOfSales } from '@/utils/pointOfSalesData';
-import { IPointOfSalesType } from '@/utils/types';
+import { pointOfSales } from '@/core/utils/pointOfSalesData';
+import { IPointOfSalesType } from '@/core/utils/types';
 import { createSlice, current } from '@reduxjs/toolkit';
 
 export type PointOfSaleViewState = {

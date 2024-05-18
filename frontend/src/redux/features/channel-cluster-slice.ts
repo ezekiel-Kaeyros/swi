@@ -46,6 +46,7 @@ export type ChannelClusterState = {
   pushNextChannelClusterDown?: number;
   lastestHightCC?: number; 
   edgesConnectingNodes?: EdgeType[], 
+  categories?: any;
 };
 
 const initialState: ChannelClusterState = {
@@ -62,6 +63,7 @@ const initialState: ChannelClusterState = {
   pushNextChannelClusterDown: 100, 
   lastestHightCC: 100, 
   edgesConnectingNodes: [], 
+  categories: [], 
 };
 
 
@@ -79,6 +81,12 @@ export const channelCluster = createSlice({
       const { allChannelCluster } = action?.payload; 
       // console.log(allChannelCluster, "Loaded all Channels Clusters")
       state.channelCluster = allChannelCluster
+    }, 
+
+    // ADDING ALL CHANNEL CLUSTER FROM DB AT ONCE
+    loadAllCategories: (state, action) => {
+      const { allCategories } = action?.payload; 
+      state.categories = allCategories
     }, 
 
     
@@ -849,7 +857,7 @@ export const { createChannelCluster, createLocalCategory,
   loadLocalChannelClusterFromDBData, 
   createGapBetweenElementOnCanvasCC, 
   copyLocalTradeChannel,
-  deleteLocalTradeChannel, createLocalChannelClusterFromDBData, copyLocalChannelCluster, deleteLocalChannelCluster, editLocalChannelCluster, createLocalChannelCluster, toggleStateToAllChannelClusterBuilder, addToggleStateToAllChannelCluster, loadCompanies, loadAllChannelCluster, loadAllTradeChannels, addNewTradeChannel, addSubCategory, 
+  deleteLocalTradeChannel, createLocalChannelClusterFromDBData, copyLocalChannelCluster, deleteLocalChannelCluster, editLocalChannelCluster, createLocalChannelCluster, toggleStateToAllChannelClusterBuilder, addToggleStateToAllChannelCluster, loadCompanies, loadAllChannelCluster, loadAllCategories, loadAllTradeChannels, addNewTradeChannel, addSubCategory, 
   linkLocalChannelClusterToTradeChannel, 
   linkLocalTradeChanneloCategory,
 } =

@@ -3,7 +3,9 @@ import { BASE_URL } from "./constants"
 export const makeGetReques = async (url: any) => {
   try {
     const response = await fetch (`${ url }`)
+    // console.log(",,,,+++", response)
     const result =  await response.json()
+    // console.log(",,,,+++", result)
     return result
   } catch (error) {
     alert(`Something went wrong (${error})`)

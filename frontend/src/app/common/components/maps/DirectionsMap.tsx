@@ -52,7 +52,7 @@ const DirectionsMap: React.FC<GeoCodeMapProps> = () => {
 
       // Display custom marker
       currentRoute?.pointOfSales.map((pos: any) =>
-        createMarker(pos, map, true, selectedRouteId, dispatch)
+        createMarker(pos, map, true, selectedRouteId as number, dispatch)
       );
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

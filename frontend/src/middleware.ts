@@ -5,6 +5,7 @@ import { i18n } from './i18n.config';
 
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
+import { getUserCookies } from './cookies/cookies';
 
 function getLocale(request: NextRequest): string | undefined {
   const negotiatorHeaders: Record<string, string> = {};
@@ -24,6 +25,27 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
+  const locale = getLocale(request);
+
+  console.log('token:', !request.cookies.get('user_data'));
+  console.log('Pathname:', pathname);
+  console.log('Locale:', locale);
+
+  // Define public and private paths
+  const publicPaths = [`/${locale}/login`]; // Public paths accessible to all
+  const privatePaths = [`/${locale}/sales-representative`, `/${locale}/`]; // Private paths accessible only to authenticated users
+
+  // Check if the user is not authenticated and trying to access private paths
+  if (
+    !request.cookies.get('user_data') &&
+    !publicPaths.includes(pathname)
+    // &&
+    // !publicPaths.includes(pathname)
+  ) {
+    // return NextResponse.redirect(new URL(`/${locale}/login`));
+    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+  }
+
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
@@ -33,6 +55,13 @@ export function middleware(request: NextRequest) {
         request.url
       )
     );
+  }
+
+  // Check if the user is authenticated and trying to access public paths
+  if (request.cookies.get('user_data') && publicPaths.includes(pathname)) {
+    
+    // return NextResponse.redirect('en/'); // Redirect authenticated user to dashboard
+    return NextResponse.redirect(new URL(`/${locale}/`, request.url));
   }
 }
 

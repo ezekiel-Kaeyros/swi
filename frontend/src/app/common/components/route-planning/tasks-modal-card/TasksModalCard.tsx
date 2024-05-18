@@ -6,54 +6,72 @@ import Image from 'next/image';
 import TaskIcon from '../../../../../../public/icons/TasksIcon.svg';
 import TaskChip from '../task-chip/TaskChip';
 import { Button } from '@nextui-org/react';
-import { addTaskToPointOfSales } from '@/redux/features/route-planning-slice';
+import { addTaskToPointOfSales, selectTaskForPOS, sumUpSelectedPOSActivitiesTime } from '@/redux/features/route-planning-slice';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
 import { useSettings } from '@/app/hooks/useSettings';
 import { IActivity } from '@/redux/features/types';
+import { getAllActivitiesForPOS } from '@/utils/getAllActivitiesForPOS';
+import { usePointOfSales } from '@/app/hooks/usePointOfSales';
+import { IPointOfSalesType } from '@/utils/types';
 
-const TasksModalCard = ({ posId }: { posId?: number }) => {
+const TasksModalCard = ( { posId, tasks }: { posId?: number | string, tasks?: IPointOfSalesType[] } ) => {
   const { dispatch, routes, selectedRouteId } = useRoutePlanning();
 
-  const { activities } = useSettings();
+  const { pointOfSales } = usePointOfSales(); 
 
-  // Adding task in the point of sales
-  const handleSelected = (id: number) => {
-    // Find selected Activity by id
-    let currentActivity = activities?.find(
-      (activity) => activity?.id.toString() === id.toString()
-    );
+  // USING SELECTED POS ID, FIND ITS OBJECT IN LIST OF POS 
+  const foundPOSObj = pointOfSales?.find((posC: IPointOfSalesType) => {
+    return posC?._id === posId
+  })
 
+  console.log("foundPOSObj,,,", foundPOSObj, pointOfSales, posId)
+
+  // SELECTING TASK FOR TO PERFORM AT THE POS
+  const handleSelected = (id: string, selected: boolean) => {
+
+    // FIND SELECTED ACTIVITY BY ID FROM THE LIST OF POS ACTIVITIES
+    let currentActivity = tasks?.find(
+      (activity) => activity?._id?.toString() === id?.toString()
+    ); 
+
+    // SELECT A TASK FROM THE LIST OF POS TASK
     dispatch(
-      addTaskToPointOfSales({
+      selectTaskForPOS({
         posId: posId,
         routeId: selectedRouteId,
-        currentActivity: currentActivity,
-        ActivityId: currentActivity?.id,
+        selected, 
+        ActivityId: currentActivity?._id,
       })
     );
+
+    // INCREMENT TIMER AFTER A TASK WAS SELECTED
+    dispatch(
+      sumUpSelectedPOSActivitiesTime({
+        posId: posId,
+        routeId: selectedRouteId
+      })
+    );
+
   };
 
-  // Find the routes and pos with id
+  // // FIND THE ROUTE
+  // let currentRoute = routes?.find((route: any) => route?.id === selectedRouteId);
 
-  let currentRoute = routes?.find((route) => route?.id === selectedRouteId);
+  // // FIND THE CORRESPONDING POS
+  // let currentPos = currentRoute?.pointOfSales?.find(
+  //   (pos: { _id: string }) => pos?._id?.toString() === posId?.toString()
+  // );
 
-  let currentPos = currentRoute?.pointOfSales?.find(
-    (pos: { id: number }) => pos?.id.toString() === posId?.toString()
-  );
+  // console.log(currentPos, "i want to add...", routes)
 
-  // Getting the length to be displayed
-  let tasksLength = currentPos?.tasks?.length;
+  // FOR THIS POS FIND ALL ALREADY SELECTED ACTIVITIES
+  const selectedActivities = tasks?.filter((task: any) => {
+    return task?.selected === true
+  })
+  // COUNT THE NUMBER OF SELECTED TASK FOR THIS ACTIVITY
+  let tasksLength = selectedActivities?.length;
 
-  // Filter activities according to the shop
-
-  const filteredActivities: IActivity[] = activities?.filter(
-    (activity) =>
-      activity?.channelCluster.toString() ===
-        currentPos?.channelCluster.toString() &&
-      activity?.tradeChannel.toString() ===
-        currentPos?.tradeChannel.toString() &&
-      activity?.category.toString() === currentPos?.category.toString()
-  );
+  console.log(tasksLength, "tasksLength i want to add...")
 
   return (
     <Popover placement="right-start" offset={10}>
@@ -61,14 +79,14 @@ const TasksModalCard = ({ posId }: { posId?: number }) => {
         <Button
           startContent={<Image src={TaskIcon} alt="Task icon" />}
           className={`${
-            tasksLength > 0 ? 'bg-buttonPrimary' : 'bg-transparent bg-white'
+            tasksLength! > 0 ? 'bg-buttonPrimary' : 'bg-transparent bg-white'
           } rounded-full py-4 px-5 w-fit border text-black text-base`}
         >
-          {tasksLength >= 1 ? (
+          {tasksLength! >= 1 ? (
             <div className="flex items-center">
               {tasksLength}{' '}
               <div className="ml-2">{`Activit${
-                tasksLength > 1 ? 'ies' : 'y'
+                tasksLength! > 1 ? 'ies' : 'y'
               }`}</div>
             </div>
           ) : (
@@ -86,15 +104,17 @@ const TasksModalCard = ({ posId }: { posId?: number }) => {
               Select activities
             </p>
             <div className="mt-2 flex flex-wrap gap-2 w-full">
-              {filteredActivities &&
-                filteredActivities?.map((value) => (
+              {/* THIS WILL REDESIGNED */}
+              {tasks &&
+                tasks?.map((value) => (
                   <TaskChip
-                    duration={value?.duration}
-                    posId={parseInt(`${posId}`)}
-                    handleSelected={(id) => handleSelected(id)}
-                    chipId={parseInt(`${value?.id}`)}
-                    key={value?.id}
-                    title={value?.name}
+                    duration={value?.time as number}
+                    posId={ posId as string }
+                    handleSelected={(id: string, selected: boolean) => handleSelected(id, selected)}
+                    chipId={ value?._id as string }
+                    key={value?._id}
+                    title={value?.channeCName as string}
+                    selected={ value?.selected }
                   />
                 ))}
             </div>
@@ -106,3 +126,14 @@ const TasksModalCard = ({ posId }: { posId?: number }) => {
 };
 
 export default TasksModalCard;
+
+
+
+{/* <TaskChip
+  duration={value?.duration}
+  posId={parseInt(`${posId}`)}
+  handleSelected={(id) => handleSelected(id)}
+  chipId={parseInt(`${value?.id}`)}
+  key={value?.id}
+  title={value?.name}
+/> */}

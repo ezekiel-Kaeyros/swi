@@ -136,7 +136,7 @@ var deleteActivityItem = function (activityData) { return __awaiter(void 0, void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, models_1.ActivitieItem.findByIdAndDelete({ _id: activityData.id })];
+                return [4 /*yield*/, models_1.ActivitieItem.findByIdAndDelete({ _id: activityData })];
             case 1:
                 deleteActivity = _a.sent();
                 if (!deleteActivity) {

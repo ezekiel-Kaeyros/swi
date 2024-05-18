@@ -22,11 +22,11 @@ export const LayoutDashboard: React.FC<{
         </div>
         <div
           className={`${
-            toggleSideBarState ? 'w-[calc(100%-85px)]' : 'w-[calc(100%-290px)]'
-          } ml-auto h-screen overflow-y-auto relative`}
+            toggleSideBarState ? 'w-[calc(100%-85px)]' : 'w-[calc(100%-290px)] '
+          } ml-auto  overflow-y-auto relative`}
         >
           <Header lang={lang} />
-          <div className="mt-[5rem]">{children}</div>
+          {children}
         </div>
       </div>
     </>

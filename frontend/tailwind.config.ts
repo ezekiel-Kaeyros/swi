@@ -15,16 +15,16 @@ const config: Config = {
       center: true,
       padding: '2rem',
       screens: {
-        'sm': '640px',
-      // => @media (min-width: 640px) { ... }
+        sm: '640px',
+        // => @media (min-width: 640px) { ... }
 
-        'md': '768px',
+        md: '768px',
         // => @media (min-width: 768px) { ... }
 
-        'lg': '1024px',
+        lg: '1024px',
         // => @media (min-width: 1024px) { ... }
 
-        'xl': '1280px',
+        xl: '1280px',
         // => @media (min-width: 1280px) { ... }
 
         // '2xl': '1536px',
@@ -39,12 +39,12 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
@@ -84,35 +84,35 @@ const config: Config = {
         hoverColorWhite: '',
         bgColorDark: '#323232',
         bgColorWhite: '',
-        // newPrimaryDark: "#242424", 
-        stepsMarkerBlue: "#3267E6",  
-        stepMarkNotSelected: "#9195F6", 
-        greyBg: "#969696", 
-        tomatoBg: "#FF5733", 
-        disabledNextButtonT: "#162E66", 
-        disabledText: "#5F8EFF", 
-        // normalInputBg: "#323232", 
-        // stepPassedBg: "#F7F9FF", 
-        // keepEditingBtnBg: "#600E18", 
-        // activeTextColor: "#6DE2A6", 
-        // activeBgColor: "#05522B", 
-        // pendingBgcolor: "#662314", 
-        // pendingTextColor: "#FF9A85", 
-        // optionContainerBg: "#1C1C1C", 
+        // newPrimaryDark: "#242424",
+        stepsMarkerBlue: '#3267E6',
+        stepMarkNotSelected: '#9195F6',
+        greyBg: '#969696',
+        tomatoBg: '#FF5733',
+        disabledNextButtonT: '#162E66',
+        disabledText: '#5F8EFF',
+        // normalInputBg: "#323232",
+        // stepPassedBg: "#F7F9FF",
+        // keepEditingBtnBg: "#600E18",
+        // activeTextColor: "#6DE2A6",
+        // activeBgColor: "#05522B",
+        // pendingBgcolor: "#662314",
+        // pendingTextColor: "#FF9A85",
+        // optionContainerBg: "#1C1C1C",
         // deemGray: "#BABABA",
-        // settingViewBottomBorderColor: "#3772FF", 
+        // settingViewBottomBorderColor: "#3772FF",
 
-        channelClusterMarkerBgColor: "#5F05D1", 
-        channelTradeMarkerBgColor: "#BF9BED", 
-        categorizationMarkerBgColor: "#323232", 
+        channelClusterMarkerBgColor: '#5F05D1',
+        channelTradeMarkerBgColor: '#BF9BED',
+        categorizationMarkerBgColor: '#323232',
         newPrimaryDark: '#1C1C1C',
         // stepsMarkerBlue: '#3267E6',
         // stepMarkNotSelected: '#9195F6',
         disabledNextButton: '#214499',
         normalInputBg: '#323232',
         stepPassedBg: '#F7F9FF',
-        keepEditingBtnBg: '#600E18', 
-        redishTextColor: "#F57B8A", 
+        keepEditingBtnBg: '#600E18',
+        redishTextColor: '#F57B8A',
         activeTextColor: '#6DE2A6',
         activeBgColor: '#05522B',
         pendingBgcolor: '#662314',
@@ -120,7 +120,7 @@ const config: Config = {
         optionContainerBg: '#1C1C1C',
         deemGray: '#BABABA',
         settingViewBottomBorderColor: '#3772FF',
-        blueO: "#065A82", 
+        blueO: '#065A82',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -180,6 +180,7 @@ const config: Config = {
   },
   plugins: [
     require('tailwindcss-animate'),
+
     nextui({
       themes: {
         light: {

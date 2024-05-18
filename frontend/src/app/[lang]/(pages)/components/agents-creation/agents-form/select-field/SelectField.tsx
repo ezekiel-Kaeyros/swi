@@ -8,14 +8,16 @@ type SelectFieldProps = {
   options?: OptionTypes;
   register: any;
   widthPercentage?: any;
-  ifExtra?: boolean;
+  ifExtra?: boolean; 
+  requiredInfo?: boolean; 
 };
 
 const SelectField: React.FC<SelectFieldProps> = ({
   title,
   options,
   name,
-  register,
+  register, 
+  requiredInfo, 
   widthPercentage,
   ifExtra,
 }) => {
@@ -25,7 +27,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         htmlFor={name}
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-        {title}
+        {title} { requiredInfo && <span className='text-red'>*</span>}
       </label>
       <select
         style={{

@@ -40,10 +40,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Providers>
             <APIProvider apiKey={apiKey}>
-              <body className={`${inter.className}  dark:bg-[#192428]`}>
-                <Header lang={lang} />
+              <body className={`${inter.className}`}>
+                {/* <Header lang={lang} /> */}
                 <div className="flex">
-                  <Sidebar /> <div className="w-full ">{children}</div>
+                  {/* <Sidebar />  */}
+                  <div className="w-full ">{children}</div>
                 </div>
               </body>
             </APIProvider>

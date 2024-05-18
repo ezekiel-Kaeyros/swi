@@ -97,6 +97,34 @@ const SalesRepActivitiesList: SalesRepActivities[] = [
     status: 'expired',
     step: '05',
   },
+  {
+    title: 'Follow up',
+    description:
+      'with customers who expressed interest in specific products or promotions.',
+    status: 'expired',
+    step: '05',
+  },
+  {
+    title: 'Follow up',
+    description:
+      'with customers who expressed interest in specific products or promotions.',
+    status: 'expired',
+    step: '05',
+  },
+  {
+    title: 'Follow up',
+    description:
+      'with customers who expressed interest in specific products or promotions.',
+    status: 'expired',
+    step: '05',
+  },
+  {
+    title: 'Follow up',
+    description:
+      'with customers who expressed interest in specific products or promotions.',
+    status: 'expired',
+    step: '05',
+  },
 ];
 
 const SalesRepAllActivitiesList: SalesRepActivities[] = [

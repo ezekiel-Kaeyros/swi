@@ -2,8 +2,10 @@
 import React from 'react'
 import useMakeGetRequestRevalidate from './useMakeGetRequestRevalidate'
 import { AGENT_USEQUERY_KEY, BASE_URL } from '@/utils/constants'
-import { AgentFormValuesMainTypeMain, GetAgentDataType } from '@/redux/features/types'
+import { AgentFormValuesMainTypeMain, GetAgentDataType, UserDataInToken } from '@/redux/features/types'
 import { provincesData } from '@/services/selectFieldsData'
+import { getUserCookies } from '@/cookies/cookies'
+import { jwtDecode } from 'jwt-decode'
 
 const useTranformAgentData = () => {
 
@@ -27,6 +29,11 @@ const useTranformAgentData = () => {
       }
     }) 
 
+    const gettoken = getUserCookies();
+    // console.log(gettoken, 'datagettoken');
+    const decodeToken: UserDataInToken = jwtDecode (gettoken)
+    // console.log(decodeToken, 'decodeToken');
+
     const finalD = {
       id: dat._id, 
       salesName: dat?.name, 
@@ -42,11 +49,18 @@ const useTranformAgentData = () => {
       region: findRegion, 
       jobTitle: dat?.job, 
       departement: dat?.departement, 
+      // reportingManager: {
+      //   id: dat?.reportingManager[0]?._id, 
+      //   name:`${dat?.reportingManager[0].first_name} ${dat?.reportingManager[0].last_name}`, 
+      //   extra: "Douala", 
+      // }, 
+
       reportingManager: {
-        id: dat?.reportingManager[0]?._id, 
-        name:`${dat?.reportingManager[0].first_name} ${dat?.reportingManager[0].last_name}`, 
+        id: decodeToken?.userId, 
+        name: decodeToken?.fullName, 
         extra: "Douala", 
-      } , 
+      }, 
+      
       streetAddress: dat?.streetAddress, 
       startDate: dat?.startDate.split("T")[0], // transformed so that it can be displayed in the field when editing
       status: true

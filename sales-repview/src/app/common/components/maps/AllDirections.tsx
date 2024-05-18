@@ -3,14 +3,14 @@ import React, { useEffect, useRef } from 'react';
 import { Map } from '@vis.gl/react-google-maps';
 import Directions from './Directions';
 import AdvancedMarkerWrapper from './AdvancedMarkerWrapper';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
-import { usePointOfSales } from '@/app/hooks/usePointOfSales';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
+import { usePointOfSales } from '@/app/hooks/commons/usePointOfSales';
 import { generateRandomBrightColor } from './map-utils/generateRandomColors';
 import InfoView from '../infoView/InfoView';
 import { toogleShopBottomSheet } from '@/redux/features/saleRep-slice';
-import { useToggleShopBarState } from '@/app/hooks/useToggleShopData';
+import { useToggleShopBarState } from '@/app/hooks/commons/useToggleShopData';
 
-const AllDirections = () => {
+const AllDirections = ({}) => {
   const { dispatch, routes, selectedRouteId } = useRoutePlanning();
   const { pointOfSales } = usePointOfSales();
   console.log('ALL ROUTES', routes);

@@ -1,4 +1,4 @@
-import { IPointOfSalesType } from '@/utils/types';
+import { IPointOfSalesType } from '@/core/utils/types';
 
 export const createMarker = async (
   shopDetails: IPointOfSalesType,

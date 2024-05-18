@@ -8,9 +8,11 @@ import ToggleSideBarReducer from './design/toggle-sidebar-slice';
 import HeaderReducer from '@/app/common/components/header/slice/header-title-slice';
 import AgentCreationReducer from './features/agent-creation';
 import ShopActions from './features/saleRep-slice';
+import RoadManagementReducer from './features/roard-management-slice';
 export const store = configureStore({
   reducer: {
     AuthReducer,
+    RoadManagementReducer,
     RoutePlanningReducer,
     pointOfSaleViewReducer,
     ChannelClusterReducer,

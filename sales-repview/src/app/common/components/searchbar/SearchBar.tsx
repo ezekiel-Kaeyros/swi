@@ -1,11 +1,14 @@
 'use client';
-import { pointOfSales, pointOfSalesSearch } from '@/utils/pointOfSalesData';
+import {
+  pointOfSales,
+  pointOfSalesSearch,
+} from '@/core/utils/pointOfSalesData';
 import React from 'react';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete';
 import { SearchbarProps, Item } from './searchbar';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
-import { IPointOfSalesType } from '@/utils/types';
+import { IPointOfSalesType } from '@/core/utils/types';
 
 const SearchBar: React.FC<SearchbarProps> = ({
   handleOnFocus,

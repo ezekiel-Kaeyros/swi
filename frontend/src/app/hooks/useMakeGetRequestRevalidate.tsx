@@ -49,6 +49,7 @@ const useMakeGetRequestRevalidate = (url: string, key?: string) => {
 
 }
 
+
 export default useMakeGetRequestRevalidate; 
 
 // export default useMakeGetRequestRevalidate;

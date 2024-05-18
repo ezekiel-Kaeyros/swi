@@ -18,7 +18,6 @@ const HeaderRoutePreparation = () => {
   const { routes, selectedRouteId, travelTime } = useRoutePlanning();
   const [showModal, setShowModal] = useState<boolean>(false);
 
-
   let currentRoute = routes?.filter((route) => route?.id === selectedRouteId);
 
   let totalTime = calculateTotalTimeFormated(currentRoute);
@@ -31,17 +30,17 @@ const HeaderRoutePreparation = () => {
         isOpen={showModal}
       />
       <div className="w-full">
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <SearchBar />
-        </div>
-        <div className="w-full flex-col flex mt-6 mb-4 justify-between">
+        </div> */}
+        <div className="w-full flex-col flex  mb-4 justify-between">
           <div className="flex items-center">
-            <h1 className="font-bold underline">
+            {/* <h1 className="font-bold underline">
               {currentRoute &&
                 currentRoute?.length !== 0 &&
                 currentRoute[0]?.routeName?.slice(0, 8)}
             </h1>
-            <Image className="ml-4" src={EditIcon} alt="Edit icon" />{' '}
+            <Image className="ml-4" src={EditIcon} alt="Edit icon" />{' '} */}
           </div>
           <div className="flex mt-6 justify-between w-full items-center space-x-4">
             <div className="flex items-center space-x-4">
@@ -57,7 +56,11 @@ const HeaderRoutePreparation = () => {
               )}
             </div>
             <div>
-              <Button icon={AddRouteIcon2} onClick={() => setShowModal(true)}>
+              <Button
+                className="bg-stepsMarkerBlue"
+                icon={AddRouteIcon2}
+                onClick={() => setShowModal(true)}
+              >
                 Save and Assign
               </Button>
               {/* <UserAssignModalCard /> */}

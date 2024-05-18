@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IActivity } from './types';
-import { activities } from '@/utils/activities';
+import { activities } from '@/core/utils/activities';
 
 export type ShopActions = {
   openShopActions: boolean;

@@ -45,31 +45,30 @@ export const navigation = [
   },
   {
     id: 6,
-    title: 'Route Planning',
+    title: 'Route Preparation',
     icon: RoutePlanningIcon,
-    url: '/',
+    url: '/route-preparation',
     submenus: [
-      {
-        subTitle: 'Route Preparation',
-        url: '/route-preparation',
-      },
-      {
-        subTitle: 'Route Optimization',
-        url: '#',
-      },
+      // {
+      //   subTitle: 'Route Preparation',
+      //   url: '/route-preparation',
+      // },
+      // {
+      //   subTitle: 'Route Optimization',
+      //   url: '#',
+      // },
       // {
       //   subTitle: 'Dynamic Tour',
       //   url: '#',
       // },
     ],
   },
-  ,
-  {
-    id: 7,
-    title: 'Sales Rep view',
-    icon: FieldOperationsIcon,
-    url: '/sales-rep-view',
-  },
+  // {
+  //   id: 7,
+  //   title: 'Sales Rep view',
+  //   icon: FieldOperationsIcon,
+  //   url: '/sales-rep-view',
+  // },
   // {
   //   id: 8,
   //   title: 'Sales',
@@ -150,5 +149,6 @@ export const navigation = [
   //     },
   //   ],
   // },
+  ,
   ,
 ];

@@ -1,76 +1,134 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import contactIconGreen from '../../../../../public/icons/contactIconGreen.svg';
-import userIconGreen from '../../../../../public/icons/userIconGreen.svg';
 import VictoryGardenImage from '../../../../../public/images/victoryGardenImage.jpg';
-import { Button } from '../button/Button';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
-import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
+import { addPOSToRoute } from '@/redux/features/route-planning-slice';
 import { IPointOfSalesType } from '@/utils/types';
+import { AddWhiteBGSvgIcon, CellPhoneSvgIcon, UserLosangeSvgIcon } from '../svgs/SvgsIcons';
+import { useSettings } from '@/app/hooks/useSettings';
+import { IChannelCluster, TradeChannel } from '@/redux/features/types';
+import { usePathname } from 'next/navigation';
+import { getAllActivitiesForPOS } from '@/utils/getAllActivitiesForPOS'; 
+import { useActivities } from '@/app/hooks/useActivities';
+
+// import contactIconGreen from '../../../../../public/icons/contactIconGreen.svg';
+// import userIconGreen from '../../../../../public/icons/userIconGreen.svg';
+// import { Button } from '../button/Button';
+// import { useActivities } from '@/app/hooks/useActivities';
 
 type InfoViewProps = {
   shopDetails: IPointOfSalesType;
 };
 
 const InfoViewRoutes: React.FC<InfoViewProps> = ({ shopDetails }) => {
-  const { selectedRouteId, dispatch } = useRoutePlanning();
+  console.log(shopDetails, "shopDetails1111")
+
+  const { selectedRouteId, dispatch } = useRoutePlanning(); 
+  const pathName = usePathname ()
+  const { localActivities } = useActivities ()
+  const currentPage = pathName.split("/")[pathName.split("/").length - 1]
+  const { categories, channelClusters, tradeChannels, activities } = useSettings(); 
+  console.log("activities|||", activities)
+
+  // GET CORRESPONDING CHANNEL CLUSTER
+  const correspondingLocalChannelCluster = channelClusters?.find((channeLC: IChannelCluster) => {
+    return channeLC?._id === shopDetails?.channelCluster
+  })
+
+  // GET CORRESPONDING TRADE CHANNEL
+  const correspondingLocalTradeChannel = tradeChannels?.find((tradeC: TradeChannel) => {
+    return tradeC?._id === shopDetails?.tradeChannel
+  })
+
+  // GET CORRESPONDING CATGORIES
+  const correspondingLocalCategories = categories?.find((cat: any) => {
+    return cat?._id === shopDetails?.category
+  })
+
+  // GET ALL ACTIVITIES RELATED TO A SPECIFIC POS
+  const isChannelClusterInActivities = getAllActivitiesForPOS (activities as [], shopDetails?.channelCluster as string)
+
+  console.log(isChannelClusterInActivities, "isChannelClusterInActivities") 
 
   const handleAddToRoute = () => {
     dispatch(
-      addPointOfSalesToRoute({
+      // addPointOfSalesToRoute({
+      //   routeId: selectedRouteId,
+      //   posId: shopDetails?._id,
+      // })
+      addPOSToRoute ({
         routeId: selectedRouteId,
-        posId: shopDetails?.id,
+        pos: {
+          ...shopDetails, 
+          tasks: isChannelClusterInActivities, 
+          taskTotalTime: 0, 
+        },
       })
     );
   };
 
   return (
-    <div>
-      <div className="bg-white max-w-[20rem] text-[#2C353A] p-4 rounded-xl">
+    <div className=' rounded-2xl w-[300px]'>      
+      <div className='bg-black'>
         <Image
-          className="rounded-xl w-full h-16 object-cover"
-          src={VictoryGardenImage}
-          alt="Image of the shop"
-        />
-        <div className="w-full mt-2">
-          <h1 className="font-bold">{shopDetails?.name}</h1>
-          <h3 className="opacity-80 text-sm pr-4 pb-2">
-            {shopDetails?.shopLocation}
-          </h3>
-
-          <div className="flex items-center   gap-2 w-full justify-start flex-wrap">
-            <div className="flex items-center pr-2 h-8 bg-[#CCEAF7] px-3 py-1 rounded-full">
-              <Image src={contactIconGreen} alt="Contact icon" />
-              <h1 className="text-sm ml-1.5">{shopDetails?.contact} </h1>
-            </div>
-
-            <div className="flex items-center pr-2 h-8 bg-[#CCEAF7] px-3 py-1 rounded-full">
-              <Image src={userIconGreen} alt="User icon" />
-              <h1 className="text-sm ml-1.5">{shopDetails?.shopOwner} </h1>
-            </div>
+            className=" w-full h-16 object-cover"
+            src={VictoryGardenImage}
+            alt="Image of the shop"
+          />
+      </div>
+      <div className='bg-black px-3 py-2 flex flex-col gap-4'>
+        <h1 className="font-bold text-white text-[20px]">{shopDetails?.name}</h1>
+        <h3 className="text-slate-100 text-[13px]">
+          {shopDetails?.location}
+        </h3>
+        <div className='flex flex-row justify-start gap-3 pb-4 rounded-2xl'>
+          <div className='flex flex-row'>
+            <CellPhoneSvgIcon />
+            <h3 className='text-slate-300 text-[14px]'>6758738094</h3>
           </div>
-          <h1 className="font-bold my-2">Tasks</h1>
-          <ul className="flex space-x-4 flex-wrap">
-            {shopDetails?.tasks?.map((value: any) => (
-              <li
-                className="px-2 py-1 rounded-full  text-sm bg-[#CCEAF7]"
-                key={value?.id}
-              >
-                {value?.name}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 mb-2">
-            {shopDetails?.tasks?.length !== 0 && (
-              <Button onClick={() => handleAddToRoute()} className="w-fit py-1">
-                Add to route
-              </Button>
-            )}
+          <div className='flex flex-row'>
+            <UserLosangeSvgIcon />
+            <h3 className='text-slate-300 text-[14px]'>{shopDetails?.owner}</h3>
           </div>
         </div>
+        <div className="mt-2 flex flex-wrap gap-2" >
+          {/* className='grid grid-cols-[repeat(auto-fit,minmax(50px,100px))]' */}
+          {/* DISPLAY CC */}
+          <div className='rounded-xl border-white border-1 px-3 py-1 ' style={{
+            backgroundColor: correspondingLocalChannelCluster?.color as string
+          }}>
+            <h1>{ correspondingLocalChannelCluster?.name }</h1>
+          </div>
+          {/* DISPLAY TC */}
+          <div className='rounded-xl border-white border-1 px-3 py-1' style={{
+            backgroundColor: correspondingLocalChannelCluster?.color as string
+          }}>
+            <h1>{ correspondingLocalTradeChannel?.name }</h1>
+          </div>
+          {/* DISPLAY CATEGORY */}
+          <div className='rounded-xl border-white border-1 px-3 py-1' style={{
+              backgroundColor: correspondingLocalChannelCluster?.color as string
+            }}>
+            <h1>{ correspondingLocalCategories?.name }</h1>
+          </div>
+
+        </div>
+
+        <div>
+          {
+            currentPage !== "point-of-sales" ? 
+              <button  onClick={() => handleAddToRoute()} className='bg-bgColorDark rounded-2xl p-3 flex flex-row items-center justify-center gap-2 cursor-pointer'>
+                <AddWhiteBGSvgIcon />
+                <span className='text-[16px]'>Add To Route</span>
+              </button>
+              : 
+              ""
+
+          }
+        </div>
       </div>
+
     </div>
   );
 };

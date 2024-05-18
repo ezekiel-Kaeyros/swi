@@ -5,7 +5,13 @@ import {ErrorCodes} from '../constants/ErrorCodes';
 let secret: string= 'swivy-app'
 
 export const createToken = (user: any) => {
-    return jwt.sign({ user: { userId: user._id, email: user.email } }, 'swivy-app', { expiresIn: '1h' });
+    return jwt.sign({ user: { 
+        userId: user._id, 
+        email: user.email, 
+        role: user.role, 
+        fullName: `${ user.first_name } ${ user.last_name }`, 
+        id_company: user.id_company 
+    } }, 'swivy-app', { expiresIn: '1h' });
 }
 
 export const verifyToken = (token: string) => {

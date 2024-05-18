@@ -15,6 +15,9 @@ import { createChannelCluster, createLocalChannelCluster, editLocalChannelCluste
 import { useMutation } from '@tanstack/react-query';
 import { BASE_URL } from '@/utils/constants';
 import { makePostReques, makePutReques } from '@/utils/makePostReq';
+import { getUserCookies } from '@/cookies/cookies';
+import { jwtDecode } from 'jwt-decode';
+import { TokenType, UserDataInToken } from '@/redux/features/types';
 
 const AddChannelClusterForm: React.FC<AddChannelClusterFormProps> = ({
   handleCloseModal, 
@@ -49,25 +52,35 @@ const AddChannelClusterForm: React.FC<AddChannelClusterFormProps> = ({
 
   const onSubmit: SubmitHandler<AddChannelClusterFormValues> = async (data) => {
 
+    const gettoken = getUserCookies();
+    // console.log(gettoken, 'datagettoken');
+    const decodeToken: TokenType = jwtDecode (gettoken)
+    // console.log(decodeToken, 'decodeToken');
+
     // MAKE A PUT REQUEST IF shouldUpdate IS TRUE ELSE DO POST REQUEST
-    if (shouldUpdate) {
-      const newDataS = {
-        name: data.name, 
-        id_company: "661d4c7ef54892933566b0be", 
-        color: color.hex, 
-        id: channelClusterIdForUpdate, 
-      }
-      // mutation.mutate(channelCluster as any)
-      const result = await makePutReques (`${ BASE_URL }/channelCluster/${ channelClusterIdForUpdate }`, newDataS)
+    if (decodeToken?.user?.role) {
+      if (shouldUpdate) {
+        const newDataS = {
+          name: data.name, 
+          id_company: decodeToken?.user?.id_company[0], 
+          color: color.hex, 
+          id: channelClusterIdForUpdate, 
+        }
+        // mutation.mutate(channelCluster as any)
+        const result = await makePutReques (`${ BASE_URL }/channelCluster/${ channelClusterIdForUpdate }`, newDataS)
+      } else {
+        const newDataS = {
+          name: data.name, 
+          id_company: decodeToken?.user?.id_company[0], 
+          color: color.hex, 
+        }
+        // mutation.mutate(channelCluster as any)
+        const result = await makePostReques (`${ BASE_URL }/channelCluster`, newDataS)
+      }    
+      
     } else {
-      const newDataS = {
-        name: data.name, 
-        id_company: "661d4c7ef54892933566b0be", 
-        color: color.hex, 
-      }
-      // mutation.mutate(channelCluster as any)
-      const result = await makePostReques (`${ BASE_URL }/channelCluster`, newDataS)
-    }    
+      alert("You are not allowed to be here !!!!")
+    }
 
     // CLOSE MODAL
     handleCloseModal();

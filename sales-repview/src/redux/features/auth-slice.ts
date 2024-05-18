@@ -1,36 +1,46 @@
+import { IUser } from '@/core/models/User';
 import { createSlice } from '@reduxjs/toolkit';
 
 // Just a boiler plate, this file needs to be updated
 
 type AuthState = {
-  user: {
-    id: string;
-    fullName: string;
-    email: string;
-    token: string;
-    role: any;
-    createdAt: string;
-  };
+  user: IUser;
+  token: string;
 };
 
 const initialState: AuthState = {
   user: {
-    id: '',
+    _id: '',
+    name: '',
+    dateOfBirth: new Date(),
+    gender: '',
+    country: '',
+    region: '',
+    city: '',
+    streetAddress: '',
+    job: '',
+    departement: '',
+    password: '',
+    reportingManager: [],
+    id_company: [],
     email: '',
-    token: '',
-    fullName: '',
-    role: '',
-    createdAt: `${new Date()}`,
+    startDate: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
+
+  token: '',
 };
 
 export const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, action) => {},
+    saveUserInfos: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { login } = auth.actions;
+export const { saveUserInfos } = auth.actions;
 export default auth.reducer;

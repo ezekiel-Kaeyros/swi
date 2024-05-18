@@ -64,7 +64,7 @@ const ShopPointOfSalesMap: React.FC<ShopPointOfSalesMapProps> = ({
               pos,
               map,
               true,
-              selectedRouteId,
+              selectedRouteId as number,
               dispatch,
               currentRoute,
               addPointOfSalesToRoute

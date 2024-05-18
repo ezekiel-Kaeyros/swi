@@ -61,8 +61,12 @@ router.post('/road', controllers_1.RoadController.saveRoad);
  */
 router.get('/pos', pos_1.default.getPos);
 router.get('/pos/:id', pos_1.default.getOnePos);
-router.post('/pos', (0, schemaValidator_1.default)('/pos'), pos_1.default.savePos);
-router.put('/pos/:id', (0, schemaValidator_1.default)('/pos'), pos_1.default.updatePos);
+router.post('/pos', 
+// schemaValidator('/pos'),
+pos_1.default.savePos);
+router.put('/pos/:id', 
+// schemaValidator('/pos'),
+pos_1.default.updatePos);
 router.delete('/pos/:id', pos_1.default.deletePos);
 /**
  * Task
@@ -89,7 +93,9 @@ router.get('/channelCluster/:id', channel_cluster_1.default.getOneChannelCluster
 router.post('/channelCluster', 
 //schemaValidator('/channelCluster'),
 channel_cluster_1.default.saveChannelCluster);
-router.put('/channelCluster/:id', (0, schemaValidator_1.default)('/channelCluster'), channel_cluster_1.default.updateChannelCluster);
+router.put('/channelCluster/:id', 
+// schemaValidator('/channelCluster'),
+channel_cluster_1.default.updateChannelCluster);
 router.delete('/channelCluster/:id', channel_cluster_1.default.deleteChannelCluster);
 /**
  * Trade Channel

@@ -43,19 +43,11 @@ import { ButtonProps } from '@nextui-org/react';
 import CustomButton from '@/app/common/components/button/CustonButton';
 
 const AgentForm = () => {
+
   // GET THE DISPATCH FROM HOOK
-  // const { dispatch } = useClientFormStep();
+  const { dispatch } = useClientFormStep (); 
 
-    // GET THE DISPATCH FROM HOOK
-    const { dispatch } = useClientFormStep (); 
-
-    // GETTING REACT HOOK ENGINE SET UP
-    // const { register, handleSubmit, setValue } = useForm<AgentFormValues>(); 
-    
-    // GETTING ALL OBJECT FOR THE FORM STEPS
-    // const { firstStepObj, secondStepObj, thirdStepObj, currentUser, currentSalesRepsAgent } = useGetStepObject (); 
-    
-    const { departmentData } = useTranformUserData ();
+  const { departmentData } = useTranformUserData ();
   // GETTING REACT HOOK ENGINE SET UP
   const { register, handleSubmit, setValue } = useForm<AgentFormValues>();
 
@@ -107,7 +99,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
             <div className="flex flex-col gap-2">
               <div className="flex flex-row justify-between gap-5">
                 <div className="relative w-[50%]">
-                  <h1>Sales Name</h1>
+                  <h1>Sales Name <span className='text-red'>*</span></h1>
                   <InputField
                     name="salesName"
                     register={register('salesName', {
@@ -129,7 +121,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                     name="dateOfBirth"
                     type="date"
                     register={register('dateOfBirth', {
-                      required: true,
+                      required: false,
                     })}
                     limit={new Date().toISOString().split('T')[0]}
                     placeholder="Select Birth date"
@@ -158,9 +150,9 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                                             />
                                         </PopoverContent>
                                     </Popover> */}
-                  <div className="absolute bottom-[25%] z-10 right-[20%]">
+                  {/* <div className="absolute bottom-[25%] z-10 right-[20%]">
                     <Image src={calendarIcon} width={20} alt="calendarIcon" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="grid grid-cols-[repeat(2,1fr)] gap-5">
@@ -171,6 +163,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                       required: true,
                     })}
                     title="Select Gender"
+                    requiredInfo={ true }
                     options={genderData}
                     widthPercentage={'100%'}
                   />
@@ -179,7 +172,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                   </div>
                 </div>
                 <div>
-                  <h1>Contact Details</h1>
+                  <h1>Contact Details <span className='text-red'>*</span> </h1>
                   <InputField
                     name="contactDetails"
                     type="number"
@@ -192,9 +185,9 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                   />
                 </div>
               </div>
-              <div className="flex flex-row justify-between pr-[1rem]">
-                <div className="w-[50%]">
-                  <h1>E-mail Address</h1>
+              <div className="grid grid-cols-[repeat(2,1fr)] gap-5">
+                <div className="">
+                  <h1>E-mail Address <span className='text-red'>*</span> </h1>
                   <InputField
                     name="emailAddress"
                     type="email"
@@ -203,10 +196,37 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                       // minLength: 10
                       // pattern: /[a-zA-Z0-9,_]$/,
                     })}
-                    placeholder="Select Gender"
+                    placeholder="Enter Email"
+                  />
+                </div>
+                <div className="">
+                  <h1>Password <span className='text-red'>*</span> </h1>
+                  <InputField
+                    name="password"
+                    type="password"
+                    register={register('password', {
+                      required: true,
+                      // minLength: 10
+                      // pattern: /[a-zA-Z0-9,_]$/,
+                    })}
+                    placeholder="Enter Password"
                   />
                 </div>
               </div>
+              {/* <div className="flex flex-row justify-between pr-[1rem]">
+                <div className="w-[50%]">
+                  <h1>E-mail Address <span className='text-red'>*</span> </h1>
+                  <InputField
+                    name="emailAddress"
+                    type="email"
+                    register={register('emailAddress', {
+                      required: true,
+
+                    })}
+                    placeholder="Select Gender"
+                  />
+                </div>
+              </div> */}
             </div>
 
             <div className="flex justify-end gap-9">
@@ -246,7 +266,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
               <div className="flex flex-col gap-[1.5rem]">
                 <div className="grid grid-cols-[repeat(2,1fr)] gap-5">
                   <div>
-                    <h1>Country</h1>
+                    <h1>Country <span className='text-red'>*</span></h1>
                     <InputField
                       name="country"
                       register={register('country', {
@@ -265,6 +285,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                         },
                       })}
                       title="State/Province"
+                      requiredInfo={ true }
                       options={provincesData}
                       widthPercentage={'100%'}
                     />
@@ -283,7 +304,8 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                           fillSelect(e, 'region', provincesData, setValue);
                         },
                       })}
-                      title="City"
+                      title="City" 
+                      requiredInfo={ true }
                       options={provincesData}
                       widthPercentage={'100%'}
                       ifExtra={true}
@@ -294,7 +316,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                   </div>
 
                   <div>
-                    <h1>Street Address</h1>
+                    <h1>Street Address <span className='text-red'>*</span></h1>
                     <InputField
                       name="streetAddress"
                       register={register('streetAddress', {
@@ -370,8 +392,9 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                     <InputField
                       name="jobTitle"
                       register={register('jobTitle', {
-                        required: true,
+                        // required: true,
                       })}
+                      
                       placeholder="Select Job Position"
                     />
                   </div>
@@ -414,6 +437,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                           );
                         },
                       })}
+                      requiredInfo={ true }
                       title="Reporting Manager"
                       options={departmentData}
                       widthPercentage={'100%'}
@@ -423,7 +447,7 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                     </div>
                   </div>
                   <div className="relative">
-                    <h1>Start Date</h1>
+                    <h1>Start Date <span className='text-red'>*</span></h1>
                     {/* <InputField
                                             name="dateOfBirth"
                                             type='date'
@@ -441,13 +465,13 @@ const onSubmit: SubmitHandler<AgentFormValues> = async (data) => {
                       })}
                       placeholder="Start Date"
                     />
-                    <div className="absolute bottom-[25%] z-10 right-[20%] ">
+                    {/* <div className="absolute bottom-[25%] z-10 right-[20%] ">
                       <Image
                         src={closeIconStartDateIcon}
                         width={20}
                         alt="calendarIcon"
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

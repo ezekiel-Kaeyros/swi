@@ -86,7 +86,7 @@ export const updateArrayActivity = async (Data: any): Promise<any> =>{
 export const deleteActivity =  async(activityData: any): Promise<any> =>{
     try{
         const deleteActivity = await Activities.findByIdAndDelete(
-            {_id: activityData.id }
+            {_id: activityData }
         )
         if (!deleteActivity){
             throw new Error('L\'activité  avec l\'ID fourni n\'a pas été trouvée.')

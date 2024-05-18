@@ -1,8 +1,8 @@
 'use client';
-import { useHeaderTitle } from '@/app/hooks/useHeaderTitle';
 import NavBar from './navbar/NavBar';
 import { useEffect } from 'react';
 import { setTitle } from './slice/header-title-slice';
+import { useHeaderTitle } from '@/app/hooks/commons/useHeaderTitle';
 
 export default function Header({
   lang,

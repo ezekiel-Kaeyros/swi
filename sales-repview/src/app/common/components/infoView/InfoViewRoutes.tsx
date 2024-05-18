@@ -5,9 +5,9 @@ import contactIconGreen from '../../../../../public/icons/contactIconGreen.svg';
 import userIconGreen from '../../../../../public/icons/userIconGreen.svg';
 import VictoryGardenImage from '../../../../../public/images/victoryGardenImage.jpg';
 import { Button } from '../button/Button';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
-import { IPointOfSalesType } from '@/utils/types';
+import { IPointOfSalesType } from '@/core/utils/types';
 
 type InfoViewProps = {
   shopDetails: IPointOfSalesType;

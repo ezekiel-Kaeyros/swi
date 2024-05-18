@@ -11,6 +11,7 @@ export type AgentFormValues = {
     jobTitle: string; 
     departement: string; 
     reportingManager: string; 
-    startDate: string;
+    startDate: string; 
+    password?: string; 
 };
   

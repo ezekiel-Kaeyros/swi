@@ -26,7 +26,7 @@ export default function RootLayout({
       <Head>
         <meta name="description">{'SWIVY APP'}</meta>
       </Head>
-      <body className={`font-articulat dark:bg-[#192428]`}>
+      <body className={`font-articulat bg-white dark:bg-[#192428]`}>
         {/* ${inter.className}  */}
         <LayoutComponent lang={lang}>{children}</LayoutComponent>
       </body>

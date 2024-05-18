@@ -44,6 +44,110 @@ import { IActivity } from './features/types';
 //   return routes;
 // }
 
+export function sumDurations(arrayOfObjects: any) {
+  return arrayOfObjects?.reduce(
+    (sum: any, obj: { time: any, selected: boolean }) => sum + obj.time, 0
+  );
+}
+
+export const selectPOSActivities = (routes: any, posId: string, routeId: string, ActivityId: string, selected: boolean) => {
+  // FIND THE ROUTE
+  const routeToUpdate = routes.find(
+    (route: { id: number }) => route.id.toString() === routeId.toString()
+  );
+  // FIND THE POS
+  if (routeToUpdate) {
+    const pointOfSalesToUpdate = routeToUpdate.pointOfSales.find(
+      (pos: { _id: string }) => pos?._id?.toString() === posId?.toString()
+    );
+
+    if (pointOfSalesToUpdate) {
+      const newRoute = routes?.map ((rout: any) => {
+        if (rout.id.toString() === routeId.toString()) {
+          const newPos = rout?.pointOfSales?.map ((pos: any) => {
+            if (pos?._id?.toString() === posId?.toString()) {
+              const newActities = pos?.tasks?.map((task: any) => {
+                if (task?._id === ActivityId) {
+                  return {
+                    ...task, 
+                    selected: !task?.selected
+                  }
+                }
+                return task; 
+              })
+
+              return {
+                ...pos, 
+                tasks: newActities
+              }
+            }
+            return pos
+          })
+          return {
+            ...rout, 
+            pointOfSales: newPos
+          }
+        }
+        return rout
+      })
+      return newRoute
+    } else {
+      return routes
+    }
+  } else {
+    return routes
+  }
+}
+
+export const sumUpSelectedPOSActivities = (routes: any, posId: string, routeId: string) => {
+  // FIND THE ROUTE
+  const routeToUpdate = routes.find(
+    (route: { id: number }) => route.id.toString() === routeId.toString()
+  );
+  // FIND THE POS
+  if (routeToUpdate) {
+    const pointOfSalesToUpdate = routeToUpdate.pointOfSales.find(
+      (pos: { _id: string }) => pos?._id?.toString() === posId?.toString()
+    );
+
+    if (pointOfSalesToUpdate) {
+      const newRoute = routes?.map ((rout: any) => {
+        if (rout.id.toString() === routeId.toString()) {
+          const newPos = rout?.pointOfSales?.map ((pos: any) => {
+            if (pos?._id?.toString() === posId?.toString()) {
+              const findAllSelectedTask = pos?.tasks?.filter?.((tas: any) => {
+                if (tas?.selected === true) {
+                  return tas
+                }
+              })
+              const claculateSelectedTaskTotalTime = sumDurations(findAllSelectedTask); 
+              // taskTotalTime
+              return {
+                ...pos, 
+                taskTotalTime: claculateSelectedTaskTotalTime, 
+              }
+            }
+            return pos
+          })
+          return {
+            ...rout, 
+            pointOfSales: newPos
+          }
+        }
+        return rout
+      })
+      return newRoute
+    } else {
+      return routes
+    }
+  } else {
+    return routes
+  }
+  // FIND THE ACTIVITY
+  // CHANGE THE ACTIVITY STATUS 
+  return routes
+}
+
 // Alternative
 export function updateTasksInPointOfSales(
   routes: any,
@@ -51,6 +155,7 @@ export function updateTasksInPointOfSales(
   posId: number,
   task: IActivity // Change the parameter type to a single IActivity object
 ) {
+  console.log()
   // Find the route with the specified routeId
   const routeToUpdate = routes.find(
     (route: { id: number }) => route.id.toString() === routeId.toString()
@@ -59,7 +164,7 @@ export function updateTasksInPointOfSales(
   if (routeToUpdate) {
     // Find the pointOfSales with the specified posId
     const pointOfSalesToUpdate = routeToUpdate.pointOfSales.find(
-      (pos: { id: number }) => pos?.id?.toString() === posId?.toString()
+      (pos: { _id: string }) => pos?._id?.toString() === posId?.toString()
     );
 
     if (pointOfSalesToUpdate) {
@@ -70,10 +175,11 @@ export function updateTasksInPointOfSales(
 
       // Check if the task already exists in the tasks array
       const taskIndex = pointOfSalesToUpdate.tasks.findIndex(
-        (t: IActivity) =>
-          t?.name.toLocaleLowerCase().toString() ===
+        (t: IActivity) =>{
+          console.log("mmmt", t)
+          return t?.name.toLocaleLowerCase().toString() ===
           task?.name?.toLocaleLowerCase().toString() // Adjust this line based on your actual object comparison criteria
-      );
+      });
 
       console.log('tab index', taskIndex);
 
@@ -85,6 +191,7 @@ export function updateTasksInPointOfSales(
         // Add the task to the tasks array
         pointOfSalesToUpdate.tasks.push(task);
       }
+      console.log(pointOfSalesToUpdate, "lllpointOfSalesToUpdate")
     } else {
       console.error(`Point of sales with ID ${posId} not found.`);
     }

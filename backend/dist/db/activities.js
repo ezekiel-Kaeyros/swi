@@ -157,7 +157,7 @@ var deleteActivity = function (activityData) { return __awaiter(void 0, void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, models_1.Activities.findByIdAndDelete({ _id: activityData.id })];
+                return [4 /*yield*/, models_1.Activities.findByIdAndDelete({ _id: activityData })];
             case 1:
                 deleteActivity_1 = _a.sent();
                 if (!deleteActivity_1) {

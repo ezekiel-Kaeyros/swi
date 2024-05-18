@@ -5,7 +5,7 @@ import { ICategory } from "../models/category";
 export const findAllCategory = async  (): Promise<ICategory[]> => {
     try{
         const Allcategory = await Category.find()
-        .populate('trade_channel_id')
+        .populate('trade_chanel_id')
         .populate('id_company');
         return Allcategory
     }catch(error){
@@ -18,7 +18,7 @@ export const findCategoryById = async (id:string):Promise<ICategory[]> => {
     try{
         const query = {_id: id};
         const category = await Category.findById(query)
-        .populate('trade_channel_id')
+        .populate('trade_chanel_id')
         .populate('id_company');
         return category;
     }catch(error){

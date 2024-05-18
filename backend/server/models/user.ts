@@ -43,9 +43,11 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-    },
+    }, 
+    id_company: [{type: Schema.Types.String, ref: 'Company'} ],
     resetPasswordToken: String,
-  },
+  }, 
+
   {
     timestamps: true,
   }
@@ -79,6 +81,7 @@ UserSchema.methods.isValidPassword = async function (password: string) {
 
   return compare;
 };
+
 UserSchema.methods.fullName = async function () {
   const user = this as IUser;
   return user?.first_name + ' ' + user?.last_name;

@@ -1,8 +1,8 @@
 import { Map } from '@vis.gl/react-google-maps';
 import AdvancedMarkerWrapper from './AdvancedMarkerWrapper';
-import { usePointOfSales } from '@/app/hooks/usePointOfSales';
+import { usePointOfSales } from '@/app/hooks/commons/usePointOfSales';
 import InfoViewRoutes from '../infoView/InfoViewRoutes';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 
 export default function PosMapRoutes() {
   const position = { lat: 3.8852761566538545, lng: 11.502079803888337 };

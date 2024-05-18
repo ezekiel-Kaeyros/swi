@@ -2,7 +2,7 @@ import DataService from './dataService';
 
 export default class AuthService extends DataService {
   login = (data: { email: string; password: string }) => {
-    this.post('/auth/login', data);
+    this.post('http://localhost:4000/login', data);
     return;
   };
 

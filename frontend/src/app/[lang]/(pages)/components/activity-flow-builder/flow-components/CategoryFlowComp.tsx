@@ -31,7 +31,7 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
   const [ objectData, setObjectData ] = useState<any> (); 
   const { dispatch, connectTwoNodes, deleteAndEdge, locaChannelClusters, localActivities, locaTradeChannels, tradeChannels, localCategories, edgesConnectingNodes, activities, channelClusters } = useSettings(); 
 
-  console.log("datadatadata", data)
+  // console.log("datadatadata", data)
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -47,14 +47,14 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
 
   const searchTradeChannel = () => {
     const foundTradeChannel = tradeChannels?.find((tradC: any) => {
-      console.log(tradC, "tradCto")
+      // console.log(tradC, "tradCto")
       return tradC?._id === data.trade_chanel_id
     })
-    console.log(foundTradeChannel, "foundTradeChannel++")
+    // console.log(foundTradeChannel, "foundTradeChannel++")
     setFoundTradeChannel(foundTradeChannel )
 
     const foundChannelC = foundTradeChannel?.channel_cluster_id
-    console.log(foundChannelC, "foundChannelC++")
+    // console.log(foundChannelC, "foundChannelC++")
     setFoundChannelC (foundChannelC);
 
     setObjectData({
@@ -67,7 +67,7 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
     searchTradeChannel ()
   }, [foundTradeChannel, foundChannelC,])
 
-  console.log("datadatadata", data)
+  // console.log("datadatadata", data)
 
   const deleteCC = () => {
     const confirmation = confirm(`Do You want to remove Channel Cluster ${data.name}`);

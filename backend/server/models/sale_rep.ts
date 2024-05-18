@@ -1,4 +1,5 @@
 import mongoose, { Document } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 
@@ -21,9 +22,9 @@ const SaleRepSchema = new Schema(
     trim: true,
     },
     region: {
-        type: String,
-        trim: true,
-      },
+      type: String,
+      trim: true,
+    },
     city: {
     type: String,
     trim: true,
@@ -40,12 +41,18 @@ const SaleRepSchema = new Schema(
     type: String,
     default: false,
     },
+
+    password: {
+      type: String,
+      default: false,
+    }, 
     reportingManager: [
         {
           type: Schema.Types.ObjectId,
           ref: 'User',
         },
       ], 
+    id_company: [{type: Schema.Types.String, ref: 'Company'} ],
     startDate: {
       type: Date,
       trim: true,
@@ -53,19 +60,25 @@ const SaleRepSchema = new Schema(
     status: {
       type: String,
       trim: true,
-    },
-  
+    }, 
+    contact: {
+      type: Number,
+      trim: true,
+    }, 
     email: {
       type: String,
       trim: true,
       unique: true,
       required: true,
     },
+    
   },
   {
     timestamps: true,
   }
 );
+
+
 
 export interface ISaleRep extends Document {
   email: string;
@@ -74,13 +87,31 @@ export interface ISaleRep extends Document {
   gender?:string;
   country?: string;
   region: string;
-  streetAddress: string;
+  streetAddress: string; 
+  password: string; 
   job?: string;
-  departement?: string;
+  departement?: string; 
+  contact?: number; 
   reportingManager?: any;
   startDate?: string;
-  status?: string;
+  status?: string; 
+  isValidPassword: (password: string) => Promise<boolean>;
 }
+
+SaleRepSchema.pre<ISaleRep>('save', async function (next) {
+  if (this.password) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+  }
+  next();
+});
+
+SaleRepSchema.methods.isValidPassword = async function (password: string) {
+  const salesRep = this as ISaleRep;
+  const compare = await bcrypt.compare(password, salesRep.password);
+
+  return compare;
+};
 
 
 export default mongoose.model<ISaleRep>('SaleRep', SaleRepSchema);

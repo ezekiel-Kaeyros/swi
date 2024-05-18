@@ -32,7 +32,7 @@
     "@types/react-dom": "^18.2.7",
     "@vis.gl/react-google-maps": "^0.4.3",
     "autoprefixer": "10.4.15",
-    "axios": "^1.4.0",
+    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cross-env": "^7.0.3",
@@ -61,13 +61,15 @@
     "react-search-autocomplete": "^8.5.2",
     "server-only": "^0.0.1",
     "sharp": "^0.33.3",
+    "socket.io-client": "^4.7.5",
     "swr": "^2.2.5",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.1.6",
     "uuid": "^9.0.1",
-    "vaul": "^0.9.0"
+    "vaul": "^0.9.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.4",

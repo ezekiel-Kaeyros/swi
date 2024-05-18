@@ -1,5 +1,5 @@
 'use client';
-import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
+import useChangeNavigationItem from '@/app/hooks/commons/useChangeNavigationItem';
 import React from 'react';
 
 type NavigationItemType = {

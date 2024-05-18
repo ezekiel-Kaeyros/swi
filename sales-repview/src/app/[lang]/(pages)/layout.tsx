@@ -4,12 +4,12 @@ import { Inter } from 'next/font/google';
 import Head from 'next/head';
 
 import LayoutComponent from './LayoutComponent';
-import { ReactQueryProvider } from '@/providers/reactQueryProvider/ReactQueryProvider';
+import { ReactQueryProvider } from '@/core/providers/reactQueryProvider/ReactQueryProvider';
 import ReduxProvider from '@/redux/provider';
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { ThemeProvider } from 'next-themes';
-import { Providers } from '@/providers/nextui/providers';
-import { OnlineStatusProvider } from '@/providers/OnLineStatusProvider';
+import { Providers } from '@/core/providers/nextui/providers';
+import { OnlineStatusProvider } from '@/core/providers/OnLineStatusProvider';
 import { Toaster } from 'react-hot-toast';
 
 // import AgentForm from '@/app/common/components/agents-creation/agents-form/AgentForm';

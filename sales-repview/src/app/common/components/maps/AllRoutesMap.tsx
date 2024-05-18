@@ -4,8 +4,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { createMarker } from './createMarker';
 
 import styles from './mapview.module.css';
-import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 
 interface GeoCodeMapProps {
   onMapClick?: (lat: number, lng: number) => void;

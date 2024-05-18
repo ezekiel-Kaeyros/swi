@@ -10,7 +10,7 @@ interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const InputField: React.FC<InputFieldProps> = ({
   register,
-  svg, 
+  svg,
   title,
   name,
   icon,
@@ -28,12 +28,14 @@ const InputField: React.FC<InputFieldProps> = ({
         </label>
       )}
       <input
-        className="appearance-none relative rounded-xl w-full py-4 px-12 leading-tight bg-bgColorDark focus:outline-none focus:border-buttonPrimary focus:dark:bg-bgColorDark dark:text-white pr-16"
+        className={`appearance-none relative rounded-xl w-full py-4 ${
+          icon ? 'px-12' : 'px-8'
+        } leading-tight bg-bgColorDark focus:outline-none focus:border-buttonPrimary focus:dark:bg-bgColorDark dark:text-white pr-16`}
         id={name}
         type={type ? type : 'text'}
         placeholder={placeholder}
         autoComplete="off"
-        autoFocus
+        autoFocus={false}
         {...register}
       />
       {icon && (
@@ -43,13 +45,13 @@ const InputField: React.FC<InputFieldProps> = ({
           alt="Icon"
         />
       )}
-      {svg ? 
-      (
+      {svg ? (
         <div className="absolute ml-4 mt-auto mb-auto left-0 top-[30%]">
-          { svg }
+          {svg}
         </div>
-      )
-      : "" }
+      ) : (
+        ''
+      )}
     </div>
   );
 };

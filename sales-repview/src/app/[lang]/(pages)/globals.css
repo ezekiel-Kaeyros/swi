@@ -24,3 +24,22 @@ body {
   overflow-y: hidden;
   /* font-family: "articulat"; */
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+:-webkit-scrollbar-track {
+  background: #252b2d;
+  border-radius: 38px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #484848;
+  border-radius: 38px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: #484848 #252b2d;
+  }
+}

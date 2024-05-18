@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Map } from '@vis.gl/react-google-maps';
 import Directions from './Directions';
 import AdvancedMarkerWrapper from './AdvancedMarkerWrapper';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import InfoView from '../infoView/InfoView';
 
 const ReactDirectionsMap = () => {

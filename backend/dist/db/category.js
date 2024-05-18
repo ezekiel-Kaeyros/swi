@@ -56,7 +56,7 @@ var findAllCategory = function () { return __awaiter(void 0, void 0, void 0, fun
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, models_1.Category.find()
-                        .populate('trade_channel_id')
+                        .populate('trade_chanel_id')
                         .populate('id_company')];
             case 1:
                 Allcategory = _a.sent();
@@ -78,7 +78,7 @@ var findCategoryById = function (id) { return __awaiter(void 0, void 0, void 0, 
                 _a.trys.push([0, 2, , 3]);
                 query = { _id: id };
                 return [4 /*yield*/, models_1.Category.findById(query)
-                        .populate('trade_channel_id')
+                        .populate('trade_chanel_id')
                         .populate('id_company')];
             case 1:
                 category = _a.sent();

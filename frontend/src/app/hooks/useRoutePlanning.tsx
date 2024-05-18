@@ -1,8 +1,28 @@
 import { AppDispatch, RootState } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import useMakeGetRequestRevalidate from './useMakeGetRequestRevalidate';
+import { BASE_URL, ROUTE_API_URL, ROUTE_USEQUERY_KEY } from '@/utils/constants';
+import { loadRouteFromDB } from '@/redux/features/route-planning-slice';
+import { RoutePlanningType, RouteRawTypeFromDB } from '@/redux/features/types';
 
 export const useRoutePlanning = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  let { data: routeData } = useMakeGetRequestRevalidate (`${ BASE_URL }/${ ROUTE_API_URL }`, ROUTE_USEQUERY_KEY); 
+  // let { data: routeData } = useMakeGetRequestRevalidate (`http://localhost:4000/roads`, ROUTE_USEQUERY_KEY); 
+
+  // console.log(routeData, "ROUTE DATA2222")
+
+  dispatch(loadRouteFromDB({
+    newRoute: routeData, 
+  }));
+
+  const dbRoutes: RouteRawTypeFromDB [] = useSelector(
+    (state: RootState) => state.RoutePlanningReducer?.dbRoutes!
+  );
+
   const routes:
     | [
         {
@@ -44,10 +64,16 @@ export const useRoutePlanning = () => {
     (state: RootState) => state?.RoutePlanningReducer.showAllRoutes
   );
 
-  const dispatch = useDispatch<AppDispatch>();
+  const showPOSMap = useSelector(
+    (state: RootState) => state?.RoutePlanningReducer.showPOSMap
+  );
+
+  
+
+  
 
   return {
-    routes,
+    routes, dbRoutes, 
     dispatch,
     searchedPointOfSales,
     searchedSalesAgent,
@@ -55,5 +81,6 @@ export const useRoutePlanning = () => {
     selectedRouteId,
     toggleMapsValue,
     showAllRoutes,
+    showPOSMap, 
   };
 };

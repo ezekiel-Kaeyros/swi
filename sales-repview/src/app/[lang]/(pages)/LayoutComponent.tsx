@@ -7,8 +7,8 @@ const LayoutComponent = ({ children, lang }: any) => {
   const currentRoute = usePathname();
 
   return (
-    <div className="w-full flex flex-col h-[100dvh] bg-primaryDark">
-      <div className="w-full h-[100vh]">{children}</div>
+    <div className="w-full flex flex-col  bg-primaryDark">
+      <div className="w-full h-[100dvh] ">{children}</div>
 
       <NavigationBar
         tab={currentRoute.split('/').at(-1) || 'home'}

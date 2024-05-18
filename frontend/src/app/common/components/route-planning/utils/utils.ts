@@ -18,8 +18,8 @@ export function calculateTotalTime(data: any) {
       (sum: number, pos: any) =>
         sum +
         (pos?.tasks || []).reduce(
-          (taskSum: any, task: { duration: any }) =>
-            taskSum + (task.duration || 0),
+          (taskSum: any, task: { time: any }) =>
+            taskSum + (task?.time || 0),
           0
         ),
       0
@@ -34,8 +34,8 @@ export function calculateTotalTimeFormated(data: any) {
       (sum: number, pos: any) =>
         sum +
         (pos?.tasks || []).reduce(
-          (taskSum: any, task: { duration: any }) =>
-            taskSum + (task.duration || 0),
+          (taskSum: any, task: { time: any }) =>
+            taskSum + (task?.time || 0),
           0
         ),
       0

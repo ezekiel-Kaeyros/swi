@@ -7,14 +7,23 @@ import RevenueGraph from '../../../../public/images/revenueChart.svg';
 import RevenueByLocationGraph from '../../../../public/images/revenueByLocationChart.svg';
 import SalesGraph from '../../../../public/images/salesGraph.svg';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import RevenueCard from '@/app/common/components/home/revenue-card/RevenueCard';
 import RevenueByLocationCard from '@/app/common/components/home/revenue-by-location-card/RevenueByLocationCard';
 import TopSellingProductsCard from '@/app/common/components/home/top-selling-products-card/TopSellingProductsCard';
 import TopSalesCard from '@/app/common/components/home/top-sales-card/TopSalesCard';
+import { getUserCookies } from '@/cookies/cookies';
+import { jwtDecode } from "jwt-decode";
+
 
 const Home = () => {
+
+  
+  const gettoken = getUserCookies();
+  console.log(gettoken, 'datagettoken');
+  const decodeToken = jwtDecode (gettoken)
+  console.log(decodeToken, 'decodeToken');
 
   return (
     <div className="w-full my-16">

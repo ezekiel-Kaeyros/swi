@@ -4,7 +4,7 @@ import GeoCodeMap from './GeoCodeMap';
 import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
 import { useDispatch } from 'react-redux';
 import './mapview.module.css';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 
 interface ShopMarkerType {
   shopDetails: any;

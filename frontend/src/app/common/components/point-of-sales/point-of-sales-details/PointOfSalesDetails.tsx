@@ -23,8 +23,10 @@ const PointOfSalesDetails = ({ posDetails }: { posDetails: any }) => {
             <CardBody>
               <PointOfSalesDetailsInformation
                 name={posDetails?.name}
-                shopLocation={posDetails?.shopLocation}
-                shopOwner={posDetails?.shopOwner}
+                // shopLocation={posDetails?.shopLocation}
+                shopLocation={posDetails?.location}
+                // shopOwner={posDetails?.shopOwner}
+                shopOwner={posDetails?.owner}
                 image={posDetails?.image}
                 contact={posDetails?.contact}
                 recentSalesAgent={posDetails?.recentSalesAgent}

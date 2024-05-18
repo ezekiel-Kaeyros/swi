@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
 import { calculateAndDisplayRoute } from './map-utils/calculatRoute';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 
 const Directions = ({ color, route }: { color?: string; route?: any }) => {
   const map = useMap();

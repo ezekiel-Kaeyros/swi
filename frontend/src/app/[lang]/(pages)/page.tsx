@@ -8,7 +8,6 @@ import AgentModal from '@/app/[lang]/(pages)/components/agents-creation/AgentMod
 import AddActivityForm from '@/app/common/components/forms/add-activity-form/AddActivityForm';
 import React, { useState } from 'react';
 
-
 export default function HomePage({}) {
   return (
     <div className="h-full p-8 2xl:w-11/12 mx-auto relative">
@@ -20,10 +19,8 @@ export default function HomePage({}) {
       <Home />
       {/* <GeoCodeMap address="Bonamoussadi, Douala" /> */}
       {/* {<GoogleReactMap />} */}
-
-      <AllDirections />
-
-      <RealTimeMap />
+      {/* <AllDirections /> */}
+      {/* <RealTimeMap /> */}
     </div>
   );
 }

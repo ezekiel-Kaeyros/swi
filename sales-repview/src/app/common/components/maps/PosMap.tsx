@@ -1,12 +1,12 @@
 'use client';
 import { Map } from '@vis.gl/react-google-maps';
 import AdvancedMarkerWrapper from './AdvancedMarkerWrapper';
-import { usePointOfSales } from '@/app/hooks/usePointOfSales';
+import { usePointOfSales } from '@/app/hooks/commons/usePointOfSales';
 import InfoView from '../infoView/InfoView';
 import { updateSelectedPlace } from '@/redux/features/create-point-of-sale-slice';
 import { usePathname } from 'next/navigation';
 import InfoViewRoutes from '../infoView/InfoViewRoutes';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 
 export default function PosMap() {
   const position = { lat: 3.8852761566538545, lng: 11.502079803888337 };
@@ -64,11 +64,12 @@ export default function PosMap() {
             key={pos.id}
             markerColor={pos.markerColor}
           >
-            {hasNumberInUrl(pathname) ? (
+            {/* {hasNumberInUrl(pathname) ? (
               <InfoViewRoutes shopDetails={pos} />
             ) : (
               <InfoView shopDetails={pos} />
-            )}
+            )} */}
+            <div>fdsjfhsjkf</div>
           </AdvancedMarkerWrapper>
         );
       })}

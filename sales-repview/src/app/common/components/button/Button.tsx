@@ -4,7 +4,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import React, { ButtonHTMLAttributes, FC } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@/utils/utils';
+import { cn } from '@/core/utils/utils';
 import AnimateClick from '../animate-click/AnimateClick';
 import { Spinner } from '@nextui-org/react';
 

@@ -7,8 +7,8 @@ exports.activitieItemSchema = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var Schema = mongoose_1.default.Schema;
 exports.activitieItemSchema = new Schema({
-    priority: { type: Number, required: true },
-    colors: { type: String, required: true },
+    priority: { type: String, required: true },
+    colors: { type: String, required: false },
     channelClusters: [{ type: Schema.Types.ObjectId, ref: 'ChannelCluster' }],
     tradeChannels: [{ type: Schema.Types.ObjectId, ref: 'TradeChannel' }],
     activitie: { type: Schema.Types.ObjectId, ref: 'Activities' },

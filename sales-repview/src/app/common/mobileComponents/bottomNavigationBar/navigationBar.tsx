@@ -14,7 +14,7 @@ export default function NavigationBar({
   const [currentTab, setCurrentTab] = useState(tab);
 
   return (
-    <div className="justify-between flex h-[64px] bg-primaryDark border-t-2 border-gray-600 ">
+    <div className="absolute bottom-0 w-full justify-between flex h-[64px] bg-primaryDark border-t-2 border-gray-600 ">
       {navbarMenuItems.map((item, key) => {
         return (
           <div

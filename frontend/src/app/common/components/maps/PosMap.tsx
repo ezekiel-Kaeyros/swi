@@ -9,14 +9,21 @@ import InfoViewRoutes from '../infoView/InfoViewRoutes';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
 import { useSettings } from '@/app/hooks/useSettings';
 import { IChannelCluster } from '@/redux/features/types';
+import POSFilter from '../pos-filter/POSFilter';
+import { IPointOfSalesType } from '@/utils/types';
+import Shop from '../../../../../public/icons/shop.svg';
+import Box from '../../../../../public/icons/posBox.svg';
+import { useState } from 'react';
 
 export default function PosMap() {
   const position = { lat: 3.8852761566538545, lng: 11.502079803888337 };
 
-  const { pointOfSales, dispatch } = usePointOfSales(); 
+  const { pointOfSales, dispatch } = usePointOfSales();
   const { channelClusters } = useSettings();
 
-  console.log("pointOfSales___", pointOfSales, channelClusters)
+  console.log('pointOfSales___', pointOfSales, channelClusters);
+
+  const [finalPOS, setFinalPOS] = useState(pointOfSales);
 
   const { selectedRouteId, routes } = useRoutePlanning();
 
@@ -53,48 +60,117 @@ export default function PosMap() {
 
   console.log('path', pathname);
 
+  const filterPosOnMap = (id: string) => {
+    let result = pointOfSales.filter((pos: IPointOfSalesType) => {
+      return pos?.channelCluster === id;
+    });
+    setFinalPOS(result);
+    // return result
+  };
+  const getAllPosOnMap = (id: string) => {
+    setFinalPOS(pointOfSales);
+    // return pointOfSales
+  };
+
   return (
+    <>
       <Map
         center={position}
         zoom={15}
         mapId={'6fc7264e643ee8b1'}
         onClick={handleMapClick}
       >
-        {pointOfSales?.map((pos: any) => {
+        {finalPOS?.map((pos: any) => {
           console.log('position of poss', pos.position);
 
           const position = {
-            lat: pos?.latitude, 
-            lng: pos?.longitude, 
-          }
+            lat: pos?.latitude,
+            lng: pos?.longitude,
+          };
 
-          const foundChannelCluster = channelClusters?.find((cc: IChannelCluster) => {
-            console.log (cc, "||||")
-            // if (cc._id === pos?.channelCluster) {
-            //   return cc
-            // }
-            return cc._id === pos?.channelCluster
-          })
-          console.log(foundChannelCluster, "||||")
+          const foundChannelCluster = channelClusters?.find(
+            (cc: IChannelCluster) => {
+              console.log(cc, '||||');
+              // if (cc._id === pos?.channelCluster) {
+              //   return cc
+              // }
+              return cc._id === pos?.channelCluster;
+            }
+          );
+          console.log(foundChannelCluster, '||||');
           return (
             <AdvancedMarkerWrapper
               // position={pos.position}
-              position={ position }
+              position={position}
               active={true}
               // key={pos.id}
               key={pos._id}
               // markerColor={pos.markerColor}
-              markerColor={ foundChannelCluster?.color as any }
+              markerColor={foundChannelCluster?.color as any}
             >
-              {hasNumberInUrl(pathname) ? (
+              {/* {hasNumberInUrl(pathname) ? (
                 <InfoViewRoutes shopDetails={pos} />
               ) : (
                 <InfoView shopDetails={pos} />
-              )}
+              )} */}
+              <InfoViewRoutes shopDetails={pos} />
             </AdvancedMarkerWrapper>
           );
         })}
       </Map>
+      <div className="absolute bottom-[5%] left-[50%]  flex items-center  justify-between overflow-hidden w-100vh ">
+        <div className="flex items-center rounded-full bg-[#242424] w-fit p-4 scale-85">
+          <POSFilter
+            filterPosOnMap={getAllPosOnMap}
+            icon={Shop}
+            bgColor="#323232"
+            col={`#fff`}
+            stat="All"
+          />
+          {channelClusters && channelClusters?.length > 0
+            ? channelClusters?.map((cChan: IChannelCluster) => {
+                return (
+                  <div key={cChan?._id as string}>
+                    <POSFilter
+                      filterPosOnMap={filterPosOnMap}
+                      icon={Box}
+                      bgColor={cChan?.color as string}
+                      col={`#DFCDF6`}
+                      stat={cChan?.name}
+                      id={cChan?._id as string}
+                    />
+                  </div>
+                );
+              })
+            : null}
+        </div>
+
+        {/* <POSFilter
+            icon={Box}
+            bgColor="#5F05D1"
+            col={`#DFCDF6`}
+            stat="Wholesalling"
+          />
+          <POSFilter
+            icon={FolderConnection}
+            bgColor="#D99125"
+            col={`#F7E9D3`}
+            stat="Modern trade"
+          />
+          <POSFilter
+            icon={Coffee}
+            bgColor="#28666E"
+            col={`#AED0D4`}
+            stat="General trade"
+          />
+          <POSFilter
+            icon={Coffee}
+            bgColor="#BD2D87"
+            col={`#F2D5E7`}
+            stat="E-commerce"
+          /> */}
+      </div>
+    </>
     // <div className='h-[90vh]'>
     // </div>
   );

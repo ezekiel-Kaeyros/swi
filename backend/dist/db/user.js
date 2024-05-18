@@ -171,7 +171,7 @@ var deleteUser = function (id) { return __awaiter(void 0, void 0, void 0, functi
     var user;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, models_1.User.findByIdAndRemove(id)];
+            case 0: return [4 /*yield*/, models_1.User.findByIdAndDelete(id)];
             case 1:
                 user = _a.sent();
                 return [2 /*return*/, user];

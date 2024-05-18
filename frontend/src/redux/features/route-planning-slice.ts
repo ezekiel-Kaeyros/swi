@@ -3,22 +3,27 @@ import { createSlice, current } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import {
   addUniquePointOfSale,
+  selectPOSActivities,
+  sumUpSelectedPOSActivities,
   updateSalesRepresentative,
   updateTaskStatus,
   updateTasksInPointOfSales,
 } from '../utils';
 import { users } from '@/utils/usersData';
 import { routes } from '@/utils/routes';
+import { RoutePlanningType, RouteRawTypeFromDB } from './types';
 
 // Just a boiler plate, this file needs to be updated
 
 type RoutePlanningState = {
   searchedSalesPointValue: string;
-  searchedSalesAgent: string;
-  selectedRouteId: number;
+  searchedSalesAgent: string; 
+  selectedRouteId: number | string;
   toggleMaps: boolean;
   travelTime: number;
-  showAllRoutes: boolean;
+  showAllRoutes: boolean; 
+  showPOSMap: boolean; 
+  dbRoutes?: RouteRawTypeFromDB [], 
   routes:
     | [
         {
@@ -47,6 +52,8 @@ const initialState: RoutePlanningState = {
   toggleMaps: false,
   travelTime: 360,
   routes: routes,
+  showPOSMap: false, 
+  dbRoutes: [], 
 };
 
 // Remove a point of sales function
@@ -56,13 +63,24 @@ export const routePlanning = createSlice({
   initialState,
   reducers: {
     createRoute: (state, action) => {
-      state.selectedRouteId = state.selectedRouteId + 10;
+      state.selectedRouteId = state.selectedRouteId as number + 10; 
       state.routes.push({
         id: state.selectedRouteId,
         salesRepresentative: [''],
         routeName: `Route-${uuidv4()}`,
         pointOfSales: [],
       });
+    },
+
+    loadRouteFromDB: (state, action) => {
+      const { newRoute } = action?.payload;
+      
+      state.dbRoutes = newRoute;
+    },
+
+    displayPOSMap: (state, action) => {
+      const { posMapDisplayState } = action?.payload;
+      state.showPOSMap = posMapDisplayState; 
     },
 
     // Set active route
@@ -77,7 +95,7 @@ export const routePlanning = createSlice({
       const { showAllRoutes } = action.payload;
 
       state.showAllRoutes = showAllRoutes;
-      state.selectedRouteId = 20;
+      // state.selectedRouteId = 20;
     },
 
     // Toggling maps
@@ -87,10 +105,8 @@ export const routePlanning = createSlice({
     },
 
     // Adding a point of sale to a route
-
     addPointOfSalesToRoute: (state, action) => {
-      const { routeId, posId } = action?.payload;
-
+      const { routeId, posId } = action?.payload; 
       const pointOfSalesById = pointOfSales?.find(
         (pos) => pos?.id.toString() === posId?.toString()
       );
@@ -103,6 +119,36 @@ export const routePlanning = createSlice({
 
       state.routes = updatedRoutes;
     },
+
+    addPOSToRoute: (state, action) => {
+      const { routeId, pos } = action?.payload; 
+
+      console.log (routeId, pos, "routeId, posId??")
+
+      const updatedRoutes = state?.routes?.map((rout: any) => {
+        console.log(rout, "inside rout map", rout?.id)
+        if (rout?.id === routeId) {
+          console.log(rout, "inside if")
+          const findIfPOSAlreadySaved = rout.pointOfSales.find((routPos: any) => {
+            return routPos?._id === pos?._id
+          })
+          if (findIfPOSAlreadySaved) {
+            return rout
+          }
+          const result = [...rout.pointOfSales, pos]
+          return {
+            ...rout, 
+            pointOfSales: result
+          }
+        }
+        return rout
+      })
+
+      console.log("updatedRoutes: ", updatedRoutes)
+
+      state.routes = updatedRoutes;
+    },
+
     // Removes point of sales from route
     removePointOfSalesFromRoute: (state, action) => {
       const { routeId, posId } = action.payload;
@@ -141,7 +187,14 @@ export const routePlanning = createSlice({
 
     // Adds tasks to each point of sales
     addTaskToPointOfSales: (state, action) => {
-      const { posId, routeId, currentActivity, ActivityId } = action.payload;
+      let { posId, routeId, currentActivity, ActivityId } = action.payload; 
+
+      console.log("inside handleSelect", posId, routeId, currentActivity, ActivityId)
+
+      currentActivity = {
+        ...currentActivity, 
+        selected: true
+      }
 
       let updatedRoutes = updateTasksInPointOfSales(
         state?.routes,
@@ -150,20 +203,37 @@ export const routePlanning = createSlice({
         currentActivity
       );
 
+      console.log(updatedRoutes, "right after handleSelect")
+
       state.routes = updatedRoutes;
     },
+
+    selectTaskForPOS: (state, action) => {
+      let { posId, routeId, ActivityId, selected } = action.payload; 
+      let updatedRoutes = selectPOSActivities (state.routes, posId, routeId, ActivityId, selected); 
+      state.routes = updatedRoutes; 
+    }, 
+
+    sumUpSelectedPOSActivitiesTime: (state, action) => {
+      let { posId, routeId } = action.payload; 
+      let updatedRoutes = sumUpSelectedPOSActivities (state.routes, posId, routeId); 
+      state.routes = updatedRoutes; 
+    }, 
+
+    // sumUpSelectedPOSActivities
 
     // Assign route to a sells representative
 
     assignRouteToSalesRepresentative: (state, action) => {
-      const { routeId, salesRepId } = action?.payload;
+      const { routeId, salesRepId, foundAgent } = action?.payload;
 
       let salesRep = users?.find((user) => user?.id === salesRepId);
 
       let updatedRoutes = updateSalesRepresentative(
         state.routes,
         routeId,
-        salesRep?.name
+        // salesRep?.name
+        foundAgent?.id
       );
 
       state.routes = updatedRoutes;
@@ -190,13 +260,15 @@ export const {
   createRoute,
   addPointOfSalesToRoute,
   removePointOfSalesFromRoute,
-  deleteRoute,
+  deleteRoute, loadRouteFromDB, 
   updatePointOfSalesOrder,
-  toggleMaps,
+  toggleMaps, selectTaskForPOS, 
   addTaskToPointOfSales,
   assignRouteToSalesRepresentative,
-  selectedRoute,
+  selectedRoute, addPOSToRoute, 
+  sumUpSelectedPOSActivitiesTime, 
   displayAllRoutes,
-  updateActivityStatus,
+  updateActivityStatus, 
+  displayPOSMap, 
 } = routePlanning.actions;
 export default routePlanning.reducer;

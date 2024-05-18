@@ -6,7 +6,7 @@ export const findAllRoadItem = async (): Promise<any[]> => {
       const roadItems = await RoadItem.find()
         .populate({
           path: 'taskIds.id',
-          model: 'Task',
+          model: 'ActivitieItem',
         })
         .populate({
           path: 'posId',
@@ -28,7 +28,7 @@ export const findOneRoadItem = async (roadItemId: string): Promise<any | null> =
     const roadItem: any = await RoadItem.findById(roadItemId)
       .populate({
         path: 'taskIds.id',
-        model: 'Task',
+        model: 'ActivitieItem',
       })
       .populate({
         path: 'posId',
@@ -69,7 +69,7 @@ export const updateRoadItem = async (roadItemId: string, updates: Partial<IRoadI
       const updatedRoadItem = await RoadItem.findByIdAndUpdate(roadItemId, updates, { new: true })
         .populate({
           path: 'taskIds',
-          model: 'Task',
+          model: 'ActivitieItem',
         })
         .populate({
           path: 'posId',
@@ -87,6 +87,9 @@ export const updateRoadItem = async (roadItemId: string, updates: Partial<IRoadI
 export const deleteRoadItem = async (roadItemId: string): Promise<any> => {
     try {
       const deletedRoadItem = await RoadItem.findByIdAndDelete(roadItemId);
+      if (!deletedRoadItem){
+        throw new Error('La route avec l\'ID fourni n\'a pas été trouvée.')
+      }
       return deleteRoadItem
     } catch (error) {
       console.error(`Error deleting road item with ID ${roadItemId}:`, error.message);
@@ -108,3 +111,20 @@ const transformRoadItems = (roadItems: any[]): any[] => {
     posId: undefined,
   }));
 };
+
+
+// export const deleteRoadItem =  async(activityData: any): Promise<any> =>{
+
+//   try{
+//       const deleteActivity = await ActivitieItem.findByIdAndDelete(
+//           {_id: activityData }
+//       )
+//       if (!deleteActivity){
+//           throw new Error('L\'activité  avec l\'ID fourni n\'a pas été trouvée.')
+//       }
+//       return deleteActivity;
+//   }catch(error){
+//       console.log('Error deleting activity ', error.message)
+//       throw error
+//   }
+// }

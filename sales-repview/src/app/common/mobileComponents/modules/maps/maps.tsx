@@ -1,7 +1,7 @@
 'use client';
 import HeaderBellSvgIcon from '@/app/common/components/SvgCustomIcons/ringSvgIcon';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tabs, { Tab } from './components/tabs';
 import ActivitiesMaps from './bottomSheetshop/activities-maps';
 import PosMap from '@/app/common/components/maps/PosMap';
@@ -13,6 +13,12 @@ import DailyActivityTasks from './bottomsheet-taks-and-activities/dailyActivityT
 import DailyTasks from './bottomsheet-taks-and-activities/dailyTasks';
 import DataActions from './bottomsheetDataActions/dataAction';
 import AllDirections from '@/app/common/components/maps/AllDirections';
+import { useGetRoads, useManagePosInStore } from '@/app/hooks/API/usePos';
+import { useManageUserInStore } from '@/app/hooks/API/useAuth';
+import { getRoards } from '@/redux/features/roard-management-slice';
+import Road from '@/core/models/Roads';
+import { getUserCookies } from '@/core/cookies/cookies';
+import { IUser } from '@/core/models/User';
 
 const IconsHeaders = ({
   setTabs,
@@ -77,6 +83,23 @@ const IconsHeaders = ({
 };
 
 export default function Maps() {
+  const { road, dispatch } = useManagePosInStore();
+  const user = getUserCookies();
+  console.log(user);
+  console.log(user?._id);
+  const roads = useGetRoads(user?._id || '');
+  const [myRoutes, setMyRoutes] = useState<Road[]>([]);
+  console.log(roads.data?.data);
+  useEffect(() => {
+    if (roads.data?.data !== undefined) {
+      setMyRoutes(roads.data?.data);
+    }
+
+    return () => {};
+  }, [roads.data?.data]);
+
+  console.log(myRoutes);
+
   const [tabs, setTabs] = useState('settings');
   const [currentSelectedSHop, setCurrentSelectedSHop] = useState(0);
   const [bottomSheet, setBottomSheet] = useState<
@@ -143,7 +166,7 @@ export default function Maps() {
           />
         </svg>
       ),
-      content: <AllActivites />,
+      content: <AllActivites roads={myRoutes} />,
     },
     {
       title: 'Activities (10)',
@@ -161,7 +184,7 @@ export default function Maps() {
           />
         </svg>
       ),
-      content: <DailyActivityTasks />,
+      content: <DailyActivityTasks roads={myRoutes} />,
     },
     {
       title: 'Tasks (20)',
@@ -179,7 +202,7 @@ export default function Maps() {
           />
         </svg>
       ),
-      content: <DailyTasks />,
+      content: <DailyTasks roads={myRoutes} />,
     },
   ];
 
@@ -230,23 +253,18 @@ export default function Maps() {
           openModal={() => setBottomSheet('add')}
         />
       </div>
-      <div className="w-full h-full  text-white">
-        <AllDirections />
-      </div>
 
-      {/** Bottomsheet Modal for settings */}
-      {tabs === 'settings' && bottomSheet === 'settings' && (
-        <BottomSheet
-          type="Simple"
-          isOpen={bottomSheet === 'settings'}
-          close={() => setBottomSheet(null)}
-          title="Daily Tasks"
-          className={`h-[102%]  ${
-            bottomSheet === 'settings'
-              ? 'animate-sheet-up'
-              : 'animate-sheet-down'
-          } `}
-        >
+      <div className="w-full h-full  text-white mt-[60px] ">
+        <div className="p-4 w-full mx-auto flex  ">
+          <div className="  w-full flex text-start justify-start items-start">
+            {' '}
+            <span className="text-[32px]  leading-[40px] text-white font-bold">
+              {' '}
+              Daily Tasks
+            </span>
+          </div>
+        </div>
+        <div className=" w-full h-screen ">
           <Tabs
             tabs={dailyTaskTabs}
             filter={
@@ -257,6 +275,23 @@ export default function Maps() {
               />
             }
           />
+        </div>
+      </div>
+
+      {/** Bottomsheet Modal for settings */}
+      {tabs === 'settings' && bottomSheet === 'settings' && (
+        <BottomSheet
+          type="empty"
+          isOpen={bottomSheet === 'settings'}
+          close={() => setBottomSheet(null)}
+          title="Daily Tasks"
+          className={`h-[102%]  ${
+            bottomSheet === 'settings'
+              ? 'animate-sheet-up'
+              : 'animate-sheet-down'
+          } `}
+        >
+          <AllDirections />
         </BottomSheet>
       )}
       {/** Bottomsheet Modal Actions */}

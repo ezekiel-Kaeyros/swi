@@ -3,6 +3,7 @@ import React from 'react';
 import PointOfSalesCard from '../point-of-sales-card/PointOfSalesCard';
 import { IPointOfSalesType } from '@/utils/types';
 import { useSettings } from '@/app/hooks/useSettings';
+import RPPointOfSalesCard from '../point-of-sales-card/RPPointOfSalesCard';
 
 const ListItem = ({
   item,
@@ -20,11 +21,14 @@ const ListItem = ({
   const getChannelClusterNameById = (id: string | number) => {
     const foundChannel = channelClusters?.find(
       (cluster: any) => {
-        console.log(cluster, "bnbnbnbnbnbn", id)
-        return cluster?._id!.toString() === id?.toString()}
+        console.log(cluster, "bnbnbnbnbnbn", id, item)
+        // return cluster?._id!.toString() === id?.toString()
+        return cluster?._id === id
+      }
+        
     );
-
-    return foundChannel?.name;
+    // return foundChannel?.name;
+    return foundChannel;
   };
 
   return (
@@ -35,15 +39,15 @@ const ListItem = ({
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <PointOfSalesCard
-        category={`${getChannelClusterNameById(item?.category)}`}
-        channelCluster={item?.id}
+      <RPPointOfSalesCard
+        category={ item?.category as string }
+        channelCluster={ getChannelClusterNameById(item?.channelCluster as string) }
         totalActivitiesDuration={item?.totalActivitiesDuration}
         tradeChannel={item?.tradeChannel}
         isRoutePlanning={true}
-        id={`${item?.id}`}
+        id={`${item?._id}`}
         shopName={item?.name}
-        shopOwner={item?.shopOwner}
+        shopOwner={item?.shopOwner as string}
         contact={`${item?.contact}`}
         shopLocation={item?.shopLocation}
         firstStat={`${item?.firstStat}`}

@@ -20,7 +20,7 @@ interface IFormInput {
 }
 // import InputField from '../../forms/text-field/InputField';
 const arrayShop = ['any', '1', '2', '3', '4', '5', '6'];
-const EditRoute: React.FC<{ id?: number; edit:any }> = ({
+const EditRoute: React.FC<{ id?: number | string; edit:any }> = ({
 
     id,
   edit

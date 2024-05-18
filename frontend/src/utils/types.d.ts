@@ -9,19 +9,24 @@ export interface IPointOfSalesType {
   tasks: any;
   description: any;
   totalActivitiesDuration: any;
-  id: string;
+  id: string; 
+  _id?: string; 
   name: string;
   shopLocation: string; 
   location?: string;
-  shopOwner: string;
+  shopOwner?: string;
+  owner?: string;
   contact: string;
   firstStat: string;
   secondStat: string;
   channelCluster: ChannelCluster[] | string; // Use ChannelCluster type here
-  tradeChannel: string;
-  category: number;
-  city: string;
-  markerColor: string,
+  tradeChannel: string; 
+  channeCName?: string; 
+  category: number | string;
+  city: string; 
+  selected?: boolean; 
+  markerColor: string; 
+  time?: number;
   position: {
     lat: number;
     lng: number;

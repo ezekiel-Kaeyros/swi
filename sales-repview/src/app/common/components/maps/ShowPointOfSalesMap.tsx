@@ -6,9 +6,9 @@ import { createMarker } from './createMarker';
 
 import styles from './mapview.module.css';
 import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import { updateSelectedPlace } from '@/redux/features/create-point-of-sale-slice';
-import { usePointOfSales } from '@/app/hooks/usePointOfSales';
+import { usePointOfSales } from '@/app/hooks/commons/usePointOfSales';
 
 interface ShopPointOfSalesMapProps {
   address?: string;

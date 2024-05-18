@@ -18,14 +18,43 @@ import Tabs, {
   Tab,
 } from '@/app/common/mobileComponents/modules/maps/components/tabs';
 import Maps from '@/app/common/mobileComponents/modules/maps/maps';
-import { useToggleShopBarState } from '@/app/hooks/useToggleShopData';
+import { useToggleShopBarState } from '@/app/hooks/commons/useToggleShopData';
 import { toogleShopBottomSheet } from '@/redux/features/saleRep-slice';
 import { Button } from '@nextui-org/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 
 export default function Page({}) {
   const [tabs, setTabs] = useState('shop');
   const { dispatch, toggleShopDataState } = useToggleShopBarState();
+
+  useEffect(() => {
+    const socket = io('http://localhost:4000');
+    console.log(socket);
+
+    socket.on('connect', () => {
+      console.log('Connected to Socket.IO server');
+
+      const keyData = {
+        agentID: 1,
+        agentManagerID: 20,
+        location: {
+          latitude: '1.323232',
+          longitude: '32.17238343',
+        },
+      };
+      // Emit custom event to the server
+      socket.emit('receive position', keyData);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from Socket.IO server');
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const shopTasks: Tab[] = [
     {

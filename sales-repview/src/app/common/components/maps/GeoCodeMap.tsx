@@ -2,12 +2,12 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import ShopMarker from './ShopMarker';
-import { pointOfSales } from '@/utils/pointOfSalesData';
+import { pointOfSales } from '@/core/utils/pointOfSalesData';
 import { createMarker, buildContent, toggleHighlight } from './createMarker';
 
 import styles from './mapview.module.css';
 import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
-import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 
 interface GeoCodeMapProps {
   address: string;

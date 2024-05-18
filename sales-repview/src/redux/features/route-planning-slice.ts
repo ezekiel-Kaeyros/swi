@@ -1,4 +1,4 @@
-import { pointOfSales } from '@/utils/pointOfSalesData';
+import { pointOfSales } from '@/core/utils/pointOfSalesData';
 import { createSlice, current } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -7,8 +7,8 @@ import {
   updateTaskStatus,
   updateTasksInPointOfSales,
 } from '../utils';
-import { users } from '@/utils/usersData';
-import { routes } from '@/utils/routes';
+import { users } from '@/core/utils/usersData';
+import { routes } from '@/core/utils/routes';
 
 // Just a boiler plate, this file needs to be updated
 
