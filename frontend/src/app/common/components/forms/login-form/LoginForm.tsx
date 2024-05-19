@@ -22,6 +22,7 @@ import Road from '../../../../../../public/images/road.svg';
 import axios from 'axios';
 import { makePostReques } from '@/utils/makePostReq';
 import { getUserCookies, setUserCookies } from '@/cookies/cookies';
+import { BASE_URL } from '@/utils/constants';
 
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const LoginForm = () => {
     try {
       setIsLoading(true); // Set loading to true when submitting
 
-      const response = await fetch('http://localhost:4000/login', {
+      const response = await fetch(`${BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
