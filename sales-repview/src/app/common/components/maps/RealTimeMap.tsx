@@ -6,7 +6,7 @@ import {
   MapControl,
   ControlPosition,
 } from '@vis.gl/react-google-maps';
-import Directions from './Directions';
+import Directions from './maps-management/Directions';
 import AdvancedMarkerWrapper from './AdvancedMarkerWrapper';
 import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import InfoView from '../infoView/InfoView';

@@ -6,6 +6,7 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 import React from 'react';
 import { ReactQueryProvider } from '@/providers/reactQueryProvider/ReactQueryProvider';
 import LayoutDashboard from '@/app/modules/Layout/layoutDashboard';
+// import NextTopLoader from 'nextjs-toploader';
 
 // import Header from '@/app/common/components/header/header';
 // import Sidebar from '@/app/modules/sidebar/Sidebar';
@@ -17,7 +18,6 @@ const LayoutComponent = ({ children, lang }: any) => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   if (!apiKey) {
-    console.log('gjkfdhgdrkg---------------');
     throw new Error('Missing Google Maps API key');
   }
 
@@ -27,7 +27,9 @@ const LayoutComponent = ({ children, lang }: any) => {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <APIProvider apiKey={apiKey}>
             <Providers>
-              <LayoutDashboard lang={lang}>{children}</LayoutDashboard>
+              <LayoutDashboard lang={lang}>
+                {children}
+              </LayoutDashboard>
             </Providers>
           </APIProvider>
         </ThemeProvider>

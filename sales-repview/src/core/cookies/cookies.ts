@@ -26,3 +26,7 @@ export const getTokenCookies = () => {
 export const setTokenCookies = (data: string) => {
   cookies.set(TOKEN_DATA, JSON.stringify(data));
 };
+
+export const removeTokenCookies = () => {
+  cookies.remove(TOKEN_DATA);
+};

@@ -304,8 +304,16 @@ export type BaseRouteActivityItem = {
 
 export type RouteActivitiesItem = {
   _id: string
-  status?: boolean,
-  id: BaseRouteActivityItem, 
+  status?: boolean, 
+  priority: string,
+  channelClusters: string[],
+  tradeChannels: string[],
+  activitie: string,
+  categories: string[],
+  time: number,
+  frequency: number,
+  __v?: number
+  // id: BaseRouteActivityItem, 
 }
 
 export type POSIdType = {
@@ -377,12 +385,20 @@ export type RouteRawTypeFromDB = {
   __v?: 0
 }
 
+export type CompanyType = {
+  _id: string,
+  name: string,
+  createdAt: string,
+  updatedAt: string,
+  __v: number
+}
+
 export type UserDataInToken = {
   userId: string,
   email: string,
   role: string,
   fullName: string,
-  id_company: string []
+  id_company: CompanyType []
 }
 
 export type TokenType = {

@@ -215,7 +215,7 @@ export const DropdownPlusIcon: React.FC<IconProps> = ({ height, width, color }) 
 export const CloseIcon: React.FC<IconProps> = ({ height, width, color }) => {
     return (
         <svg width={width ? width: "16"} height={height ? height: "16"} viewBox="0 0 16 16" fill={color ? color: "none"} xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" strokeLinejoin="round"/>
         </svg>
     )
 }
@@ -466,7 +466,7 @@ export const UserLosangeSvgIcon: React.FC<IconProps> = ({ height, width, color }
 
 
 {/* <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4 8H12" stroke="#BABABA" stroke-width="1.5" stroke-linecap="round" strokeLinejoin="round"/>
 </svg> */}
 
 

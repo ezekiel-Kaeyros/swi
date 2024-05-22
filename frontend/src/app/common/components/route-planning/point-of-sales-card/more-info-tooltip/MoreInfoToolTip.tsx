@@ -14,23 +14,23 @@ import { removePointOfSalesFromRoute } from '@/redux/features/route-planning-sli
 import useMakeActions from '@/app/hooks/useMakeActions';
 import { BASE_URL } from '@/utils/constants';
 
-const MoreInfoToolTip = ({ id }: { id: number | string }) => {
+const MoreInfoToolTip = ({ id, methodExecute }: { id: number | string, methodExecute: any }) => {
 
   const { dispatch, selectedRouteId } = useRoutePlanning();
 
-  const { makeDeleteAction } = useMakeActions ()
+  // const { makeDeleteAction } = useMakeActions ()
 
-  // DELETE METHOD TO EXECUTE TO REMOVE A CHANNEL CLUSTER
-  const deleteChannelCluster = () => {
-    let confirmAction = confirm ("Are you sure to execute this action?")
-    console.log( `${ BASE_URL }/pos/${ id }`, "??????>>>>" )
-    // return
-    if (confirmAction) {
-      makeDeleteAction (`${ BASE_URL }/pos/${ id }`)
-    } else {
-      console.log("hi"); 
-    }
-  }
+  // // DELETE METHOD TO EXECUTE TO REMOVE A CHANNEL CLUSTER
+  // const deleteChannelCluster = () => {
+  //   let confirmAction = confirm ("Are you sure to execute this action?")
+  //   console.log( `${ BASE_URL }/pos/${ id }`, "??????>>>>" )
+  //   // return
+  //   if (confirmAction) {
+  //     makeDeleteAction (`${ BASE_URL }/pos/${ id }`)
+  //   } else {
+  //     console.log("hi"); 
+  //   }
+  // }
 
   return (
     <Popover placement="right-start" offset={10}>
@@ -52,14 +52,7 @@ const MoreInfoToolTip = ({ id }: { id: number | string }) => {
                 <li className="cursor-pointer">View</li>
                 <li
                   className="cursor-pointer"
-                  onClick={() => deleteChannelCluster ()
-                    // dispatch(
-                    //   removePointOfSalesFromRoute({
-                    //     routeId: selectedRouteId,
-                    //     posId: id,
-                    //   })
-                    // )
-                  }
+                  onClick={ () => methodExecute () }
                 >
                   Remove
                 </li>

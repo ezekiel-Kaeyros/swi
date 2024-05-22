@@ -3,16 +3,23 @@ import mongoose from "mongoose";
 import { createActivityItem, deleteActivityItem, findActivityItemById, findAllActivitieItem, updateActivityItem } from "../db/activitie_item";
 import { updateArrayActivity } from "../db";
 import { IActivityItem } from "../models/activitie_item";
+import { extractCompanyFromToken } from "../utils/extractCompanyToken";
 
 
 
 const ActivitiesItemController = {
 
-    getActivitiesItem: async (request: Request, response: Response):Promise<void> => {
+    getActivitiesItem: async (request: any, response: Response):Promise<void> => {
 
         try{
-            const  Activities: any[] = await findAllActivitieItem();
-            response.send(Activities)
+            // const token: any = extractCompanyFromToken (request, response)
+            // const company_id = token?.user?.id_company[0]._id
+            const company_id = request?.company_id
+            const  activityItems: any[] = await findAllActivitieItem();
+            const activitieItemsForCompany = activityItems?.filter((sal: any) => {
+                return sal?.id_company === company_id
+            }) 
+            response.send(activitieItemsForCompany)
 
         }catch(error){
             console.error('Error fetching all activities items', error.message);
@@ -110,7 +117,15 @@ const ActivitiesItemController = {
             console.error('Error deleting Activitie:', error.message);
             response.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-    }
+    }, 
+
+    deleteAllActivitieItems: async (req: Request, res: Response) => {
+        const allActitivitieItems = await findAllActivitieItem()
+        allActitivitieItems.forEach(async (activityItem) => {
+            await deleteActivityItem(activityItem?._id.toString());
+        });
+        return res.send({});
+    },
 
 
 }

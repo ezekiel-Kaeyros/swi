@@ -10,7 +10,7 @@ import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
 import { IPointOfSalesType } from '@/core/utils/types';
 
 type InfoViewProps = {
-  shopDetails: IPointOfSalesType;
+  shopDetails: any;
 };
 
 const InfoView: React.FC<InfoViewProps> = ({ shopDetails }) => {

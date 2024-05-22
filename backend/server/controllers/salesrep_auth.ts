@@ -10,7 +10,7 @@ const SalesRepAuthController = {
   login: async (req: Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
     let salesRep = await getSaleRepByEmail(email);
- 
+
     if (!salesRep) {
         return res
         .status(ErrorCodes.Bad_Request)

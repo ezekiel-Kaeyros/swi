@@ -95,6 +95,7 @@ export interface ISaleRep extends Document {
   reportingManager?: any;
   startDate?: string;
   status?: string; 
+  id_company?: string; 
   isValidPassword: (password: string) => Promise<boolean>;
 }
 

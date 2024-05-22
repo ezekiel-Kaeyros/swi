@@ -22,6 +22,7 @@ import ReactFlow, {
 import { ActivityFormProps, ActivityFormValuesFrontEnd } from './addActivityForm';
 import { useActivities } from '@/app/hooks/useActivities';
 import { useRouter } from 'next/navigation';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 
 const AddActivityItemForm: React.FC<ActivityFormProps> = ({ handleCloseModal, shouldUpdate, dataToUpdate, id }) => {
   const { register, handleSubmit, watch, reset, setValue } = useForm<ActivityFormValuesFrontEnd>(); 
@@ -50,14 +51,15 @@ const AddActivityItemForm: React.FC<ActivityFormProps> = ({ handleCloseModal, sh
 
   const returnBack = useRouter ()
 
-  const mutation = useMutation({
-    mutationFn: (newPost) => {
-      return makePostReques (`${ BASE_URL }/pos`, newPost)
-    },
-  })
+  // const mutation = useMutation({
+  //   mutationFn: (newPost) => {
+  //     return makePostReques (`${ BASE_URL }/pos`, newPost)
+  //   },
+  // })
+
+  const { decodeToken } = useUserInfo ()
 
   const onSubmit: SubmitHandler<ActivityFormValuesFrontEnd> = async (data) => {
-    // const finalObj
 
     if (shouldUpdate) {
       console.log(dataToUpdate, "dataToUpdatedataToUpdate")
@@ -71,7 +73,9 @@ const AddActivityItemForm: React.FC<ActivityFormProps> = ({ handleCloseModal, sh
         category: data?.category, 
         priority: data?.priority, 
         description: data?.description, 
-        type: "activityCreation"
+        id_company: decodeToken?.user?.id_company[0]?._id, 
+        type: "activityCreation", 
+        points: data?.points, 
       }
       console.log(finalValue, "edit value before disapatching")
       dispatch(editLocalActivity({finalValue}))
@@ -84,7 +88,9 @@ const AddActivityItemForm: React.FC<ActivityFormProps> = ({ handleCloseModal, sh
         time: data?.duration, 
         frequency: data?.frequency, 
         priority: data?.priority, 
-        type: "activityCreation"
+        id_company: decodeToken?.user?.id_company[0]?._id, 
+        type: "activityCreation", 
+        points: data?.points, 
       }
 
       console.log(newDataActivityItems, "newDataActivityItems")
@@ -95,8 +101,6 @@ const AddActivityItemForm: React.FC<ActivityFormProps> = ({ handleCloseModal, sh
     reset ();
     returnBack.back()
     return; 
-
-
     dispatch(createActivity(data));
     handleCloseModal();
   };

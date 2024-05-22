@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import { Map } from '@vis.gl/react-google-maps';
-import Directions from './Directions';
+import Directions from './maps-management/Directions';
 import AdvancedMarkerWrapper from './AdvancedMarkerWrapper';
 import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import { usePointOfSales } from '@/app/hooks/commons/usePointOfSales';
@@ -37,7 +37,6 @@ const AllDirections = ({}) => {
           </AdvancedMarkerWrapper>
         ))}
       </Map>
-      {toggleShopDataState}
     </>
   );
 };

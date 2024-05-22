@@ -1,11 +1,21 @@
+import { getUserCookies } from "@/cookies/cookies"
 import { BASE_URL } from "./constants"
+
+const headers = {
+  Authorization: `Bearer ${getUserCookies()}`, 
+  'content-type': 'application/json', 
+  'Access-Control-Allow-Origin': '*'
+}
 
 export const makeGetReques = async (url: any) => {
   try {
-    const response = await fetch (`${ url }`)
-    // console.log(",,,,+++", response)
+    const response = await fetch (
+      `${ url }`, {
+        method: 'GET',
+        headers
+      }
+    )
     const result =  await response.json()
-    // console.log(",,,,+++", result)
     return result
   } catch (error) {
     alert(`Something went wrong (${error})`)
@@ -18,9 +28,7 @@ export const makePostReques = async (url: any, finalData: any) => {
       console.log(finalData, "finalDatafinalData")
       const response = await fetch (`${ url }`, {
         method: "POST", 
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify(finalData), 
       })
       const result =  await response.json()
@@ -35,9 +43,7 @@ export const makePutReques = async (url: any, finalData: any) => {
   try {
     const response = await fetch (`${ url }`, {
       method: "PUT", 
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(finalData), 
     })
     const result =  await response.json()

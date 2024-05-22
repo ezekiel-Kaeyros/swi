@@ -20,6 +20,8 @@ import { SearchIcon } from '../../tables/elements/SearchIcon';
 import SearchSvgIcons from '../../SvgCustomIcons/SearchColumsSvg';
 import FlowBuilderActivityItem from './FlowBuilderActivityItem';
 import flowBuilderActivitList from './data';
+import { usePathname } from 'next/navigation';
+import { useActivities } from '@/app/hooks/useActivities';
 
 const FlowBuilderActivityList: React.FC<ActivityFlowBuilderListProps> = ({
   handleCloseModal,
@@ -29,6 +31,19 @@ const FlowBuilderActivityList: React.FC<ActivityFlowBuilderListProps> = ({
   const onSearchChange = (value: string) => {
     console.log(value);
   };
+  const pathName = usePathname (); 
+
+  const { activities } = useActivities (); 
+
+  const flatenAllActivitiesItems = activities?.map((activity: any) => {
+    const activitieIt = activity?.activitieItems?.map((actityItem: any) => {
+      return actityItem
+    })
+    return activitieIt
+  }).flat()
+
+  console.log(flatenAllActivitiesItems, "77777777777")
+
   return (
 
     <div className="flex flex-col gap-[20px] font-articulat">

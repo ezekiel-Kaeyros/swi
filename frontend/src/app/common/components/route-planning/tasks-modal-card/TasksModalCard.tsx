@@ -8,9 +8,9 @@ import TaskChip from '../task-chip/TaskChip';
 import { Button } from '@nextui-org/react';
 import { addTaskToPointOfSales, selectTaskForPOS, sumUpSelectedPOSActivitiesTime } from '@/redux/features/route-planning-slice';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
-import { useSettings } from '@/app/hooks/useSettings';
-import { IActivity } from '@/redux/features/types';
-import { getAllActivitiesForPOS } from '@/utils/getAllActivitiesForPOS';
+// import { useSettings } from '@/app/hooks/useSettings';
+// import { IActivity } from '@/redux/features/types';
+// import { getAllActivitiesForPOS } from '@/utils/getAllActivitiesForPOS';
 import { usePointOfSales } from '@/app/hooks/usePointOfSales';
 import { IPointOfSalesType } from '@/utils/types';
 
@@ -23,8 +23,6 @@ const TasksModalCard = ( { posId, tasks }: { posId?: number | string, tasks?: IP
   const foundPOSObj = pointOfSales?.find((posC: IPointOfSalesType) => {
     return posC?._id === posId
   })
-
-  console.log("foundPOSObj,,,", foundPOSObj, pointOfSales, posId)
 
   // SELECTING TASK FOR TO PERFORM AT THE POS
   const handleSelected = (id: string, selected: boolean) => {
@@ -54,24 +52,12 @@ const TasksModalCard = ( { posId, tasks }: { posId?: number | string, tasks?: IP
 
   };
 
-  // // FIND THE ROUTE
-  // let currentRoute = routes?.find((route: any) => route?.id === selectedRouteId);
-
-  // // FIND THE CORRESPONDING POS
-  // let currentPos = currentRoute?.pointOfSales?.find(
-  //   (pos: { _id: string }) => pos?._id?.toString() === posId?.toString()
-  // );
-
-  // console.log(currentPos, "i want to add...", routes)
-
   // FOR THIS POS FIND ALL ALREADY SELECTED ACTIVITIES
   const selectedActivities = tasks?.filter((task: any) => {
     return task?.selected === true
   })
   // COUNT THE NUMBER OF SELECTED TASK FOR THIS ACTIVITY
   let tasksLength = selectedActivities?.length;
-
-  console.log(tasksLength, "tasksLength i want to add...")
 
   return (
     <Popover placement="right-start" offset={10}>

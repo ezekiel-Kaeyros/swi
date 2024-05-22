@@ -4,14 +4,21 @@ import mongoose from "mongoose";
 import { ITradeChannel } from "../models/trade_channel";
 import { TradeChannel } from "../models";
 import { findChannelClusterById, updateArrayTradeChannels, updateChannelCluster } from "../db";
+import { extractCompanyFromToken } from "../utils/extractCompanyToken";
 
 const TradeChannelController = {
 
     getTradeChannels: async (request: Request, response: Response):Promise<void> => {
 
         try{
-            const  TradeChannel: ITradeChannel[] = await findAllTradeChannels();
-            response.send(TradeChannel)
+            const token: any = extractCompanyFromToken (request, response)
+            const company_id = token?.user?.id_company[0]._id
+            const  TradeChannel: ITradeChannel[] = await findAllTradeChannels(); 
+            const tradeCForCompany = TradeChannel?.filter((sal: any) => {
+                return sal?.id_company === company_id
+            })
+            // response.send(TradeChannel)
+            response.send(tradeCForCompany)
 
         }catch(error){
             console.error('Error fetching all trade channel', error.message);
@@ -47,6 +54,8 @@ const TradeChannelController = {
 
         try{
             const { name, id_company,channel_cluster_id}: ITradeChannel = request.body;
+
+            // console.log(name, id_company,channel_cluster_id, ">>>")
 
             const channelCluster = await findChannelClusterById(channel_cluster_id);
             
@@ -123,7 +132,15 @@ const TradeChannelController = {
             console.error('Error deleting trade channel:', error.message);
             response.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-    }
+    }, 
+
+    deleteAllTradeCh: async (req: Request, res: Response) => {
+        const allTradeChannels = await findAllTradeChannels()
+        allTradeChannels.forEach(async (user) => {
+            await deleteTradeChannel(user?.id.toString());
+        });
+        return res.send({});
+    },
 
 
 }

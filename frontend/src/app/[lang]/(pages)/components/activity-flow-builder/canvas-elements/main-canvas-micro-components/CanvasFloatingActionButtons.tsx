@@ -4,18 +4,18 @@ import React from 'react'
 
 const CanvasFloatingActionButtons = ({
   setOpenModal, 
-  addChannelCluster, 
+  // addChannelCluster, 
   setTradeCModal, 
-  addTradeChannel, 
+  // addTradeChannel, 
   setCategoryModal, 
-  addCategory, 
+  // addCategory, 
 }: {
   setOpenModal: (arg: boolean) => void, 
-  addChannelCluster: () => void, 
+  // addChannelCluster: () => void, 
   setTradeCModal: (arg: boolean) => void, 
-  addTradeChannel: () => void, 
+  // addTradeChannel: () => void, 
   setCategoryModal: (arg: boolean) => void, 
-  addCategory: () => void, 
+  // addCategory: () => void, 
 }) => {
   return (
     <div className='fixed right-[20%] rounded-2xl bg-newPrimaryDark px-[1rem] py-[1rem] flex flex-row gap-10 bottom-10 z-30'>
@@ -42,7 +42,7 @@ const CanvasFloatingActionButtons = ({
       <div className='flex flex-row gap-2'>
         <button onClick={ () => {
           setOpenModal(true); 
-          addChannelCluster ();
+          // addChannelCluster ();
         } } className='relative group rounded-xl  p-[14px] bg-normalInputBg'>
             <ChannelClusterSvgIcon height="20" width="20" color="none" />
             <div className='absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>
@@ -51,7 +51,7 @@ const CanvasFloatingActionButtons = ({
         </button>
         <button onClick={() => {
           setTradeCModal (true)
-          addTradeChannel ();
+          // addTradeChannel ();
         }} className='relative group rounded-xl  p-[14px] bg-normalInputBg'>
             <TradeChannelSvgIcon color='#323232' height="20" width="20" />
             <div className='absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>
@@ -60,7 +60,7 @@ const CanvasFloatingActionButtons = ({
         </button>
         <button onClick={ () => {
           setCategoryModal (true)
-          addCategory ();
+          // addCategory ();
         }} className='relative group rounded-xl  p-[14px] bg-normalInputBg'>
             <CategorizationNoFillSvgIcon height={''} width={''} color={''} />
             <div className='absolute hidden group-hover:block bottom-[140%] rounded-xl left-1/2 transform -translate-x-1/2 p-2 bg-slate-100'>

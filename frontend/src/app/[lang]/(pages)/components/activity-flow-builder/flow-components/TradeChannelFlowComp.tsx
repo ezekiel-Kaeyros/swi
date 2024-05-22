@@ -13,13 +13,19 @@ import { BASE_URL, CATEGORY_API_URL, TRADECHANNEL_API_URL } from '@/utils/consta
 import useMakeActions from '@/app/hooks/useMakeActions';
 import { generateId } from '@/utils/generateRandomID';
 import { useActivities } from '@/app/hooks/useActivities';
+// import { getUserCookies } from '@/cookies/cookies';
+// import { TokenType } from '@/redux/features/types';
+// import { jwtDecode } from 'jwt-decode';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 
 const TradeChannelFlowComp = ({ data }: { data: any }) => {
     const [ shouldUpdateCC, setShouldUpdateCC ] = useState (false)
     const [openModal, setOpenModal] = useState<boolean>(false);
     // const { dispatch } = useSettings(); 
     const { dispatch, connectTwoNodes, deleteAndEdge, locaChannelClusters, locaTradeChannels, tradeChannels, localCategories, edgesConnectingNodes, activities, channelClusters } = useSettings(); 
-    const { localActivities } = useActivities ()
+    const { localActivities } = useActivities (); 
+
+    const { decodeToken } = useUserInfo (); 
 
     const handleCloseModal = () => {
         setOpenModal(false);
@@ -75,9 +81,12 @@ const TradeChannelFlowComp = ({ data }: { data: any }) => {
         })
         const newDataD = {
             name: foundTradeC?.name, 
-            id_company: "661e46da0c5460e02b3c492b", 
             description: [foundTradeC?.name], 
-            trade_chanel_id: data?.id
+            trade_chanel_id: data?.id, 
+            id_company: decodeToken?.user?.id_company[0]?._id
+            // id_company: decodeToken?.user?.id_company, 
+            // id_company: "661e46da0c5460e02b3c492b", 
+            // id_company: useUserInfo().user?.id_company, 
         }
 
         // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER

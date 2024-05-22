@@ -123,12 +123,12 @@ export const routePlanning = createSlice({
     addPOSToRoute: (state, action) => {
       const { routeId, pos } = action?.payload; 
 
-      console.log (routeId, pos, "routeId, posId??")
+      // console.log (routeId, pos, "routeId, posId??")
 
       const updatedRoutes = state?.routes?.map((rout: any) => {
-        console.log(rout, "inside rout map", rout?.id)
+        // console.log(rout, "inside rout map", rout?.id)
         if (rout?.id === routeId) {
-          console.log(rout, "inside if")
+          // console.log(rout, "inside if")
           const findIfPOSAlreadySaved = rout.pointOfSales.find((routPos: any) => {
             return routPos?._id === pos?._id
           })
@@ -144,7 +144,7 @@ export const routePlanning = createSlice({
         return rout
       })
 
-      console.log("updatedRoutes: ", updatedRoutes)
+      // console.log("updatedRoutes: ", updatedRoutes)
 
       state.routes = updatedRoutes;
     },
@@ -152,12 +152,14 @@ export const routePlanning = createSlice({
     // Removes point of sales from route
     removePointOfSalesFromRoute: (state, action) => {
       const { routeId, posId } = action.payload;
+      // console.log(routeId, posId, "insideSlice")
 
       state.routes = state.routes.map((route) => {
         if (route.id === routeId) {
-          const updatedPointOfSales = route.pointOfSales.filter(
-            (point: { id: string }) => point.id?.toString() !== posId.toString()
-          );
+
+          const updatedPointOfSales = route.pointOfSales.filter( (point: { _id: string }) => {
+            return point._id?.toString() !== posId.toString()
+          });
           return { ...route, pointOfSales: updatedPointOfSales };
         }
         return route;

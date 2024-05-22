@@ -1,3 +1,4 @@
+
 # Use Node 20.9.0-alpine as parent image
 FROM node:20.9.0-alpine AS BUILD_IMAGE
 

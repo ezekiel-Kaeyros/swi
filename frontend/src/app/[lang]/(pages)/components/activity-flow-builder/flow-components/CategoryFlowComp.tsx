@@ -31,6 +31,9 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
   const [ objectData, setObjectData ] = useState<any> (); 
   const { dispatch, connectTwoNodes, deleteAndEdge, locaChannelClusters, localActivities, locaTradeChannels, tradeChannels, localCategories, edgesConnectingNodes, activities, channelClusters } = useSettings(); 
 
+
+  // const cameraPosition = reactFlowInstance.getCameraPosition();
+
   // console.log("datadatadata", data)
 
   const handleCloseModal = () => {
@@ -62,6 +65,8 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
       foundTradeChannel, 
     })
   }
+
+  console.log(foundTradeChannel, foundChannelC, "///,,,...'''")
 
   useEffect(() => {
     searchTradeChannel ()
@@ -118,18 +123,21 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
 
   const handleOpenAcitivityItemForm = (id: string) => {
 
+    // PREPARE CATEGORY ID
     dispatch(
       selectCatID({
         id: data?.id,
       })
     ); 
 
+    // PREPARE TRADE CHANNEL ID
     dispatch(
       selectTCID({
         id: foundTradeChannel?._id,
       })
     );
 
+    // PREPARE CHANNEL CLUSTER ID
     dispatch(
       selectCCID({
         id: foundChannelC,
@@ -141,7 +149,7 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
         id: id,
       })
     );
-    
+    // NAVIGATE ME TO THE FORM
     router.push('/activity-flow-builder/add-activity-item');
   }
 
@@ -198,19 +206,12 @@ const CategoryFlowComp = ({ data }: { data: ICategory }) => {
           position={Position.Right}
           id={`catT`}
           onConnect={(params) => {
-            console.log('Connecting to Activities', params); 
             // GET THE ENTIRE OBJECT OF THE TARGET
             const foundTargetObject = localActivities?.find((obj: IActivityNew) => {
-              console.log("foundTargetObject,", obj, params?.target)
               return obj?.id === params?.target
             })
 
             handleOpenAcitivityItemForm (foundTargetObject?.activityParentID as string)
-
-            // openActivityVariation ()
-
-            console.log("foundTargetObject,", foundTargetObject)
-            // manualLinkageToActivity (params.target)
           }}
         />
 

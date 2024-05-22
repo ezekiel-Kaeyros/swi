@@ -2,12 +2,29 @@ import { Request, Response } from 'express';
 import { findAllPos, createPos, updatePos, deletePos, findOnePos } from "../db/pos";
 import mongoose from 'mongoose';
 import { IPos } from '../models/pos';
+import { extractCompanyFromToken } from '../utils/extractCompanyToken';
 
 const PosController = {
-    getPos: async (request: Request, response: Response): Promise<void> => {
+    // getPos: async (request: Request, response: Response): Promise<void> => {
+    //     try {
+    //         const pos: IPos[] = await findAllPos();
+    //         response.send(pos);
+    //     } catch (error) {
+    //         console.error('Error fetching all pos:', error.message);
+    //         response.status(500).send(error);
+    //     }
+    // },
+
+    getPos: async (request: any, response: Response): Promise<void> => {
         try {
+            // console.log(request?.user?.user?.id_company[0]._id);
+            // const token: any = extractCompanyFromToken (request, response)
+            const company_id = request?.company_id
             const pos: IPos[] = await findAllPos();
-            response.send(pos);
+            const posForCompany = pos?.filter((sal: any) => {
+                return sal?.id_company === company_id
+            }) 
+            response.send(posForCompany);
         } catch (error) {
             console.error('Error fetching all pos:', error.message);
             response.status(500).send(error);
@@ -53,9 +70,9 @@ const PosController = {
     updatePos: async (request: Request, response: Response): Promise<void> => {
         try {
             const id= request.params.id
-            const {longitude, latitude, name, description }: IPos = request.body;
+            const {longitude, latitude, name, description, id_company }: IPos = request.body;
 
-            if (!id || !longitude || !latitude || !name || !description) {
+            if (!id || !longitude || !latitude || !name || !description || !id_company) {
                 response.status(400).json({ success: false, error: 'ID, longitude, latitude, name, and description are required' });
                 return;
             }
@@ -66,7 +83,7 @@ const PosController = {
                 return;
             }
 
-            const updatedPos: IPos | null = await updatePos({ id, longitude, latitude, name, description });
+            const updatedPos: IPos | null = await updatePos({ id, longitude, latitude, name, description, id_company });
 
             if (updatedPos) {
                 response.json({ success: true, data: updatedPos });
@@ -105,6 +122,14 @@ const PosController = {
           console.error('Error deleting pos:', error.message);
           response.status(500).json({ success: false, error: 'Internal Server Error' });
         }
+    }, 
+
+    deleteAllPOS: async (req: Request, res: Response) => {
+        const allPos = await findAllPos()
+        allPos.forEach(async (pos) => {
+            await deletePos(pos?._id.toString());
+        });
+        return res.send({});
     },
 };
 

@@ -49,15 +49,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     mapDisplay = <ReactDirectionsMap />;
   }
   if (showPOSMap === true) {
-    const filterPosOnMap = (id: string) => {
-      let result = pointOfSales.filter((pos: IPointOfSalesType) => {
-        return pos?.channelCluster === id;
-      });
-      return result;
-    };
-    const getAllPosOnMap = (id: string) => {
-      return pointOfSales;
-    };
+    // const filterPosOnMap = (id: string) => {
+    //   let result = pointOfSales.filter((pos: IPointOfSalesType) => {
+    //     return pos?.channelCluster === id;
+    //   });
+    //   return result;
+    // };
+    // const getAllPosOnMap = (id: string) => {
+    //   return pointOfSales;
+    // };
     mapDisplay = (
       <>
         <PosMap />
@@ -78,6 +78,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         } `}
       >
         {mapDisplay}
+        {/* <AllDirections /> */}
       </div>
     </main>
   );

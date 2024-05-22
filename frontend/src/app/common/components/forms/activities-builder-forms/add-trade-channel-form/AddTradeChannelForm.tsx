@@ -9,9 +9,12 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSettings } from '@/app/hooks/useSettings';
 import { addNewTradeChannel, createLocalTradeChannel, editLocalTradeChannel } from '@/redux/features/channel-cluster-slice';
-import { makePostReques } from '@/utils/makePostReq';
-import { BASE_URL } from '@/utils/constants';
-import { TradeChannel } from '@/redux/features/types';
+import { makePostReques, makePutReques } from '@/utils/makePostReq';
+import { BASE_URL, TRADECHANNEL_API_URL } from '@/utils/constants';
+import { TokenType, TradeChannel } from '@/redux/features/types';
+import { getUserCookies } from '@/cookies/cookies';
+import { jwtDecode } from 'jwt-decode';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 
 const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   handleCloseModal,
@@ -24,8 +27,8 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
 }) => {
   // const { dispatch } = useSettings();
   const { dispatch, locaTradeChannels } = useSettings (); 
-
   const { register, handleSubmit, setValue } = useForm<AddTradeChannelFormValues>(); 
+  const { decodeToken } = useUserInfo (); 
 
   // FILLING INPUTS WITH USER INFO IN CASE OF EDITING USER INFO
   useEffect (() => {
@@ -33,20 +36,6 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
   }, [])
 
   const onSubmit: SubmitHandler<AddTradeChannelFormValues> = async (data) => {
-    
-    // const newData = { ...data, channelClusterId }; 
-    // const newDataD = {
-    //   name: data.tradeChannelName, 
-    //   id_company: "661e46da0c5460e02b3c492b", 
-    //   channel_cluster_id: channelClusterId
-    // }
-
-    // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER
-    // const result = await makePostReques (`${ BASE_URL }/tradeChannel`, newDataD)
-
-    // dispatch(addNewTradeChannel(newDataD)); 
-
-    console.log (tcID, data, shouldUpdate, "{{{{{{{")
 
     let newDataD: TradeChannel = {
       name: data.tradeChannelName, 
@@ -55,15 +44,18 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
         x: 400, 
         y: 200
       }, 
-      // id: tcID ? tcID : 1, 
       type: 'tradeChannelCreation', 
       categories_id: [""], 
       channel_cluster_ids: [""],
     }
 
-    // console.log (newDataD, "newDataD...")
+    // const gettoken = getUserCookies();
+    // const decodeToken: TokenType = jwtDecode (gettoken)
+
+    
 
     if (shouldUpdate) {
+      // SEND TO STATE FOR FAST APPEARANCE
       newDataD = {
         ...newDataD, 
         id: tradeChannelId as any, 
@@ -75,16 +67,20 @@ const AddTradeChannelForm: React.FC<AddTradeChannelProps> = ({
       }
       dispatch(editLocalTradeChannel(newDataD)); 
 
-      // const foundTradeC = locaTradeChannels?.find((foundTC: TradeChannel) => {
-      //   return foundTC?.id === tradeChannelLocalID
-      // })
-      // const newDataD = {
-      //     name: foundTradeC?.name, 
-      //     id_company: "661e46da0c5460e02b3c492b", 
-      //     channel_cluster_id: data?.id
-      // }
-      // // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER
-      // const result = await makePostReques (`${ BASE_URL }/${ TRADECHANNEL_API_URL }`, newDataD)
+      // NOW SEND TO SERVER FOR STARING
+      const foundTradeC = locaTradeChannels?.find((foundTC: TradeChannel) => {
+        return foundTC?.id === tradeChannelId
+      })
+      const newDataDServer = {
+          name: data.tradeChannelName ? data.tradeChannelName : foundTradeC?.name, 
+          id_company: decodeToken?.user?.id_company[0]?._id, 
+          channel_cluster_id: channelClusterId
+          // id_company: decodeToken?.user?.id_company[0], 
+      }
+
+      // UPDATING THE TRADE CHANNEL
+      const result = await makePutReques (`${ BASE_URL }/${ TRADECHANNEL_API_URL }/${ tradeChannelId }`, newDataDServer)
+      alert ("Succesfully updated")
     } else {
       dispatch(createLocalTradeChannel(newDataD)); 
     }

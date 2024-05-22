@@ -11,7 +11,9 @@ export const activitieItemSchema = new Schema({
     activitie: {type: Schema.Types.ObjectId, ref: 'Activities'},
     categories: [{type: Schema.Types.ObjectId, ref: 'Category'}],
     time: { type: Number, required: true }, // Peut être calculé dynamiquement
-    frequency: { type: Number, required: true },
+    frequency: { type: Number, required: true }, 
+    id_company: {type: Schema.Types.String, required: false, ref: 'Company'}, 
+    points: { type: Number, required: false }, 
     status: { type: String, required: false, default: StatusRoadItem.PENDING },
 })
 
@@ -26,6 +28,8 @@ export interface IActivityItem {
     time: number; // Temps fixe ou à calculer en fonction des canaux, clusters et catégories
     frequency: number; // Fréquence fixe ou à calculer en fonction des canaux, clusters et catégories
     status?: string;
+    points?: number; 
+    id_company?: string
   }
 
 

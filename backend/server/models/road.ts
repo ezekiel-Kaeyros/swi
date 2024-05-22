@@ -7,7 +7,8 @@ const RoadSchema = new Schema({
   // roadItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'road_items', require: false }],
   pos: [{ type: Schema.Types.ObjectId, ref: 'Pos' }],
   saleRep: { type: Schema.Types.ObjectId, ref: 'SaleRep' }, 
-  activities_items: [{ type: Schema.Types.ObjectId, ref: 'ActivitieItem' }],
+  activities_items: [{ type: Schema.Types.ObjectId, ref: 'ActivitieItem' }], 
+  id_company: {type: Schema.Types.String, required: false, ref: 'Company'}, 
 }, { timestamps: true });
 
 export interface IRoad {
@@ -16,6 +17,7 @@ export interface IRoad {
   activities_items: string[],
   saleRep: string,
   pos?: string [], 
+  id_company: string; 
   // roadItems?: string[]; 
 }
 

@@ -62,7 +62,7 @@ const PointOfSales = () => {
 
       {/* Tab Navigator */}
       <div className=" flex flex-col w-full h-screen overflow-y-auto  ">
-        <div className="h-[300px] p-4">
+        <div className="h-[300px] py-2 px-4">
           <ul className="flex mb-4 w-[50%] ">
             {PostList.map((tab, index) => (
               <li
@@ -86,7 +86,7 @@ const PointOfSales = () => {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col  ">
+          <div className="flex flex-col">
             <SearchAndFilterPosForRTT />
             <TabNavigation />
             <div className="w-fit ">
@@ -97,9 +97,6 @@ const PointOfSales = () => {
                 <AddPOSSvgIcon />
                 Create Point of Sales
               </Link>
-              {/* <Button href={`/point-of-sales/create`} >
-    
-              </Button> */}
             </div>
           </div>
         </div>

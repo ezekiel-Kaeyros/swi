@@ -20,10 +20,10 @@
 <path opacity="0.2" d="M249.278 137.442C156.542 146.122 104.673 129.635 62.2344 108.653V248.674H599.787V68.6416C418.507 54.9791 357.207 127.34 249.278 137.442Z" fill="#1C1C1C"/>
 <path opacity="0.4" d="M275.557 98.0526C165.782 59.6573 84.9035 120.063 62.2344 140.778V248.674H599.787V48.4694C484.293 93.4027 473.116 167.152 275.557 98.0526Z" fill="#A8C5DA"/>
 </g>
-<path d="M62.2344 108.653C104.673 129.635 156.542 146.122 249.278 137.442C303.143 132.4 345.393 111.851 396.741 94.2278" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M599.787 68.6415C509.568 61.842 449.066 76.3489 397.744 93.8841" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 10"/>
-<path d="M62.2344 140.778C84.9035 120.063 165.782 59.6573 275.557 98.0526C473.116 167.152 484.293 93.4027 599.787 48.4694" stroke="#A8C5DA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M249.277 137.298C302.228 132.342 343.955 112.401 394.132 94.9841" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M62.2344 108.653C104.673 129.635 156.542 146.122 249.278 137.442C303.143 132.4 345.393 111.851 396.741 94.2278" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" strokeLinejoin="round"/>
+<path d="M599.787 68.6415C509.568 61.842 449.066 76.3489 397.744 93.8841" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" strokeLinejoin="round" stroke-dasharray="3 10"/>
+<path d="M62.2344 140.778C84.9035 120.063 165.782 59.6573 275.557 98.0526C473.116 167.152 484.293 93.4027 599.787 48.4694" stroke="#A8C5DA" stroke-width="3" stroke-linecap="round" strokeLinejoin="round"/>
+<path d="M249.277 137.298C302.228 132.342 343.955 112.401 394.132 94.9841" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" strokeLinejoin="round"/>
 <defs>
 <radialGradient id="paint0_radial_1010_52827" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(306.747 61.4025) rotate(87) scale(57.9527 239.348)">
 <stop/>

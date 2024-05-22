@@ -15,8 +15,9 @@ import { BASE_URL, CHANNELCLUSTER_API_URL, TRADECHANNEL_API_URL } from '@/utils/
 import { makePostReques } from '@/utils/makePostReq'
 import { useActivities } from '@/app/hooks/useActivities'
 import { generateId } from '@/utils/generateRandomID'
-import { getUserCookies } from '@/cookies/cookies'
-import { jwtDecode } from 'jwt-decode'
+// import { getUserCookies } from '@/cookies/cookies'
+// import { jwtDecode } from 'jwt-decode'
+import { useUserInfo } from '@/app/hooks/useUserInfo'
 
 const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => {
     const [ shouldUpdateCC, setShouldUpdateCC ] = useState (false)
@@ -24,7 +25,8 @@ const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => 
     // const { dispatch } = useSettings(); 
     const { dispatch, connectTwoNodes, deleteAndEdge, locaChannelClusters, locaTradeChannels, tradeChannels, localCategories, edgesConnectingNodes, activities, channelClusters } = useSettings(); 
     const { localActivities } = useActivities ()
-    const finalColor = data?.color
+    const finalColor = data?.color; 
+    const { decodeToken } = useUserInfo ()
 
     // const { locaTradeChannels } = useSettings (); 
     const { makeDeleteAction } = useMakeActions();
@@ -46,9 +48,9 @@ const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => 
     }
 
     const copyCC = () => {
-        dispatch(copyLocalChannelCluster({
-            id: data?.id
-        })); 
+        // dispatch(copyLocalChannelCluster({
+        //     id: data?.id
+        // })); 
     }
 
     const linkToTradeChannel = (tradeChannelID: any, channelClus: any) => {
@@ -73,18 +75,20 @@ const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => 
     }
 
     const creatTradeChannelInBE = async (tradeChannelLocalID: any) => { 
-        const gettoken = getUserCookies();
-        // console.log(gettoken, 'datagettoken');
-        const decodeToken: TokenType = jwtDecode (gettoken)
-        // console.log(decodeToken, 'decodeToken');
+        // const gettoken = getUserCookies();
+        // // console.log(gettoken, 'datagettoken');
+        // const decodeToken: TokenType = jwtDecode (gettoken)
+        // // console.log(decodeToken, 'decodeToken');
         const foundTradeC = locaTradeChannels?.find((foundTC: TradeChannel) => {
             return foundTC?.id === tradeChannelLocalID
         })
         const newDataD = {
             name: foundTradeC?.name, 
+            channel_cluster_id: data?.id, 
+            id_company: decodeToken?.user?.id_company[0]?._id
+            // id_company: decodeToken?.user?.id_company, 
+            // id_company: useUserInfo().user?.id_company[0],
             // id_company: "661e46da0c5460e02b3c492b", 
-            id_company: decodeToken?.user?.id_company,  
-            channel_cluster_id: data?.id
         }
         // WE ENABLE BELOW CODE WHEN WE SEND DATA TO SERVER
         const result = await makePostReques (`${ BASE_URL }/${ TRADECHANNEL_API_URL }`, newDataD)
@@ -141,6 +145,7 @@ const ChannelClusterFlowComp = ({ data }: { data: IChannelClusterDataType }) => 
                         setConnectNode (false)
                         return false; // Prevent linkage
                     } else {
+                        console.log("arrive")
                         setConnectNode (true)
                         creatTradeChannelInBE (params.target)
                         linkToTradeChannel (params.target, params.source)

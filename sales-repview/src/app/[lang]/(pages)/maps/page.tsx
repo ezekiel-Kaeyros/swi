@@ -18,6 +18,7 @@ import Tabs, {
   Tab,
 } from '@/app/common/mobileComponents/modules/maps/components/tabs';
 import Maps from '@/app/common/mobileComponents/modules/maps/maps';
+import { useManagePosInStore } from '@/app/hooks/API/usePos';
 import { useToggleShopBarState } from '@/app/hooks/commons/useToggleShopData';
 import { toogleShopBottomSheet } from '@/redux/features/saleRep-slice';
 import { Button } from '@nextui-org/react';
@@ -27,7 +28,7 @@ import io from 'socket.io-client';
 export default function Page({}) {
   const [tabs, setTabs] = useState('shop');
   const { dispatch, toggleShopDataState } = useToggleShopBarState();
-
+  const { road, shopData, pos } = useManagePosInStore();
   useEffect(() => {
     const socket = io('http://localhost:4000');
     console.log(socket);
@@ -58,7 +59,8 @@ export default function Page({}) {
 
   const shopTasks: Tab[] = [
     {
-      title: 'Activities (10)',
+      title: `Activities (${shopData?.activities.filter((c) => c.time > 5)
+        .length})`,
       icon: (
         <svg
           width="20"
@@ -76,7 +78,8 @@ export default function Page({}) {
       content: <ActivitiesMaps />,
     },
     {
-      title: 'Tasks (20)',
+      title: `Tasks (${shopData?.activities.filter((c) => c.time <= 5)
+        .length})`,
       icon: (
         <svg
           width="20"
@@ -95,7 +98,7 @@ export default function Page({}) {
     },
 
     {
-      title: 'Action (20)',
+      title: 'Action',
       icon: (
         <svg
           width="21"
@@ -137,7 +140,7 @@ export default function Page({}) {
         close={() => {
           dispatch(toogleShopBottomSheet(false));
         }}
-        title="Dov Bonamoussadi"
+        title={shopData ? shopData.shopData.name : 'Shop'}
         className={' max-h-[95%]'}
       >
         <Tabs tabs={shopTasks} />

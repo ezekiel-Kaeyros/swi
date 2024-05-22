@@ -12,7 +12,7 @@ import { createActivity, createLocalActivities, editLocalActivity } from '@/redu
 import { extractNames } from '../../utils';
 import { useMutation } from 'react-query';
 import { BASE_URL } from '@/utils/constants';
-import { makePostReques } from '@/utils/makePostReq';
+import { makePostReques, makePutReques } from '@/utils/makePostReq';
 import { ICategory, IChannelCluster, TradeChannel } from '@/redux/features/types';
 import { generateId } from '@/utils/generateRandomID';
 
@@ -20,6 +20,7 @@ import ReactFlow, {
   MarkerType, 
 } from 'reactflow';
 import { useRouter } from 'next/navigation';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 
 
 const AddActivityForm: React.FC<ActivityFormProps> = ({ handleCloseModal, shouldUpdate, dataToUpdate, id }) => {
@@ -151,7 +152,9 @@ const AddActivityForm: React.FC<ActivityFormProps> = ({ handleCloseModal, should
     },
   })
 
-  const returnBack = useRouter ()
+  const returnBack = useRouter (); 
+
+  const { decodeToken } = useUserInfo ()
 
   const onSubmit: SubmitHandler<ActivityFormValuesFrontEnd> = async (data) => {
     // const finalObj
@@ -168,10 +171,13 @@ const AddActivityForm: React.FC<ActivityFormProps> = ({ handleCloseModal, should
         category: data?.category, 
         priority: data?.priority, 
         description: data?.description, 
-        type: "activityCreation"
+        type: "activityCreation", 
+        points: data?.points, 
       }
       console.log(finalValue, "edit value before disapatching")
       dispatch(editLocalActivity({finalValue}))
+
+      const resultActivity = await makePutReques (`${ BASE_URL }/activities/${ id }`, finalValue)
     } else {
       const uniqID = generateId ()
   
@@ -192,9 +198,13 @@ const AddActivityForm: React.FC<ActivityFormProps> = ({ handleCloseModal, should
       // dispatch(createLocalActivities({finalValue}))
       // connectTwoNodes (data?.category as any, uniqID, MarkerType.Arrow)
 
+      console.log(selectedCCID, selectedTCID, selectedCatID, "inside submit")
+      // return; 
+
       const newDataActivity = {
         name: data?.name, 
         description: data?.description, 
+        id_company: decodeToken?.user?.id_company[0]?._id
       }
 
       console.log("newDataActivity", newDataActivity)
@@ -210,16 +220,18 @@ const AddActivityForm: React.FC<ActivityFormProps> = ({ handleCloseModal, should
 
       const newDataActivityItems = {
         activitie: resultActivity?.data?._id,      
-        // channelClusters: data.channelCluster, 
-        // tradeChannels: data?.tradeChannel, 
-        // categories: data?.category, 
         channelClusters: selectedCCID, 
         tradeChannels: selectedTCID, 
         categories: selectedCatID, 
         time: data?.duration, 
         frequency: data?.frequency, 
         priority: data?.priority, 
-        type: "activityCreation"
+        type: "activityCreation", 
+        id_company: decodeToken?.user?.id_company[0]?._id, 
+        points: data?.points, 
+        // channelClusters: data.channelCluster, 
+        // tradeChannels: data?.tradeChannel, 
+        // categories: data?.category, 
       }
 
       console.log(newDataActivityItems, "newDataActivityItems")

@@ -3,7 +3,9 @@ import { User } from '../models';
 
 
 export const getUserByEmail = async (email: string) => {
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email })
+    .populate('role')
+    .populate('id_company');
   return user;
 };
 
@@ -18,10 +20,10 @@ export const getUserById = async (id: string) => {
   return user;
 };
 
-export const getUserByEmail = async (email: string) => {
-  const user = await User.findOne({ email }) as User
-  return user;
-};
+// export const getUserByEmail = async (email: string) => {
+//   const user = await User.findOne({ email }) as User
+//   return user;
+// };
 
 export const getUserByUsername = async (username: string) => {
   const user = await User.findOne({ username }) 

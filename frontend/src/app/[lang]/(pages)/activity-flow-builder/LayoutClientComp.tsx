@@ -1,13 +1,10 @@
 "use client"; 
-
-import { useSettings } from '@/app/hooks/useSettings';
 import React, { useState } from 'react'
 import MainCanvas from '../components/activity-flow-builder/canvas-elements/MainCanvas';
 import { ReactFlowProvider } from 'reactflow';
 import { QueryClientProvider, QueryClient } from "react-query";
 
 const LayoutClientComp = ({ children, lang }: any) => {
-    // const { channelClusters, dispatch } = useSettings();
     const [toggleSideBar, setToggleSideBar ] = useState (false)
     const queryClient = new QueryClient();
     return (

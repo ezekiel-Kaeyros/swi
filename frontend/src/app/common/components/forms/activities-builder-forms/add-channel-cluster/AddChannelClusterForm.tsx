@@ -62,17 +62,19 @@ const AddChannelClusterForm: React.FC<AddChannelClusterFormProps> = ({
       if (shouldUpdate) {
         const newDataS = {
           name: data.name, 
-          id_company: decodeToken?.user?.id_company[0], 
+          id_company: decodeToken?.user?.id_company[0]?._id, 
           color: color.hex, 
           id: channelClusterIdForUpdate, 
+          // id_company: decodeToken?.user?.id_company[0], 
         }
         // mutation.mutate(channelCluster as any)
         const result = await makePutReques (`${ BASE_URL }/channelCluster/${ channelClusterIdForUpdate }`, newDataS)
       } else {
         const newDataS = {
           name: data.name, 
-          id_company: decodeToken?.user?.id_company[0], 
+          id_company: decodeToken?.user?.id_company[0]?._id, 
           color: color.hex, 
+          // id_company: decodeToken?.user?.id_company[0], 
         }
         // mutation.mutate(channelCluster as any)
         const result = await makePostReques (`${ BASE_URL }/channelCluster`, newDataS)

@@ -10,7 +10,8 @@ const Profile: React.FC<ProfileProps & ProfileComponentProps> = ({
   picture,
   role,
   link,
-  showText = false,
+  showText = false, 
+  company,
 }) => {
   return (
     <Link className="pl-2" href={`/${link}`}>
@@ -24,7 +25,8 @@ const Profile: React.FC<ProfileProps & ProfileComponentProps> = ({
         )}
         <div className={`ml-4 ${showText && 'hidden'}`}>
           <h1 className="font-bold">{name}</h1>
-          <h2 className="pt-0 text-sm">{role}</h2>
+          <h2 className="pt-0 text-sm">{role} at { company }</h2>
+          {/* <h2 className="pt-0 text-sm">{company}</h2> */}
         </div>
       </div>
     </Link>

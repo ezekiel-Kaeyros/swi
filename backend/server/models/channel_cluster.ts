@@ -14,6 +14,7 @@ export const channelClusterSchema = new Schema({
 })
 
 export interface IChannelCluster {
+    _id?: string, 
     id?: string;
     name?: string;
     color?: string;

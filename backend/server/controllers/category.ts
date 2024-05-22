@@ -1,15 +1,22 @@
 import { Request, Response, request } from "express";
 import mongoose from "mongoose";
 import { ICategory } from "../models/category";
-import { createCategroy, deleteCategory, findAllCategory, findCategoryById, updateArrayCategories, updateCategroy } from "../db";
+import { createCategroy, deleteCategory, findAllCategory, findAllCategoryV, findCategoryById, updateAllCategroy, updateArrayCategories, updateCategroy } from "../db";
+import { extractCompanyFromToken } from "../utils/extractCompanyToken";
 
 const CategoryController = {
 
-    getCategory: async (request: Request, response: Response):Promise<void> => {
+    getCategory: async (request: any, response: Response):Promise<void> => {
 
         try{
+            // const token: any = extractCompanyFromToken (request, response)
+            // const company_id = token?.user?.id_company[0]._id
+            const company_id = request?.company_id
             const  category: ICategory[] = await findAllCategory();
-            response.send(category)
+            const categoryForCompany = category?.filter((sal: any) => {
+                return sal?.id_company[0]?._id.toString() === company_id
+            })            
+            response.send(categoryForCompany)
 
         }catch(error){
             console.error('Error fetching all category', error.message);
@@ -88,6 +95,20 @@ const CategoryController = {
         }   
     },
 
+    updateAllCategories: async(request: Request, response: Response): Promise<void> => {
+        try{
+            const allCategories = await findAllCategoryV (); 
+            allCategories.forEach(async (element: ICategory) => {                
+                const category: ICategory | null = await updateAllCategroy(element);
+            });
+        } catch (error) {
+
+            console.error('Error updating trade channel:', error.message);
+            response.status(500).json({ success: false, error: 'Internal Server Error' });
+            
+        }   
+    },
+
     deleteCategory: async(request: Request, response: Response): Promise<void> => {
 
         try{
@@ -114,7 +135,15 @@ const CategoryController = {
             console.error('Error deleting trade channel:', error.message);
             response.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-    }
+    }, 
+
+    deleteAllCategories: async (req: Request, res: Response) => {
+        const allCategories = await findAllCategory()
+        allCategories.forEach(async (category) => {
+            await deleteCategory(category?._id.toString());
+        });
+        return res.send({});
+    },
 
 
 }

@@ -2,16 +2,22 @@ import { Request, Response, request } from "express";
 import mongoose from "mongoose";
 import { createActivity, deleteActivity, findActivityById, findAllActivities, updateActivity } from "../db/activities";
 import { IActivity } from "../models/activities";
+import { extractCompanyFromToken } from "../utils/extractCompanyToken";
 
 
 const   ActivitiesController = {
 
-    getActivities: async (request: Request, response: Response):Promise<void> => {
+    getActivities: async (request: any, response: Response):Promise<void> => {
 
         try{
-            const  Activities: any[] = await findAllActivities();
-            response.send(Activities)
-
+            // const token: any = extractCompanyFromToken (request, response)
+            // const company_id = token?.user?.id_company[0]._id
+            const company_id = request?.company_id
+            const Activities: any[] = await findAllActivities(); 
+            const activitiesForCompany = Activities?.filter((sal: any) => {
+                return sal?.id_company === company_id
+            }) 
+            response.send(activitiesForCompany)
         }catch(error){
             console.error('Error fetching all trade channel', error.message);
             response.status(500).send(error);
@@ -107,7 +113,16 @@ const   ActivitiesController = {
             console.error('Error deleting Activitie:', error.message);
             response.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-    }
+    }, 
+
+
+    deleteAllActivities: async (req: Request, res: Response) => {
+        const allActitivities = await findAllActivities()
+        allActitivities.forEach(async (activity) => {
+            await deleteActivity(activity?._id.toString());
+        });
+        return res.send({});
+    },
 
 
 }

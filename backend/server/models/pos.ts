@@ -58,6 +58,7 @@ const PosSchema = new Schema(
     channelCluster: { type: Schema.Types.ObjectId, ref: 'ChannelCluster' },
     tradeChannel: { type: Schema.Types.ObjectId, ref: 'TradeChannel' },
     category: { type: Schema.Types.ObjectId, ref: 'Category' },
+    id_company: {type: Schema.Types.String, required: false, ref: 'Company'}, 
     totalActivitiesDuration: { type: Number, required: false },
   },
   {
@@ -66,6 +67,7 @@ const PosSchema = new Schema(
 );
 
 export interface IPos {
+  _id?: string; 
   id?: string;
   longitude: string;
   latitude: string;
@@ -81,6 +83,7 @@ export interface IPos {
   channelCluster?: string;
   tradeChannel?: string;
   category?: string;
+  id_company?: string; 
   totalActivitiesDuration?: number;
 }
 

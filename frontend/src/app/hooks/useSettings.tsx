@@ -22,7 +22,7 @@ export const useSettings = () => {
   // GET REQUEST FOR ALL CHANNEL CLUSTERS
   let { data, isLoading } = useMakeGetRequestRevalidate (`${ BASE_URL }/channelCluster`, CHANNEL_CLUSTER_USEQUERY_KEY); 
 
-  console.log(data, "ROUTE DATA1111")
+  // console.log(data, "ROUTE DATA1111")
   // GET REQUEST FOR ALL TRADE CHANNEL
   let { data: tradeChannelsLoad } = useMakeGetRequestRevalidate (`${ BASE_URL }/tradeChannel`, TRADE_CHANNEL_USEQUERY_KEY); 
 
@@ -43,7 +43,7 @@ export const useSettings = () => {
   }));
 
   // LOAD ALL CHANNEL CLUSTER IN THE CANVAS
-  console.log("data...data./", data)
+  // console.log("data...data./", data)
 
   // LOAD ALL TRADE CHANNELS FROM REQUEST
   dispatch(loadAllTradeChannels({

@@ -3,7 +3,7 @@ import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
 import React from 'react';
 import ChannelCluster from '../channel-cluster/ChannelCluster';
 import Activities from '../activities/Activities';
-import TestPageodules from '@/app/[lang]/(pages)/testPage/modules/TestPageModules';
+// import TestPageodules from '@/app/[lang]/(pages)/testPage/modules/TestPageModules';
 
 const Navbar = () => {
   return (
@@ -24,9 +24,9 @@ const Navbar = () => {
           variant="underlined"
           aria-label="Tabs variants"
         >
-          <Tab key="agentManagement" title="Agent Management">
+          {/* <Tab key="agentManagement" title="Agent Management">
             <TestPageodules />
-          </Tab>
+          </Tab> */}
           <Tab key="channelCluster" title="Channel Cluster">
             <ChannelCluster />
           </Tab>

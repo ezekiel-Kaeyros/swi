@@ -21,7 +21,7 @@ export default function PosMap() {
   const { pointOfSales, dispatch } = usePointOfSales();
   const { channelClusters } = useSettings();
 
-  console.log('pointOfSales___', pointOfSales, channelClusters);
+  // console.log('pointOfSales___', pointOfSales, channelClusters);
 
   const [finalPOS, setFinalPOS] = useState(pointOfSales);
 
@@ -118,7 +118,7 @@ export default function PosMap() {
           );
         })}
       </Map>
-      <div className="absolute bottom-[5%] left-[50%]  flex items-center  justify-between overflow-hidden w-100vh ">
+      <div className="absolute bottom-[5%] flex items-center  justify-center overflow-hidden w-8/12 ">
         <div className="flex items-center rounded-full bg-[#242424] w-fit p-4 scale-85">
           <POSFilter
             filterPosOnMap={getAllPosOnMap}

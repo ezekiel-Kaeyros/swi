@@ -9,10 +9,11 @@ import { useActivities } from '@/app/hooks/useActivities';
 import { useConnectNodes } from '@/app/hooks/useConnectNodes';
 import { IChannelCluster, TradeChannel } from '@/redux/features/types';
 import { isOddOrEven } from '@/utils/oddOrEven';
+import { activityObjectFormation, categoryObjectFormation, channelClusterObjectFormation, tradeChannelObjectFormation } from '@/utils/objectsFormation';
 
 const ActivityModule = () => {
   
-  const { channelClusters, dispatch, lastestHightCC } = useSettings(); 
+  const { channelClusters, tradeChannels, categories, dispatch } = useSettings(); 
 
   const { connectTwoNodes } = useConnectNodes(); 
 
@@ -22,28 +23,12 @@ const ActivityModule = () => {
     let heightValue = 100
     if (channelClusters?.length > 0) {
       
-      // BETTER ALTERNATIVE
+      // BUILDING THE CHANNELCLUSTER GRAPH FROM DATA COMING FROM BACKEND
       channelClusters?.forEach ((elementCC: IChannelCluster) => {
 
-        const finalCCValue = {
-          id: elementCC?._id as string, 
-          name: elementCC?.name,
-          color: elementCC?.color, 
-          position: {
-            x: 10, 
-            y: heightValue
-          }, 
-          type: "channelClusterCreation", 
-          width: 250, 
-          height: 94,
-          data: {
-            name: elementCC?.name,
-            id: elementCC?._id as string, 
-            color: elementCC?.color as string, 
-          }, 
-          trade_channels_id: elementCC?.trade_channels_id
-        }
+        const finalCCValue = channelClusterObjectFormation (elementCC, heightValue)
 
+        // CREATING LOCAL CHANNEL CLUSTER
         dispatch(createLocalChannelClusterFromDB({
           finalCCValue, 
         }))
@@ -52,28 +37,9 @@ const ActivityModule = () => {
           heightValue = heightValue + 100
           // state.locaTradeChannels?.push();
 
-          const finalTCValue = {
-            id: elementTC?._id as string, 
-            name: elementTC?.name,
-            position: {
-              x: 400, 
-              y: heightValue, 
-            }, 
-            type: "tradeChannelCreation", 
-            width: 250, 
-            height: 94, 
-            data: {
-              id: elementTC?._id as string, 
-              name: elementTC?.name, 
-              color: elementCC?.color as string, 
-              categories_id: elementTC?.categories_id, //[], 
-              channel_cluster_id: elementTC?.channel_cluster_id, 
-            }, 
-            categories_id: elementTC?.categories_id, //[], 
-            channel_cluster_id: elementTC?.channel_cluster_id, 
-            // channel_cluster_ids
-          }
+          const finalTCValue = tradeChannelObjectFormation (elementCC, elementTC, heightValue)
 
+          // CREATING LOCAL TRADE CHANNEL
           dispatch(createLocalTradeChannelFromDB({
             finalTCValue, 
           }))
@@ -81,101 +47,50 @@ const ActivityModule = () => {
 
           elementTC?.categories_id?.forEach((elementsCats: any) => {
             heightValue = heightValue + 100
-            // state.localCategories?.push();
-            const finalCatValue = {
-              id: elementsCats?._id, 
-              name: elementsCats?.name,
-              position: {
-                x: 800, 
-                y: heightValue, 
-              }, 
-              type: 'categoryCreation', 
-              width: 250, 
-              height: 94, 
-              data: {
-                name: elementsCats?.name,
-                id: elementsCats?._id, 
-                trade_chanel_id: elementsCats?.trade_chanel_id, 
-                activities_ids: []
-              }, 
-              trade_chanel_id: elementsCats?.trade_chanel_id, 
-              activities_ids: [], 
-            }
 
+            const finalCatValue = categoryObjectFormation (elementsCats, heightValue)
+
+            // CREATING LOCAL CATEGORY
             dispatch(createLocalCategoryFromDB({
               finalCatValue, 
             }))
 
             connectTwoNodes (elementTC?._id as string, elementsCats?._id as string, MarkerType.Arrow); 
           });
-          
+
         });
 
       })
 
       if (activities?.length > 0) {
-        // dispatch(loadActivitiesFromDB({
-        //   allActivities: activities, 
-        // }))
 
         heightValue = 100; 
         let widthValue = 1200
-  
+
         activities?.forEach((allAct: any) => {
           allAct?.activitieItems?.forEach((element: any, index: number) => {
             widthValue = 1200
             heightValue = heightValue + 200
             const evenOrOdd = isOddOrEven (index) ? 100 : 400
             widthValue = widthValue + evenOrOdd
-  
-            console.log("finalValuefinalValue---", element, index, evenOrOdd, widthValue)
-            const finalValueA = {
-              // id: state.locaChannelClusters?.length + 1,
-              id: element?._id, 
-              name: allAct?.name, 
-              width: 350, 
-              height: 150, 
-              frequency: element?.frequency, 
-              duration: element?.time, 
-              priority: element?.priority, 
-              description: allAct?.description, 
-              activityParentID: allAct?._id, 
-              type: "activityCreation", 
-              position: {
-                x: widthValue, 
-                y: heightValue
-              },
-              data: {
-                activityParentID: allAct?._id, 
-                name: allAct?.name, 
-                id: element?._id, 
-                frequency: element?.frequency, 
-                duration: element?.time, 
-                time: element?.time, 
-                priority: element?.priority, 
-                description: allAct?.description, 
-                channelCluster: element?.channelClusters, 
-                tradeChannel: element?.tradeChannels,
-                category: element?.categories, // color: color.hex, 
-              }, 
-              channelCluster: element?.channelClusters, 
-              tradeChannel: element?.tradeChannels, 
-              category: element?.categories
-            }
-  
-            
+
+            const finalValueA = activityObjectFormation (element, allAct, widthValue, heightValue)
+
+            // CONNECT ACTIVITIES WITH CATEGORIES
             element?.categories?.forEach((cats: any) => {
               connectTwoNodes (cats?._id, element?._id, MarkerType.Arrow)
             });
-  
+
+            // CREATE ACTIVITIES FOR UI DISPLAY IN THE STATE WITH DATA FROM DB
             dispatch(createLocalActivities({
               finalValueA, 
             }))
-  
+
+            // CREATE GAP IN BETWEEN ELEMENTS
             dispatch(createGapBetweenElementOnCanvas({
               newMeasure: lastestHight! + 100
             }))
-  
+
           });
         });
       } else {
@@ -186,7 +101,7 @@ const ActivityModule = () => {
       console.log("Not ready yet")
     }
 
-  }, [channelClusters, activities])
+  }, [channelClusters, activities, tradeChannels, categories ])
 
   return (
     <Sidebar channelClusters={ channelClusters } />

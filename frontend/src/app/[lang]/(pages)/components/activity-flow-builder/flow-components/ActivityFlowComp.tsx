@@ -18,19 +18,11 @@ const ActivityFlowComp = ({ data }: { data: IActivityNew }) => {
         return prio.id === data.priority
     })
 
-    // 66391335d26be58b5f268c9d
-
-    // activities
-
-    // const getAllAttachedChannelCluster = activities.flatMap(item => item.activitieItems)
-    // .filter(activitieItem => activitieItem._id === data?.id)
-    // .map(activitieItem => activitieItem.channelClusters);
-
     const getAllAttachedChannelCluster = activities?.filter((actiV: any) => {
       return data?.activityParentID === actiV?._id
     })
 
-    console.log(prioritiesName, data, "qqqqqaaqqqqq", getAllAttachedChannelCluster, getAllAttachedChannelCluster[0]?.activitieItems)
+    // console.log(prioritiesName, data, "qqqqqaaqqqqq", getAllAttachedChannelCluster, getAllAttachedChannelCluster[0]?.activitieItems)
 
     const manualLinkageFromCategory = (categoryID: any) => {
         dispatch(linkLocaloActivityToCategory({
@@ -58,10 +50,6 @@ const ActivityFlowComp = ({ data }: { data: IActivityNew }) => {
               id: data?.id,
             })
           );
-
-          // makeDeleteAction(`${BASE_URL}/${ ACTIVITIES_ITEMS_API_URL }/${data?.id}`)
-          
-          // return
           const foundActivity = activities?.find((tradC: any) => {
             console.log(tradC, "tradCto", data?.id)
             return tradC?._id === data?.activityParentID

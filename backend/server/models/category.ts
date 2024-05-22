@@ -13,6 +13,7 @@ export const categorySchema = new Schema({
 }) 
 
 export interface ICategory {
+    _id?: string; 
     id?: string;
     name?: string;
     id_company?: string;

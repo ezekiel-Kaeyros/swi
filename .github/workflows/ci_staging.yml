@@ -32,6 +32,23 @@ jobs:
           echo "EMAIL_HOST=smtp.ionos.de " >> .env && \
           echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env
 
+      - name: create env for sales_rep
+        run: |
+          cd sales-repview && \
+          touch .env && \
+          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
+          echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
+          echo "BASE_URL=https://back-end.kaeyros.shop" >> .env &&     
+
+      - name: create .env file for frontend
+        run: |
+          cd frontend && \
+          touch .env && \
+          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
+          echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
+          echo "BASE_URL=https://back-end.kaeyros.shop" >> .env && 
+
+
       - name: Build the Docker image for backend
         run: |
           cd backend && docker build -t ezekielkaeyros/swivybackend .

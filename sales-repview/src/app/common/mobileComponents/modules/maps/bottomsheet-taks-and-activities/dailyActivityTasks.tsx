@@ -19,12 +19,7 @@ const DailyActivityTasks: FC<DailyActivityTasksInterface> = ({ roads }) => {
           const getPriorityState = Priorities.find((p) =>
             item.activities_items.filter((c) => c.priority === p.id)
           )?.name;
-          // const getChannelClusterIdList = item.activities_items.map((c) => {
-          //   return c.channelClusters.filter((channelClusterId) =>
-          //     item.pos.includes(channelClusterId._id)
-          //   );
-          // });
-          // console.log(getChannelClusterIdList);
+
           const channelCLusterId = item.activities_items.find(
             (c) => c.channelClusters[0]
           )?.channelClusters[0]._id;

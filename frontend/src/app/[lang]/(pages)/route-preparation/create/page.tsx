@@ -38,23 +38,23 @@ export default function PointOfSale({}) {
 
   const { toggleMapsValue, showAllRoutes, showPOSMap } = useRoutePlanning();
 
-  console.log(
-    'toggleMapsValue, showAllRoutes, showPOSMap in create page',
-    toggleMapsValue, 
-    showAllRoutes, 
-    showPOSMap
-  );
+  // // console.log(
+  // //   'toggleMapsValue, showAllRoutes, showPOSMap in create page',
+  // //   toggleMapsValue, 
+  // //   showAllRoutes, 
+  // //   showPOSMap
+  // // );
 
   /** for search input compoenents */
   function onSearch(e: any) {
     console.log(e);
   }  
- 
-  // useEffect(() => {
-  //   dispatch(displayAllRoutes({ showAllRoutes: false }));
-  //   dispatch(toggleMaps({ toggle: false }));
-  //   dispatch(displayPOSMap({ posMapDisplayState: true }));
-  // }, [showPOSMap]);
+
+  useEffect(() => {
+    // dispatch(displayAllRoutes({ showAllRoutes: false }));
+    dispatch(toggleMaps({ toggle: false }));
+    dispatch(displayPOSMap({ posMapDisplayState: true }));
+  }, [showPOSMap]);
 
   return (
     <div className=" overflow-y-hidden h-[calc(100vh-80px)] w-full  ">

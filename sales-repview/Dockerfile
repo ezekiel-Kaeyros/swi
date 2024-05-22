@@ -1,3 +1,4 @@
+
 # Build Stage
 FROM node:20.9.0-alpine AS BUILD_IMAGE
 WORKDIR /app

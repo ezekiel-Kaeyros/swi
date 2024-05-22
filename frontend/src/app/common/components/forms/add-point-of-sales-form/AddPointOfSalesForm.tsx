@@ -31,6 +31,7 @@ import { BASE_URL } from '@/utils/constants';
 import TextArea from '../text-area/TextArea';
 import { useRouter } from 'next/navigation'; 
 import { useMutation } from '@tanstack/react-query';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 // import { useMutation } from "react-query";
 
 const AddPointOfSalesForm = () => {
@@ -130,6 +131,8 @@ const AddPointOfSalesForm = () => {
     },
   })
 
+  const { decodeToken } = useUserInfo ()
+
   // Triggers when submitting
   const onSubmit: SubmitHandler<AddPointOfSalesFormValues> = async (data) => {
     let firstStat: string = '50 000 XAF';
@@ -147,6 +150,7 @@ const AddPointOfSalesForm = () => {
       category: data.category, //
       description: data.description,
       city: data.city, 
+      id_company: decodeToken?.user?.id_company[0]?._id, 
 
       firstStat: firstStat, // coming soon
       secondStat: secondStat, // conming soon

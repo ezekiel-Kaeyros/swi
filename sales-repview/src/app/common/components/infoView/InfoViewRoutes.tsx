@@ -8,9 +8,10 @@ import { Button } from '../button/Button';
 import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import { addPointOfSalesToRoute } from '@/redux/features/route-planning-slice';
 import { IPointOfSalesType } from '@/core/utils/types';
+import PointOfSales from '@/core/models/Pos';
 
 type InfoViewProps = {
-  shopDetails: IPointOfSalesType;
+  shopDetails: PointOfSales;
 };
 
 const InfoViewRoutes: React.FC<InfoViewProps> = ({ shopDetails }) => {
@@ -20,7 +21,7 @@ const InfoViewRoutes: React.FC<InfoViewProps> = ({ shopDetails }) => {
     dispatch(
       addPointOfSalesToRoute({
         routeId: selectedRouteId,
-        posId: shopDetails?.id,
+        posId: shopDetails?._id,
       })
     );
   };
@@ -36,22 +37,22 @@ const InfoViewRoutes: React.FC<InfoViewProps> = ({ shopDetails }) => {
         <div className="w-full mt-2">
           <h1 className="font-bold">{shopDetails?.name}</h1>
           <h3 className="opacity-80 text-sm pr-4 pb-2">
-            {shopDetails?.shopLocation}
+            {shopDetails?.location}
           </h3>
 
           <div className="flex items-center   gap-2 w-full justify-start flex-wrap">
             <div className="flex items-center pr-2 h-8 bg-[#CCEAF7] px-3 py-1 rounded-full">
               <Image src={contactIconGreen} alt="Contact icon" />
-              <h1 className="text-sm ml-1.5">{shopDetails?.contact} </h1>
+              <h1 className="text-sm ml-1.5">{shopDetails?.name} </h1>
             </div>
 
             <div className="flex items-center pr-2 h-8 bg-[#CCEAF7] px-3 py-1 rounded-full">
               <Image src={userIconGreen} alt="User icon" />
-              <h1 className="text-sm ml-1.5">{shopDetails?.shopOwner} </h1>
+              <h1 className="text-sm ml-1.5">{shopDetails?.owner} </h1>
             </div>
           </div>
           <h1 className="font-bold my-2">Tasks</h1>
-          <ul className="flex space-x-4 flex-wrap">
+          {/* <ul className="flex space-x-4 flex-wrap">
             {shopDetails?.tasks?.map((value: any) => (
               <li
                 className="px-2 py-1 rounded-full  text-sm bg-[#CCEAF7]"
@@ -60,15 +61,15 @@ const InfoViewRoutes: React.FC<InfoViewProps> = ({ shopDetails }) => {
                 {value?.name}
               </li>
             ))}
-          </ul>
+          </ul> */}
 
-          <div className="mt-8 mb-2">
+          {/* <div className="mt-8 mb-2">
             {shopDetails?.tasks?.length !== 0 && (
               <Button onClick={() => handleAddToRoute()} className="w-fit py-1">
                 Add to route
               </Button>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

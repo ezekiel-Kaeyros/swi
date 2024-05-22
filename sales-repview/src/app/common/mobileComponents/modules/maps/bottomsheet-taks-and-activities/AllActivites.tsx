@@ -14,7 +14,7 @@ const AllActivites: FC<AllActivitesInterface> = ({ roads }) => {
     <DelayShowAnimation>
       <div className="flex flex-col mb-[200px]  ">
         {(roads || []).map((item, key) => {
-          console.log(item);
+          // console.log(item);
           const getPriorityState = Priorities.find((p) =>
             item.activities_items.filter((c) => c.priority === p.id)
           )?.name;

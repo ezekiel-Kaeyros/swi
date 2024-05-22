@@ -11,6 +11,7 @@ type ActivitiesItem = {
   categories: Category[];
   time: number;
   frequency: number;
+  status: string;
   __v?: number;
 };
 

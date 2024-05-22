@@ -57,22 +57,14 @@ const RoutePreparation = () => {
   const { toggleMapsValue, showAllRoutes } = useRoutePlanning();
   const { push } = useRouter();
 
-  console.log(dbRoutes, ">>>>>111")
-
   const { activities } = useActivities ()
 
   const newRouteFormat: RoutePlanningType [] = dbRoutes?.map((route: RouteRawTypeFromDB) => {
-    // value: RoutePlanningType, index: number, 
-    // const all
-    // Route-${uuidv4()}
- 
     const roadItems: RoadItemType [] = route?.pos?.map((rItem: POSIdType) => {
-
       // GOT THROUGH THE ARRAY OF ACTIVITIES activities_items TO FIND ID OF A SPECIFIC POS
       const isChannelClusterInActivities = getAllActivitiesForPOSOnLoad (activities as [], route?.activities_items as [], rItem?.channelCluster as string); 
-
-      console.log(isChannelClusterInActivities, "llbbaaqq")
-
+      
+      console.log(isChannelClusterInActivities, )
       return {
         _id: rItem?._id,
         taskIds: isChannelClusterInActivities,
@@ -95,27 +87,23 @@ const RoutePreparation = () => {
     }
   })
 
-  console.log(newRouteFormat, "newRouteFormat,,,")
+  console.log(newRouteFormat, "newRouteFormat...")
 
   const handleCreateRoute = () => {
     dispatch(createRoute({}));
     // dispatch(displayAllRoutes({ showAllRoutes: false }));
-    // dispatch(toggleMaps({ toggle: false }));
     dispatch(displayPOSMap({ posMapDisplayState: true }));
-    // USE INSIDE ROUTE-PREPARATION
     push('/route-preparation/create');
+    // dispatch(toggleMaps({ toggle: false }));
     // USE INSIDE ROUTE-PLANNING/ROUTE-PREPARATION
     // push('/route-planning/route-preparation/create');
   }; 
  
   useEffect(() => {
-    dispatch(displayAllRoutes({ showAllRoutes: true }));
+    dispatch(displayAllRoutes({ showAllRoutes: true })); 
+    dispatch(displayPOSMap({ posMapDisplayState: false }));
     dispatch(toggleMaps({ toggle: false }));
   }, []); 
-
-
-
-  // 6639b018d26be58b5f26c8ae
 
   return (
     <>
@@ -133,7 +121,7 @@ const RoutePreparation = () => {
                   <div className="bg-bgColorDark cursor-pointer p-4 flex justify-center items-center rounded-xl h-[50px]">
                     <FilterIcon height="25" width="25" color="none" />
                   </div>
-                  <div className="bg-bgColorDark cursor-pointer p-4 flex justify-center items-center rounded-xl h-[50px]">
+                  <div onClick={ () => dispatch(displayAllRoutes({ showAllRoutes: !showAllRoutes })) } className="bg-bgColorDark cursor-pointer p-4 flex justify-center items-center rounded-xl h-[50px]">
                     <GridViewIcon height="25" width="25" color="none" />
                   </div>
                 </div>
@@ -161,24 +149,17 @@ const RoutePreparation = () => {
               {newRouteFormat?.length !== 0 && showAllRoutes ? (
                 newRouteFormat?.map((route: RoutePlanningType, index) => {
                 // newRouteFormat?.slice(0, 3).map((route: RoutePlanningType, index) => {
-
-                console.log(route, "././..")
-
-                  // const sumTime = route?.roadItems?.reduce((acc, current) => {
-                  //   return acc + current?.taskIds?.reduce((acc2, current2) => {
-                  //     return acc2 + current2?.id?.time;
-                  //   }, 0);
-                  // }, 0);
+                  console.log(route, "88888")
 
                   const sumTime = route?.roadItems?.reduce((acc, current) => {
                     return acc + current?.taskIds?.reduce((acc2, current2) => {
-                      return acc2 + current2.id?.time;
+                      return acc2 + current2?.time;
                     }, 0);
                   }, 0);
 
-                  console.log(sumTime, "kkkk")
+                  const finalTimeForRout = convertMinutesToHoursAndMinutes(sumTime as number); 
 
-                  const finalTimeForRout = convertMinutesToHoursAndMinutes(sumTime as number)
+                  console.log(finalTimeForRout, sumTime, "???...///")
                   return (
                   <div
                     className="last:pb-[40px]"
@@ -228,73 +209,6 @@ const RoutePreparation = () => {
           </ScrollArea>
         </div>
       </div>
-      {/* Display details */}
-      {/* Tab Navigator */}
-      {/* <div className=" flex flex-col w-full overflow-y-auto  ">
-        <div className="h-[250px] p-4 bg-red-300 ">
-          <div className="flex flex-col ">
-            <div className="w-fit ">
-              sdsf
-              {/* <Button href={`/point-of-sales/create`} >
-    
-              </Button> 
-            </div>
-          </div>
-        </div>
-        <ScrollArea className=" overflow-y-auto px-2 py-4 mt-2 ">
-          <div
-            className={`space-y-3 mt-3 ${
-              showAllRoutes
-                ? 'space-y-6 flex flex-col '
-                : 'grid grid-cols-3 gap-5'
-            } `}
-          >
-            {routes?.length !== 0 && showAllRoutes ? (
-              routes?.slice(0, 3).map((route: any, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    dispatch(selectedRoute({ selectedRouteId: route?.id }));
-                  }}
-                >
-                  <RouteCard
-                    activitiesDuration={route?.activitiesDuration}
-                    key={route?.id}
-                    id={route?.id}
-                    numberOfPos={route?.pointOfSales?.length}
-                    numberOfTasksCompleted=""
-                    profilePicture=""
-                    routeName={route?.routeName}
-                    salesName={route?.salesRepresentative}
-                  />
-                </div>
-              ))
-            ) : routes?.length !== 0 && !showAllRoutes ? (
-              routes?.map((route: any, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    dispatch(selectedRoute({ selectedRouteId: route?.id }));
-                  }}
-                >
-                  <RouteCard
-                    activitiesDuration={route?.activitiesDuration}
-                    key={route?.id}
-                    id={route?.id}
-                    numberOfPos={route?.pointOfSales?.length}
-                    numberOfTasksCompleted=""
-                    profilePicture=""
-                    routeName={route?.routeName}
-                    salesName={route?.salesRepresentative}
-                  />
-                </div>
-              ))
-            ) : (
-              <EmptyStateRoute />
-            )}
-          </div>
-        </ScrollArea>
-      </div> */}
     </>
   );
 };

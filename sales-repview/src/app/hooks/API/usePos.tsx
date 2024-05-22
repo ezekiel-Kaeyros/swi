@@ -11,9 +11,17 @@ export const useManagePosInStore = () => {
   const road = useSelector(
     (state: RootState) => state.RoadManagementReducer.roard
   );
+  const pos = useSelector(
+    (state: RootState) => state.RoadManagementReducer.pointOfSales
+  );
+  const shopData = useSelector(
+    (state: RootState) => state.RoadManagementReducer.shopData
+  );
   const dispatch = useDispatch<AppDispatch>();
   return {
     road,
+    pos,
+    shopData,
     dispatch,
   };
 };

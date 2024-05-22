@@ -29,7 +29,14 @@ const UserController = {
     return res.send(user);
   },
 
- 
+  deleteAllUser: async (req: Request, res: Response) => {
+    const allUsers = await getUsers()
+    allUsers.forEach(async (user) => {
+        await deleteUser(user?._id.toString());
+    });
+    return res.send({});
+  },
+
 };
 
 export default UserController;

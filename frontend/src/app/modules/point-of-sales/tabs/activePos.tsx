@@ -2,8 +2,8 @@ import PointOfSalesList from '@/app/common/components/point-of-sales/point-of-sa
 
 const ActivePOS = () => {
   return (
-    <div className="flex-col gap-4   ">
-      <div className=" w-full gap-4 min-h-full snap-y px-4  mt-3">
+    <div className="flex-col gap-4">
+      <div className=" w-full min-h-full snap-y px-4">
         {/* Point of sales list */}
         <PointOfSalesList />
       </div>

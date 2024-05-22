@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     //   </ScrollArea>
     // </ScrollArea>
     <div className="flex  h-[calc(100vh-100px)]">
-      <div className="w-7/12 overflow-y-hidden">{children}</div>
+      <div className="w-7/12 overflow-y-hidden flex justify-center">{children}</div>
       <div className="w-9/12 overflow-y-hidden">
         {' '}
         <PosMap />

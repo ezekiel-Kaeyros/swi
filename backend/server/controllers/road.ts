@@ -3,13 +3,19 @@ import { createRoad, deleteRoad, findAllRoad, findOneRoad, findRoadBySaleRep, up
 import { IRoad } from '../models/road';
 import mongoose from 'mongoose';
 import { deleteRoadItem } from '../db';
+import { extractCompanyFromToken } from '../utils/extractCompanyToken';
 
 const RoadController = {
-    getAllRoads: async (request: Request, response: Response): Promise<void> => {
+    getAllRoads: async (request: any, response: Response): Promise<void> => {
         try {
+            // const token: any = extractCompanyFromToken (request, response)
+            // const company_id = token?.user?.id_company[0]._id
+            const company_id = request?.company_id
             const roads: any[] = await findAllRoad();
-            // response.json({ success: true, data: roads }); 
-            response.send(roads)
+            const roadsForCompany = roads?.filter((sal: any) => {
+                return sal?.id_company === company_id
+            }); 
+            response.send(roadsForCompany)
         } catch (error) {
             console.error('Error fetching all roadItems:', error.message);
             response.status(500).send(error);
@@ -19,8 +25,6 @@ const RoadController = {
     getSaleRepsRoads: async (request: Request, response: Response): Promise<void> => {
         try {
             const saleRepId: string = request.params.id;
-            console.log('=============================>>>', saleRepId);
-            
             
             const roads: any[] = await findRoadBySaleRep(saleRepId);
             response.json({ success: true, data: roads });
@@ -56,12 +60,13 @@ const RoadController = {
 
     saveRoad: async (request: Request, response: Response): Promise<void> => {
         try {
-            const { name, activities_items, pos, saleRep }: { name: string, pos: string[], activities_items?: string[]; saleRep: string;} = request.body;
+            const { name, activities_items, pos, saleRep, id_company }: { name: string, pos: string[], activities_items?: string[]; saleRep: string; id_company: string} = request.body;
             const newRoadData: IRoad = {
                 name, 
                 pos, 
                 saleRep, 
-                activities_items
+                activities_items, 
+                id_company, 
             }
 
             const createdRoad = await createRoad(newRoadData);
@@ -88,16 +93,16 @@ const RoadController = {
                 return;
             }
 
-            const allRoutes = await findAllRoad ()
+            // const allRoutes = await findAllRoad ()
 
-            // FIRST FIND THE ROAD BY ITS ID
-            const foundRoad = await findOneRoad(id); 
+            // // FIRST FIND THE ROAD BY ITS ID
+            // const foundRoad = await findOneRoad(id); 
 
-            if (foundRoad.roadItems.length > 0) {
-                foundRoad.roadItems.forEach( async (roadItem: any) => {
-                    await deleteRoadItem(roadItem?._id.toString()); 
-                });
-            }
+            // if (foundRoad.roadItems.length > 0) {
+            //     foundRoad.roadItems.forEach( async (roadItem: any) => {
+            //         await deleteRoadItem(roadItem?._id.toString()); 
+            //     });
+            // }
 
             const deletedRoad = await deleteRoad(id); 
 
@@ -122,13 +127,13 @@ const RoadController = {
 
             allRoutes.forEach(async (element) => {
                 // FIRST FIND THE ROAD BY ITS ID
-                const foundRoad = await findOneRoad(element?._id.toString()); 
+                // const foundRoad = await findOneRoad(element?._id.toString()); 
     
-                if (foundRoad.roadItems && foundRoad.roadItems.length > 0) {
-                    foundRoad.roadItems.forEach( async (roadItem: any) => {
-                        await deleteRoadItem(roadItem?._id.toString()); 
-                    });
-                }
+                // if (foundRoad.roadItems && foundRoad.roadItems.length > 0) {
+                //     foundRoad.roadItems.forEach( async (roadItem: any) => {
+                //         await deleteRoadItem(roadItem?._id.toString()); 
+                //     });
+                // }
                 const deletedRoad = await deleteRoad(element?._id.toString()); 
                 
             });
@@ -138,7 +143,7 @@ const RoadController = {
             console.error('Error deleting Activitie:', error.message);
             response.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-    }
+    }, 
 
 
     // updateRoad: async(request: Request, response: Response): Promise<void> => {

@@ -77,11 +77,12 @@ const AgentOverview = () => {
     streetAddress: currentSalesRepsAgent?.streetAddress, 
     job: currentSalesRepsAgent?.jobTitle, 
     departement: "OptionTypeString", 
-    // reportingManager: findElementInSelectList(departmentData, currentSalesRepsAgent?.reportingManager)?.id, 
     reportingManager: [decodeToken?.user?.userId], 
-    id_company: decodeToken?.user?.id_company, 
+    id_company: decodeToken?.user?.id_company[0]?._id, 
     startDate: currentSalesRepsAgent?.startDate, 
     password: currentUser?.password, 
+    // reportingManager: findElementInSelectList(departmentData, currentSalesRepsAgent?.reportingManager)?.id, 
+    // id_company: decodeToken?.user?.id_company, 
   }
 
   console.log(finalData, "wait wait")
@@ -100,7 +101,8 @@ const AgentOverview = () => {
       const response = await fetch (`${ BASE_URL }/salesrep`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
+          Authorization: `Bearer ${getUserCookies()}`, 
         },
         body: JSON.stringify(finalData), // body data type must match "Content-Type" header
       })

@@ -18,6 +18,7 @@
     "react-draggable": "^4.4.6"
   },
   "devDependencies": {
-    "@types/fabric": "^5.3.7"
+    "@types/fabric": "^5.3.7",
+    "@types/node": "^20.12.12"
   }
 }

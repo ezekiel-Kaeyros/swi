@@ -9,7 +9,7 @@ const AuthController = {
 
   login: async (req: Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
-    let user = await getUserByEmail(email);
+    let user = await getUserByEmail(email); 
  
     if (!user) {
         return res

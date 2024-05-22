@@ -43,7 +43,7 @@ export const getAllActivitiesForPOSOnLoad = (activities: [], routeActivities: []
     return finalResult
   }).flat()
 
-  console.log(flatenAllActivitiesItems, activitiesFortheRouteOnly, "????>>>")
+  // console.log(flatenAllActivitiesItems, activitiesFortheRouteOnly, "????>>>")
 
   const activitieIt = activitiesFortheRouteOnly?.filter ((activIt: any) => {
     return activIt?.channelClusters[0]?._id === channelCluster

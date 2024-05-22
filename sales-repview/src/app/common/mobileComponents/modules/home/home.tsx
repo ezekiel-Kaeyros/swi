@@ -4,11 +4,26 @@ import Card from './Cards/Card';
 import HeaderBellSvgIcon from '@/app/common/components/SvgCustomIcons/ringSvgIcon';
 import Link from 'next/link';
 import { HomepageLink, prefixNavLink } from '../../const/constante';
+import { removeTokenCookies, removeUserCookies } from '@/core/cookies/cookies';
+import { useRouter } from 'next/navigation';
 
 function Home() {
+  const router = useRouter();
   return (
     <>
       <div className="absolute right-0 top-0 h-[55px] items-center m-3 flex gap-8 justify-end">
+        <div
+          onClick={() => {
+            removeTokenCookies();
+            removeUserCookies();
+            window.location.reload();
+          }}
+          className="items-center justify-center flex h-[48px] w-[48px]"
+        >
+          <div className={'w-fit px-2 h-[40px] mt-10  rounded-full  '}>
+            LOGOUT
+          </div>
+        </div>
         <span className="p-[14px] gap-4 h-[48px] w-[48px]">
           {' '}
           <Link href={`/notifications`}>

@@ -20,7 +20,7 @@ import TimesController from "./controllers/times";
 import ChannelClusterController from "./controllers/channel_cluster";
 
 import TradeChannelController from './controllers/trade_channel';
-import RoutePathController from './controllers/route_path';
+
 import SalesRepAuthController from './controllers/salesrep_auth';
 //router.get('/', (req: Request, res: Response) => res.send('Hello World!'));
 router.get("/", (req: Request, res: Response) =>
@@ -68,6 +68,7 @@ router.delete("/roles/:id", isAuthenticate, RoleController.deleteRole);
  */
 router.get("/users/:id", isAuthenticate, UserController.user);
 router.get("/users", isAuthenticate, UserController.getUsers);
+
 router.post(
   "/users",
   // schemaValidator("/users"),
@@ -81,6 +82,7 @@ router.put(
   UserController.updateUser
 );
 router.delete("/users/:id", isAuthenticate, UserController.deleteUser);
+router.delete("/users", isAuthenticate, UserController.deleteAllUser);
 
 /**
  * SaleRep
@@ -90,46 +92,50 @@ router.get("/salesrep", isAuthenticate, SaleRepController.getAllSaleRep);
 router.post("/salesrep", isAuthenticate, SaleRepController.createSaleRep);
 router.put("/salesrep/:id", isAuthenticate, SaleRepController.updateSaleRep);
 router.delete("/salesrep/:id", isAuthenticate, SaleRepController.deleteSaleRep);
+router.delete("/salesrep/", isAuthenticate, SaleRepController.deleteAllSalesRep);
+
 
 /**
  * road item
  */
-router.get('/roadItems', RoadItemController.getAllRoadItems)
-router.get('/roadItem/:id', RoadItemController.getOneRoadItem)
+router.get('/roadItems', isAuthenticate, RoadItemController.getAllRoadItems)
+router.get('/roadItem/:id', isAuthenticate, RoadItemController.getOneRoadItem)
 
-router.put('/roadItem/:id', RoadItemController.updateRoadItemHandler)
-router.post('/roadItem', RoadItemController.saveRoadItem)
-router.delete('/roadItem/:id', RoadItemController.deleteRoadItem)
+router.put('/roadItem/:id', isAuthenticate, RoadItemController.updateRoadItemHandler)
+router.post('/roadItem', isAuthenticate, RoadItemController.saveRoadItem)
+router.delete('/roadItem/:id', isAuthenticate, RoadItemController.deleteRoadItem)
 
 /**
  * road
  */
-router.get('/roads', RoadController.getAllRoads)
-router.get('/roads/:id', RoadController.getSaleRepsRoads)
-router.get('/road/:id', RoadController.getOneRoad)
-router.post('/road', RoadController.saveRoad)
+router.get('/roads', isAuthenticate, RoadController.getAllRoads)
+router.get('/roads/:id', isAuthenticate, RoadController.getSaleRepsRoads)
+router.get('/road/:id', isAuthenticate, RoadController.getOneRoad)
+router.post('/road', isAuthenticate, RoadController.saveRoad)
 
-router.delete('/road/:id', RoadController.deleteRoadController)
-router.delete('/roads', RoadController.deleteAllRoadController)
+router.delete('/road/:id', isAuthenticate, RoadController.deleteRoadController)
+router.delete('/roads', isAuthenticate, RoadController.deleteAllRoadController)
 // router.post('/road', RoadController.updateRoad)
 
 
 /**
  * Pos
  */
-router.get("/pos", PosController.getPos);
-router.get("/pos/:id", PosController.getOnePos);
+router.get("/pos", isAuthenticate, PosController.getPos);
+router.get("/pos/:id", isAuthenticate, PosController.getOnePos);
 router.post(
-  "/pos",
+  "/pos", isAuthenticate,
   // schemaValidator('/pos'),
   PosController.savePos
 );
 router.put(
-  "/pos/:id",
+  "/pos/:id", isAuthenticate,
   // schemaValidator('/pos'),
   PosController.updatePos
 );
-router.delete("/pos/:id", PosController.deletePos);
+router.delete("/pos/:id", isAuthenticate, PosController.deletePos);
+router.delete("/pos", isAuthenticate, PosController.deleteAllPOS);
+// 
 
 /**
  * Task
@@ -161,9 +167,12 @@ router.delete("/times/:id", TimesController.deleteTravelTime);
  * Cluster channel
  */
 
-router.get("/channelCluster", ChannelClusterController.getChannelClusters);
+router.get("/channelCluster", 
+  isAuthenticate, 
+  ChannelClusterController.getChannelClusters);
 router.get(
-  "/channelCluster/:id",
+  "/channelCluster/:id", 
+  isAuthenticate, 
   ChannelClusterController.getOneChannelCluster
 );
 router.post(
@@ -172,7 +181,8 @@ router.post(
   ChannelClusterController.saveChannelCluster
 );
 router.put(
-  "/channelCluster/:id",
+  "/channelCluster/:id", 
+  isAuthenticate, 
   // schemaValidator('/channelCluster'),
   ChannelClusterController.updateChannelCluster
 );
@@ -181,23 +191,35 @@ router.delete(
   ChannelClusterController.deleteChannelCluster
 );
 
+router.delete(
+  "/channelCluster", 
+  isAuthenticate, 
+  ChannelClusterController.deleteAllChannelCluster
+);
+
 /**
  * Trade Channel
  */
 
-router.get("/tradeChannel", TradeChannelController.getTradeChannels);
-router.get("/tradeChannel/:id", TradeChannelController.getOneTradeChannel);
+router.get("/tradeChannel", isAuthenticate,  TradeChannelController.getTradeChannels);
+router.get("/tradeChannel/:id", isAuthenticate, TradeChannelController.getOneTradeChannel);
 router.post(
   "/tradeChannel",
+  isAuthenticate, 
   schemaValidator("/tradeChannel"),
   TradeChannelController.saveTradeChannel
 );
 router.put(
-  "/tradeChannel/:id",
+  "/tradeChannel/:id", 
+  isAuthenticate, 
   schemaValidator("/tradeChannel"),
   TradeChannelController.updateTradeChannel
 );
-router.delete("/tradeChannel/:id", TradeChannelController.deleteTradeChannel);
+router.delete("/tradeChannel/:id", isAuthenticate, TradeChannelController.deleteTradeChannel);
+
+router.delete("/tradeChannel", isAuthenticate, TradeChannelController.deleteAllTradeCh);
+
+
 
 /**
  * Company
@@ -220,75 +242,76 @@ router.delete("/company/:id", CompanyController.deleteCompany);
  * Category
  */
 
-router.get("/category", CategoryController.getCategory);
-router.get("/category/:id", CategoryController.getOneCategory);
+router.get("/category", isAuthenticate, CategoryController.getCategory);
+router.get("/category/:id", isAuthenticate, CategoryController.getOneCategory);
 router.post(
   "/category",
-  schemaValidator("/category"),
+  isAuthenticate, 
+  schemaValidator("/category"), 
   CategoryController.saveCategory
 );
 router.put(
-  "/category/:id",
+  "/category/:id", 
+  isAuthenticate, 
   schemaValidator("/category"),
   CategoryController.updateCategroy
 );
-router.delete("/category/:id", CategoryController.deleteCategory);
+router.put(
+  "/category", 
+  isAuthenticate, 
+  schemaValidator("/category"),
+  CategoryController.updateAllCategories
+);
+router.delete("/category/:id", isAuthenticate, CategoryController.deleteCategory); 
+router.delete("/category", isAuthenticate, CategoryController.deleteAllCategories); 
 
 /**
  * Activities
  */
 
-router.get("/activities", ActivitiesController.getActivities);
-router.get("/activities/:id", ActivitiesController.getOneActivities);
+router.get("/activities", isAuthenticate, ActivitiesController.getActivities);
+router.get("/activities/:id", isAuthenticate, ActivitiesController.getOneActivities);
 router.post(
-  "/activities",
+  "/activities", 
+  isAuthenticate, 
   // schemaValidator('/category'),
   ActivitiesController.saveActivities
 );
 router.put(
-  "/activities/:id",
+  "/activities/:id", 
+  isAuthenticate, 
   // schemaValidator('/category'),
   ActivitiesController.updateActivitie
 );
-router.delete("/activities/:id", ActivitiesController.deleteActivity);
+router.delete("/activities/:id", isAuthenticate, ActivitiesController.deleteActivity);
+router.delete("/activities", isAuthenticate, ActivitiesController.deleteAllActivities);
+
+
 
 /**
  * Activitie Item
  */
 
-router.get("/activitiesItem", ActivitiesItemController.getActivitiesItem);
-router.get("/activitiesItem/:id", ActivitiesItemController.getOneActivitieItem);
+router.get("/activitiesItem", isAuthenticate, ActivitiesItemController.getActivitiesItem);
+router.get("/activitiesItem/:id", isAuthenticate, ActivitiesItemController.getOneActivitieItem);
 router.post(
-  "/activitiesItem",
+  "/activitiesItem", 
+  isAuthenticate, 
   // schemaValidator('/category'),
   ActivitiesItemController.saveActivitieItem
 );
 router.put(
-  "/activitiesItem/:id",
+  "/activitiesItem/:id", isAuthenticate, 
   // schemaValidator('/category'),
   ActivitiesItemController.updateActivitieItem
 );
 router.delete(
-  "/activitiesItem/:id",
+  "/activitiesItem/:id", isAuthenticate, 
   ActivitiesItemController.deleteActivitieItem
 );
-
-/**
- * Route Item
- */
-
-router.get("/route", RoutePathController.getRoutes);
-router.get("/route/:id", RoutePathController.getOneRoute);
-router.post(
-  "/route",
-  // schemaValidator('/category'),
-  RoutePathController.saveRoute
+router.delete(
+  "/activitiesItem", isAuthenticate, 
+  ActivitiesItemController.deleteAllActivitieItems
 );
-router.put(
-  "/route/:id",
-  // schemaValidator('/category'),
-  RoutePathController.updateRoute
-);
-router.delete("/activitiesItem/:id", RoutePathController.deleteRoute);
 
 export default router;

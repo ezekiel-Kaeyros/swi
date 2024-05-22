@@ -32,6 +32,8 @@ import DurationIcon from '../icons/DurationIcon';
 import MoreInfoToolTip from '../../route-planning/point-of-sales-card/more-info-tooltip/MoreInfoToolTip';
 import { convertMinutesToHoursAndMinutes } from '../../route-planning/utils/utils';
 import { PointOfSalesCardProps } from '../../route-planning/point-of-sales-card/pointOfSalesCard';
+import useMakeActions from '@/app/hooks/useMakeActions';
+import { BASE_URL } from '@/utils/constants';
 
 const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
   id,
@@ -106,18 +108,32 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
   }
 
   // DELETE METHOD TO EXECUTE TO REMOVE A CHANNEL CLUSTER
-  const deleteChannelCluster = () => {
-    // let confirmAction = confirm ("Are you sure to execute this action?")
-    // if (confirmAction) {
-    //   makeDeleteAction (`${ BASE_URL }/channelCluster/${ id}`)
-    // } else {
-    //   console.log("hi"); 
-    // }
-  }
+  // const deleteChannelCluster = () => {
+  //   // let confirmAction = confirm ("Are you sure to execute this action?")
+  //   // if (confirmAction) {
+  //   //   makeDeleteAction (`${ BASE_URL }/channelCluster/${ id}`)
+  //   // } else {
+  //   //   console.log("hi"); 
+  //   // }
+  // }
 
   const totalDurationPerPos = sumDurations(currentPos?.tasks);
 
-  console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
+  // console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
+
+  const { makeDeleteAction } = useMakeActions ()
+
+  // DELETE METHOD TO EXECUTE TO REMOVE A CHANNEL CLUSTER
+  const deleteChannelCluster = () => {
+    let confirmAction = confirm ("Are you sure to execute this action?")
+    console.log( `${ BASE_URL }/pos/${ id }`, "??????>>>>" )
+    // return
+    if (confirmAction) {
+      makeDeleteAction (`${ BASE_URL }/pos/${ id }`)
+    } else {
+      console.log("hi"); 
+    }
+  }
 
   return (
     <div
@@ -158,7 +174,7 @@ const PointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
         )} */}
         {/* WHEN IS ROUTEPLANNING IS DONE REMOVE THE BELOW */}
         <div className="ml-4">
-          <MoreInfoToolTip id={id as string} />
+          <MoreInfoToolTip id={id as string} methodExecute={ deleteChannelCluster } />
         </div>
       </div>
       <div className="flex  justify-between mt-4  items-center">

@@ -1,7 +1,7 @@
 'use client';
 import { VariantProps, cva } from 'class-variance-authority';
 import Image from 'next/image';
-import React, { ButtonHTMLAttributes, FC, useEffect, useState } from 'react';
+import React, { ButtonHTMLAttributes, FC, useState } from 'react';
 
 import CheckedIcon from '../../../../../../public/icons/checkedIcon.svg';
 import { cn } from '@/utils/utils';
@@ -53,7 +53,7 @@ const TaskChip: FC<TaskChipProps> = ({
   // Find the routes and pos with id
   let currentRoute = routes?.find((route) => route?.id === selectedRouteId);
 
-  console.log("taskChip currentRoute, ", currentRoute, posId)
+  // console.log("taskChip currentRoute, ", currentRoute, posId)
 
   // return
 

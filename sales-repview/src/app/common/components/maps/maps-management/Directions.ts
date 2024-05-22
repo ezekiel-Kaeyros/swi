@@ -1,10 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
-import { calculateAndDisplayRoute } from './map-utils/calculatRoute';
+import Road from '@/core/models/Roads';
 import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
+import { calculateAndDisplayRoute } from '../map-utils/calculatRoute';
 
-const Directions = ({ color, route }: { color?: string; route?: any }) => {
+const Directions = ({ color, route }: { color?: string; route?: Road }) => {
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
   const { dispatch, selectedRouteId, routes } = useRoutePlanning();
@@ -31,7 +32,7 @@ const Directions = ({ color, route }: { color?: string; route?: any }) => {
         map: map,
         polylineOptions: {
           strokeColor: color,
-          strokeWeight: 4,
+          strokeWeight: 5,
         },
       })
     );
@@ -39,13 +40,15 @@ const Directions = ({ color, route }: { color?: string; route?: any }) => {
 
   useEffect(() => {
     if (!directionsService || !directionsRenderer) return;
-    currentRoute
-      ? calculateAndDisplayRoute(
-          directionsService,
-          directionsRenderer,
-          currentRoute
-        )
-      : calculateAndDisplayRoute(directionsService, directionsRenderer, route);
+    // currentRoute
+    //   ? calculateAndDisplayRoute(
+    //       directionsService,
+    //       directionsRenderer,
+    //       currentRoute
+    //     )
+    //   :
+    route &&
+      calculateAndDisplayRoute(directionsService, directionsRenderer, route);
   }, [
     directionsService,
     directionsRenderer,

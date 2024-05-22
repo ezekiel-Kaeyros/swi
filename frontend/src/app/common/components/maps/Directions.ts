@@ -3,24 +3,34 @@ import React, { useEffect, useState } from 'react';
 import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
 import { calculateAndDisplayRoute } from './map-utils/calculatRoute';
 import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
+import { structureRoutes } from '@/utils/structureRoutes';
+import { useActivities } from '@/app/hooks/useActivities';
 
 const Directions = ({ color, route }: { color?: string; route?: any }) => {
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
-  const { dispatch, selectedRouteId, routes } = useRoutePlanning();
+  const { dispatch, selectedRouteId, routes, dbRoutes } = useRoutePlanning(); 
 
-  const currentRoute = routes.find(
-    (route) => route?.id?.toString() === selectedRouteId?.toString()
+  const { activities } = useActivities ()
+
+  const transformedRoute = structureRoutes (dbRoutes, activities)
+
+  const allRoutes = [...routes, ...transformedRoute ]
+
+  const currentRoute = allRoutes.find(
+    (route) => route?._id?.toString() === selectedRouteId?.toString()
   );
 
-  console.log('selected route id', selectedRouteId);
+  // if (!currentRoute?.roadItems) {
+  //   // currentRoute = structureRoutes ()
+  // }
 
-  console.log('curret ', currentRoute);
+  // console.log('selected route id', selectedRouteId);
 
-  const [directionsService, setDirectionsService] =
-    useState<google.maps.DirectionsService>();
-  const [directionsRenderer, setDirectionsRenderer] =
-    useState<google.maps.DirectionsRenderer>();
+  // console.log('curret ', currentRoute);
+
+  const [directionsService, setDirectionsService] = useState<google.maps.DirectionsService>();
+  const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer>();
 
   useEffect(() => {
     if (!routesLibrary || !map) return;

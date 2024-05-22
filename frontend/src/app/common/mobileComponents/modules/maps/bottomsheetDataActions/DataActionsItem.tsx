@@ -39,7 +39,7 @@ const DataActionItem = ({
               stroke-width="1.5"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>

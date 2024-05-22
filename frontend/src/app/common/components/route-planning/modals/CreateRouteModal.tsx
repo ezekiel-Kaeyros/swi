@@ -20,6 +20,7 @@ import { IPointOfSalesType } from '@/utils/types';
 import { makePostReques } from '@/utils/makePostReq';
 import { BASE_URL, FE_LINK_ROUTE_PREPARATION, ROUTE_API_URL, ROUTE_ITEMS_API_URL, SAVE_ROUTE_API_URL, TRADECHANNEL_API_URL } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 interface IFormInput {
   search: string;
   //   montant: string;
@@ -96,7 +97,9 @@ const CreateRouteModal: React.FC<{ isOpen: boolean; onClose: any }> = ({
     }
   }, [search]); 
 
-  const router = useRouter ()
+  const router = useRouter (); 
+
+  const { decodeToken } = useUserInfo ()
 
   const onSubmit: SubmitHandler<AddRouteFormValues> = async (data) => {
 
@@ -154,6 +157,7 @@ const CreateRouteModal: React.FC<{ isOpen: boolean; onClose: any }> = ({
       saleRep: selectedAgent?.id, 
       pos: currentRoute?.pointOfSales.map((pos: IPointOfSalesType) => pos?._id), // extracting only the ids
       activities_items: allSelectedTaskFromAllSelectedPOS, 
+      id_company: decodeToken?.user?.id_company[0]?._id, 
     }
 
     console.log(finalObject, "to go to the database")

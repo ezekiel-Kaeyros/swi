@@ -42,7 +42,19 @@ function FlowBuilderActivityItem({
     name, frequency, duration, time: duration, priority, category, description, channelCluster, tradeChannel
   }
 
-  console.log("cClusterToDisplay", cClusterToDisplay)
+  // console.log("cClusterToDisplay", cClusterToDisplay)
+
+  const extractOnlyChannelCluster = cClusterToDisplay?.map((cc: any) => {
+    return cc?.channelClusters
+  }).flat ()
+
+  // console.log(extractOnlyChannelCluster, "extractOnlyChannelCluster")
+
+  const finalChannelClusterArray = extractOnlyChannelCluster?.filter((obj, index, self) => {
+    return self.findIndex((o: any) => o._id === obj._id) === index;
+  });
+
+  // console.log(finalChannelClusterArray, "finalChannelClusterArray")
 
   const { priorities, locaChannelClusters, locaTradeChannels } = useSettings(); 
 
@@ -50,17 +62,17 @@ function FlowBuilderActivityItem({
       return prio.id === priority
   })
 
-  console.log(prioritiesName, "wwwwwwwwww", channelCluster, tradeChannel,)
+  // console.log(prioritiesName, "wwwwwwwwww", channelCluster, tradeChannel)
 
   const channelCNameForDisplay = locaChannelClusters?.find((findIt: any) => {
     return findIt.id === channelCluster
   })
 
-  console.log(channelCNameForDisplay, "channelCNameForDisplaywwwwwww",)
+  // console.log(channelCNameForDisplay, "channelCNameForDisplaywwwwwww",)
 
-  const tradeChannelNameForDisplay = locaTradeChannels?.find((findIt: any) => {
-    return findIt.id === tradeChannel
-  })
+  // const tradeChannelNameForDisplay = locaTradeChannels?.find((findIt: any) => {
+  //   return findIt.id === tradeChannel
+  // })
 
   const [ shouldUpdateActivity, setShouldUpdateActivity ] = useState (false); 
 
@@ -74,7 +86,7 @@ function FlowBuilderActivityItem({
     setOpenModal(false);
   };
 
-  console.log(tradeChannelNameForDisplay, "tradeChannelNameForDisplaywwwwwww",)
+  // console.log(tradeChannelNameForDisplay, "tradeChannelNameForDisplaywwwwwww",)
   return (
     <>
       <div
@@ -119,17 +131,19 @@ function FlowBuilderActivityItem({
             <ActivityStatus type={prioritiesName?.name as string} />
           </div>
         </div>
-        <div className='grid grid-cols-[repeat(auto-fill,minmax(50px,170px))]'>
+        <div className='grid grid-cols-[repeat(auto-fill,minmax(50px,170px))] gap-2'>
+        {/* grid grid-cols-[repeat(auto-fill,minmax(50px,170px))] gap-2 */}
+        {/* mt-2 flex flex-wrap gap-2 w-full */}
           {
-            cClusterToDisplay && cClusterToDisplay?.length > 0 ? 
-              cClusterToDisplay.map ((cmap: any) => {
+            finalChannelClusterArray && finalChannelClusterArray?.length > 0 ? 
+            finalChannelClusterArray.map ((cmap: any) => {
                 return (
                     <div key={cmap?._id} style={{
-                      backgroundColor: cmap?.channelClusters[0]?.color as string
+                      backgroundColor: cmap?.color as string
                       // backgroundColor: `"${cmap?.channelClusters[0]?.color as string}"`
                     }} className='rounded-xl w-[100%] p-1 whitespace-nowrap flex justify-center'>
                       {
-                        cmap?.channelClusters[0]?.name
+                        cmap?.name
                       }
                     </div>
                 )

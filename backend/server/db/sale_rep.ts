@@ -2,7 +2,9 @@
 import { SaleRep } from '../models';
 
 export const getSaleRepByEmail = async (email: string) => {
-  const saleRep = await SaleRep.findOne({ email });
+  const saleRep = await SaleRep.findOne({ email })
+  .populate('reportingManager')
+  .populate('id_company');;
   return saleRep;
 };
 

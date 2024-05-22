@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import PointOfSalesCard from '../point-of-sales-card/PointOfSalesCard';
+// import PointOfSalesCard from '../point-of-sales-card/PointOfSalesCard';
 import { IPointOfSalesType } from '@/utils/types';
 import { useSettings } from '@/app/hooks/useSettings';
 import RPPointOfSalesCard from '../point-of-sales-card/RPPointOfSalesCard';
@@ -25,7 +25,6 @@ const ListItem = ({
         // return cluster?._id!.toString() === id?.toString()
         return cluster?._id === id
       }
-        
     );
     // return foundChannel?.name;
     return foundChannel;

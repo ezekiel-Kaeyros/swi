@@ -4,7 +4,7 @@ import BackButton from '@/app/common/components/back-button/BackButton';
 
 export default function PointOfSale({}) {
   return (
-    <div className="h-full pr-8 py-8 2xl:w-11/12 mx-auto">
+    <div className="h-[85vh] py-3 2xl:w-11/12 flex justify-center">
       <Card>
         <div className="flex items-center">
           <div>
@@ -15,9 +15,12 @@ export default function PointOfSale({}) {
         </div>
 
         {/* Add point of sales form */}
-        <div className="my-16">
+        <div className="h-full pr-3 overflow-auto pb-[10rem] pt-[2rem]">
           <AddPointOfSalesForm />
         </div>
+        {/* <div className='h-[500px] p-3'>
+          hi
+        </div> */}
       </Card>
     </div>
   );

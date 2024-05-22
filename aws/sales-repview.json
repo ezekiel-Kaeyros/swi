@@ -1,0 +1,53 @@
+{
+    "family": "swivy_sales_rep",
+    "containerDefinitions": [
+        {
+            "name": "swivy_sales_rep",
+            "image": "ezekielkaeyros/swivy_sales_rep:latest",
+            "cpu": 307,
+            "memory": 410,
+            "memoryReservation": 410,
+            "portMappings": [
+                {
+                    "name": "swivy_sales_rep-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 0,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "dockerLabels": {
+                "traefik.enable": "true",
+                "traefik.http.routers.swivysales_rep.rule": "Host(`sales_rep_agent.swivy.net`)"
+            },
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/swivy_sales_rep",
+                    "awslogs-region": "eu-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::108165532263:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::108165532263:role/ecsTaskExecutionRole",
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "307",
+    "memory": "410",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

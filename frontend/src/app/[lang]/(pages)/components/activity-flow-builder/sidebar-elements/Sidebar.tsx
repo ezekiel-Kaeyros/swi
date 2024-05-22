@@ -1,26 +1,21 @@
 "use client";
 
 import { ChannelClusterDotIcon, CloseIcon, DropdownPlusIcon, TradeChannelSvgIcon } from '@/app/common/components/svgs/SvgsIcons'
-import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
-import { useSettings } from '@/app/hooks/useSettings'
-import { addToggleStateToAllChannelCluster, createLocalChannelClusterFromDBData, toggleStateToAllChannelClusterBuilder } from '@/redux/features/channel-cluster-slice'
-// filterNodes
 import { IChannelCluster } from '@/redux/features/types'
 import React, { useEffect, useState } from 'react'
-import TradeChannelFlowComp from '../flow-components/TradeChannelFlowComp';
 import BaseFlowComponent from '../flow-components/base-flow-components/BaseFlowComponent';
 import { useConnectNodes } from '@/app/hooks/useConnectNodes';
 import { MarkerType } from 'reactflow';
+// import useChangeNavigationItem from '@/app/hooks/useChangeNavigationItem';
+// import { useSettings } from '@/app/hooks/useSettings'
+// import { addToggleStateToAllChannelCluster, createLocalChannelClusterFromDBData, toggleStateToAllChannelClusterBuilder } from '@/redux/features/channel-cluster-slice'
+// import TradeChannelFlowComp from '../flow-components/TradeChannelFlowComp';
+// filterNodes
 
 const Sidebar = ({ channelClusters }: { channelClusters: IChannelCluster[] }) => {
 
   const [toggleDropdown, setToggleDropDown ] = useState (false)
   const [concernedID, setConcernedID ] = useState (null)
-
-  const { toggleStateToAllChannelCB, dispatch } = useChangeNavigationItem (); 
-
-  const [toggleSideBar, setToggleSideBar ] = useState (false)
-
   const { connectTwoNodes, deleteAndEdge } = useConnectNodes (); 
 
   return (
@@ -41,14 +36,6 @@ const Sidebar = ({ channelClusters }: { channelClusters: IChannelCluster[] }) =>
 
                         <div className='flex flex-row justify-between items-center'>
                           <div onClick={() => {
-                            // SELECTING EXISTING CC TO DISPLAY IT ON THE CANVAS (Not used now)
-                            // dispatch(createLocalChannelClusterFromDBData({
-                            //   _id: channel?._id, 
-                            //   name: channel?.name, 
-                            //   color: channel?.color, 
-                            //   tradeChannels: channel?.trade_channels_id, 
-                            // }));
-
                             // CREATING EDGES BASED ON NODE
                             channel?.trade_channels_id?.forEach(element => {
                               connectTwoNodes (channel?._id as any, element?._id, MarkerType.Arrow)

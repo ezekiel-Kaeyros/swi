@@ -14,7 +14,7 @@ const CloseIcone = () => {
         stroke="#BABABA"
         stroke-width="1.5"
         stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
       BottomSheet
       <path
@@ -22,7 +22,7 @@ const CloseIcone = () => {
         stroke="#BABABA"
         stroke-width="1.5"
         stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

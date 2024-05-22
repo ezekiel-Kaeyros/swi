@@ -10,6 +10,7 @@ import { useRoutePlanning } from '@/app/hooks/useRoutePlanning';
 import {
   createRoute,
   displayAllRoutes,
+  displayPOSMap,
 } from '@/redux/features/route-planning-slice';
 import { useRouter } from 'next/navigation';
 
@@ -21,6 +22,7 @@ const EmptyStateRoute = () => {
     dispatch(createRoute({}));
 
     dispatch(displayAllRoutes({ showAllRoutes: false }));
+    dispatch(displayPOSMap({ posMapDisplayState: true }));
 
     push('/route-preparation/create');
   };

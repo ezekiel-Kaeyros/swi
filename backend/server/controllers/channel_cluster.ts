@@ -3,11 +3,18 @@ import { findAllChannelClusters, findChannelClusterById, createChannelCluster, u
 import mongoose from "mongoose";
 import { IChannelCluster } from "../models/channel_cluster";
 import { TradeChannel } from "../models";
+import { extractCompanyFromToken } from "../utils/extractCompanyToken";
 const ChannelClusterController = {
-    getChannelClusters: async(request: Request, response: Response): Promise<void> => {
+    getChannelClusters: async(request: any, response: Response): Promise<void> => {
         try {
+            // const token: any = extractCompanyFromToken (request, response)
+            // const company_id = token?.user?.id_company[0]._id
+            const company_id = request?.company_id
             const ChannelClusters: IChannelCluster[] =  await findAllChannelClusters();
-            response.send(ChannelClusters);
+            const channelCForCompany = ChannelClusters?.filter((sal: any) => {
+                return sal?.id_company[0]?._id.toString() === company_id
+            })
+            response.send(channelCForCompany)
         }catch(error){
             console.error('Error fetching all channel clusters:', error.message);
             response.status(500).send(error);
@@ -115,7 +122,15 @@ const ChannelClusterController = {
             response.status(500).json({ success: false, error: 'Internal Server Error' });
         } 
 
-    }
+    }, 
+
+    deleteAllChannelCluster: async (req: Request, res: Response) => {
+        const allChanneCluster = await findAllChannelClusters()
+        allChanneCluster.forEach(async (channelC) => {
+            await deleteChannelCluster(channelC?._id.toString());
+        });
+        return res.send({});
+    },
 
 }    
 

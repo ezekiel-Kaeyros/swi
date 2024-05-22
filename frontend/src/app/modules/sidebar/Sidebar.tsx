@@ -19,13 +19,16 @@ import { setToggle } from '@/redux/design/toggle-sidebar-slice';
 import { useToggleSidebar } from '@/app/hooks/useToggleSidebar';
 import { getToggleSidebarkies } from '@/redux/design/cookies';
 import QuestionIconSidebar from '@/app/common/components/SvgCustomIcons/questionIconSidebar';
+import { useUserInfo } from '@/app/hooks/useUserInfo';
 
 const Sidebar = () => {
   const [showMenu] = useState<boolean>(false);
   const { dispatch, toggleSideBarState } = useToggleSidebar();
   const toggleState = getToggleSidebarkies();
 
-  const pathname = usePathname();
+  const pathname = usePathname(); 
+
+  const { decodeToken } = useUserInfo ()
 
   return (
     <>
@@ -117,10 +120,11 @@ const Sidebar = () => {
 
         <div className="ml-4 ">
           <Profile
-            name="Chris Joe"
+            name={ decodeToken?.user?.fullName }
             link="/profile"
             role="Manager"
             showText={toggleSideBarState}
+            company={ decodeToken?.user?.id_company[0]?.name }
           />
         </div>
       </AnimationSideBar>

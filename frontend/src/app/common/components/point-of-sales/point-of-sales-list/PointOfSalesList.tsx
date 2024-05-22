@@ -9,13 +9,8 @@ import PointOfSalesCard from '../point-of-sales-card/PointOfSalesCard';
 const PointOfSalesList = () => {
   const { channelClusters, channeClusterForSelectField } = useSettings();
 
-  // console.log(channelClusters, channeClusterForSelectField, "[[[[[[[")
-
   const { pointOfSales } = usePointOfSales();
 
-  // console.log("///...", pointOfSales)
-
-  // console.log('point of sales', pointOfSales);
   const getChannelClusterNameById = (id: string | number) => {
     const foundChannel = channelClusters?.find(
       (cluster: any) => cluster?._id! === id?.toString()
@@ -24,17 +19,14 @@ const PointOfSalesList = () => {
     return foundChannel?.name;
   };
 
-  // console.log(pointOfSales, 'this is my pointofSales');
   return (
-    <div className="space-y-6 ">
+    <div className="space-y-6 pb-[10rem] pt-[2rem] overflow-y-auto">
       {/* Point of sales list */}
       {pointOfSales?.map((pos: IPointOfSalesType) => {
         // GETTING THE CHANNEL CLUSTERS OBJECT CORRESPONDING TO THE POS USING THE ID
         const foundChannelCluster = channelClusters?.find(
           (cc: IChannelCluster) => {
-            console.log('loglog', cc, pos);
             return cc._id === (pos?.channelCluster as string);
-            // return
           }
         );
         return (

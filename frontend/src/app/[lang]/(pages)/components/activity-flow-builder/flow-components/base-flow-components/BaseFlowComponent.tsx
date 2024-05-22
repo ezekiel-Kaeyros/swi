@@ -11,7 +11,7 @@ const BaseFlowComponent = ({
     ccBgColor?: string, executeSomthing?: any, 
 }) => {
   return (
-    <div onClick={ () => executeSomthing () } key={ id } className=' bg-tranparent rounded-xl flex flex-col gap-3'>
+    <div key={ id } className=' bg-tranparent rounded-xl flex flex-col gap-3'>
         <div className='flex flex-row justify-between' >
             <div className='flex flex-row items-center justify-center gap-3'>
                 <div style={{
@@ -21,7 +21,7 @@ const BaseFlowComponent = ({
                 </div>
                 <div className='flex flex-col'>
                     <span className='text-[20px] font-bold'>{ headerTitle }</span>
-                    <span className='text-slate-300 text-[14px]'>{ flowCompName }</span>
+                    <span onClick={ () => executeSomthing () } className='text-slate-300 text-[14px]'>{ flowCompName }</span>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import Tabs, { Tab } from './components/tabs';
 import ActivitiesMaps from './bottomSheetshop/activities-maps';
-import PosMap from '@/app/common/components/maps/PosMap';
+import PosMap from '@/app/common/components/maps/maps-management/PosMap';
 import BottomSheet from '../../components/bottomSheet';
 import { Filtertype } from '../../types/filter';
 import Filter from '../../components/filter';
@@ -15,7 +15,11 @@ import DataActions from './bottomsheetDataActions/dataAction';
 import AllDirections from '@/app/common/components/maps/AllDirections';
 import { useGetRoads, useManagePosInStore } from '@/app/hooks/API/usePos';
 import { useManageUserInStore } from '@/app/hooks/API/useAuth';
-import { getRoards } from '@/redux/features/roard-management-slice';
+import {
+  setPosList,
+  setRoards,
+  setShopData,
+} from '@/redux/features/roard-management-slice';
 import Road from '@/core/models/Roads';
 import { getUserCookies } from '@/core/cookies/cookies';
 import { IUser } from '@/core/models/User';
@@ -34,6 +38,7 @@ const IconsHeaders = ({
   currentModal: string;
 }) => {
   const tabs = currentModal;
+
   return (
     <motion.div
       onClick={() => {
@@ -83,22 +88,36 @@ const IconsHeaders = ({
 };
 
 export default function Maps() {
-  const { road, dispatch } = useManagePosInStore();
+  const { road, shopData, pos, dispatch } = useManagePosInStore();
   const user = getUserCookies();
-  console.log(user);
-  console.log(user?._id);
   const roads = useGetRoads(user?._id || '');
   const [myRoutes, setMyRoutes] = useState<Road[]>([]);
-  console.log(roads.data?.data);
+  console.log(shopData);
+  /** this function save all the POS into the redux*/
+  function setPostOfAllRoad(roads: Road[]) {
+    if (roads !== undefined) {
+      dispatch(setRoards(roads));
+      roads.map((road) => {
+        dispatch(setPosList([...road.pos]));
+      });
+    }
+  }
+
   useEffect(() => {
     if (roads.data?.data !== undefined) {
       setMyRoutes(roads.data?.data);
+
+      /** saving Post int redux to use it into Maps  */
+      setPostOfAllRoad(roads.data?.data);
+      // console.log(road);
     }
 
     return () => {};
   }, [roads.data?.data]);
 
-  console.log(myRoutes);
+  // console.log(myRoutes);
+  // console.log(pos);
+  // console.log(road);
 
   const [tabs, setTabs] = useState('settings');
   const [currentSelectedSHop, setCurrentSelectedSHop] = useState(0);
@@ -291,16 +310,19 @@ export default function Maps() {
               : 'animate-sheet-down'
           } `}
         >
-          <AllDirections />
+          <PosMap />
         </BottomSheet>
       )}
       {/** Bottomsheet Modal Actions */}
-      {tabs === 'shop' && bottomSheet === 'shop' && (
+      {tabs === 'shop' && bottomSheet === 'shop' && shopData && (
         <BottomSheet
           type="Simple"
           isOpen={bottomSheet === 'shop'}
-          close={() => setBottomSheet(null)}
-          title="Dov Bonamoussadi"
+          close={() => {
+            setBottomSheet(null);
+            setShopData(null);
+          }}
+          title={shopData ? shopData.shopData.name : 'Shop'}
           className={' h-[95%]'}
         >
           <Tabs tabs={shopTasks} />

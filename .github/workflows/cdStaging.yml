@@ -17,6 +17,10 @@ env:
   ECS_TASK_DEFINITION_BACKEND: aws_staging/backend_staging.json
   CONTAINER_NAME_FRONTEND: swivy_frontend_container
   CONTAINER_NAME_BACKEND: swivy_backend_container
+  ECS_TASK_DEFINITION_SALES_REPVIEW: aws/sales-repview.json
+  CONTAINER_SALES_REPVIEW: swivy_sales_rep
+  IMAGE_NAME_SALES_REPVIEW: ezekielkaeyros/swivy_sales_rep:latest
+  ECS_SERVICE_SALES_REPVIEW: swivy_sales_rep
 
 
 defaults:
@@ -27,7 +31,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment: staging
 
     steps:
       - name: Checkout
@@ -71,5 +75,22 @@ jobs:
           service: ${{ env.ECS_SERVICE_BACKEND_SWIVY }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+
+      # - name: Fill in the new image ID in the Amazon ECS task definition for sales-repview
+      #   id: task-def-sales-repview
+      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
+      #   with:
+      #     task-definition: ${{ env.ECS_TASK_DEFINITION_SALES_REPVIEW }}
+      #     container-name: ${{ env.CONTAINER_SALES_REPVIEW }}
+      #     image: ${{ env.IMAGE_NAME_SALES_REPVIEW }}
+
+      # - name: Deploy Amazon ECS task definition for sales-repview
+      #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      #   with:
+      #     task-definition: ${{ steps.task-def-sales-repview.outputs.task-definition }}
+      #     service: ${{ env.ECS_SERVICE_SALES_REPVIEW }}
+      #     cluster: ${{ env.ECS_CLUSTER }}
+      #     wait-for-service-stability: true
+    
 
       

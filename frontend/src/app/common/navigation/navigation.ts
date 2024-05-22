@@ -19,8 +19,8 @@ export const navigation = [
   },
   {
     id: 2,
-    title: 'Sales Representative',
-    url: '/sales-representative',
+    title: 'Flow Builder',
+    url: '/activity-flow-builder',
     icon: SalesRepIcon,
   },
   // {

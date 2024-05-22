@@ -27,6 +27,7 @@ import PopOverOptions from './PopOverOptions';
 import Link from 'next/link';
 import { getAllActivitiesForPOS } from '@/utils/getAllActivitiesForPOS';
 import { FE_LINK_POINT_OF_SALES } from '@/utils/constants';
+import { removePointOfSalesFromRoute } from '@/redux/features/route-planning-slice';
 
 const RPPointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
   id,
@@ -44,9 +45,9 @@ const RPPointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
   isRoutePlanning,
   handleSelected,
 }) => {
-  const { channelClusters, activities } = useSettings();
+  const { channelClusters, activities } = useSettings(); 
 
-  const { selectedRouteId, routes } = useRoutePlanning(); 
+  const { dispatch, selectedRouteId, routes } = useRoutePlanning(); 
   const [ finalDuration, setFinalDuration ] = useState<any> (0)
 
   // Get current route
@@ -54,7 +55,7 @@ const RPPointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
     (route) => route?.id?.toString() === selectedRouteId?.toString()
   );
 
-  console.log("channelCluster9999", channelCluster, routes)
+  // console.log("channelCluster9999", channelCluster, routes)
 
   
   // Compute total time for each POS
@@ -64,7 +65,7 @@ const RPPointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
   );
   // const isChannelClusterInActivities = getAllActivitiesForPOS (activities as [], currentPos?.channelCluster as string); 
 
-  console.log("isChannelClusterInActivities1234", currentPos?.name, currentPos?.tasks)
+  // console.log("isChannelClusterInActivities1234", currentPos?.name, currentPos?.tasks)
 
   // Fetch card 3 colors
   const getColor = (channelClusterId: string | number) => {
@@ -115,17 +116,23 @@ const RPPointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
 
   // DELETE METHOD TO EXECUTE TO REMOVE A CHANNEL CLUSTER
   const deleteChannelCluster = () => {
-    // let confirmAction = confirm ("Are you sure to execute this action?")
-    // if (confirmAction) {
-    //   makeDeleteAction (`${ BASE_URL }/channelCluster/${ id}`)
-    // } else {
-    //   console.log("hi"); 
-    // }
+    let confirmAction = confirm ("Are you sure to execute this action?")
+    if (confirmAction) {
+      // makeDeleteAction (`${ BASE_URL }/channelCluster/${ id}`)
+      dispatch(
+        removePointOfSalesFromRoute({
+          routeId: selectedRouteId,
+          posId: id,
+        })
+      )
+    } else {
+      console.log("hi"); 
+    }
   }
 
   const totalDurationPerPos = sumDurations(currentPos?.tasks);
 
-  console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
+  // console.log("channelCluster?.color", channelCluster, channelCluster?.color, id)
 
   return (
     <div
@@ -166,7 +173,7 @@ const RPPointOfSalesCard: React.FC<PointOfSalesCardProps> = ({
         )} */}
         {/* WHEN IS ROUTEPLANNING IS DONE REMOVE THE BELOW */}
         <div className="ml-4">
-          <MoreInfoToolTip id={id} />
+          <MoreInfoToolTip id={id} methodExecute={ deleteChannelCluster } />
         </div>
       </div>
       <div className="flex  justify-between mt-4  items-center">
