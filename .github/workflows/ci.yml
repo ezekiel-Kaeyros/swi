@@ -14,7 +14,7 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Create .env file
+      - name: Create .env file for backend
         run: |
           cd backend && \
           touch .env && \
@@ -26,29 +26,26 @@ jobs:
           echo "MONGO_URL=mongodb+srv://eric2mballus:tititata85@cluster0.e1pkdu7.mongodb.net/swivy_db" >> .env && \
           echo "MAILGUN_API_KEY=YOUR_MAILGUN_API_KEY" >> .env && \
           echo "MAILGUN_DOMAIN=YOUR_MAILGUN_DOMAIN" >> .env && \
-          echo "SECRET=swivyApp" >> .env && \
           echo "HOST=smtp.ionos.de" >> .env && \
           echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env && \
-          echo "EMAIL_PASSWORD=@@Test$$ " >> .env && \
-          echo "EMAIL_HOST=smtp.ionos.de " >> .env && \
-          echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env
+          echo "EMAIL_PASSWORD=@@Test$$" >> .env && \
+          echo "EMAIL_HOST=smtp.ionos.de" >> .env
 
-      - name: create env for sales_rep
+      - name: Create .env file for sales_rep
         run: |
           cd sales-repview && \
           touch .env && \
           echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
           echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
-          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env &&     
+          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env
 
-      - name: create .env file for frontend
+      - name: Create .env file for frontend
         run: |
           cd frontend && \
           touch .env && \
           echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
           echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
-          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env && 
-    
+          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env
 
       - name: Build the Docker image for backend
         run: |
