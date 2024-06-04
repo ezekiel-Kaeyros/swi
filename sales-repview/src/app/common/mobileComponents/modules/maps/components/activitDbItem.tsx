@@ -7,7 +7,7 @@ import PointOfSales from '@/core/models/Pos';
 import { convertMinutesToHoursAndMinutes } from '@/core/utils/utils';
 
 const ActivityValue = ({ type = 'Low' }: { type: string }) => {
-  const [status, setStatus] = useState(type);
+  const [status] = useState(type);
   return (
     <>
       {status === 'Low' ? (
@@ -44,7 +44,7 @@ const ActivitieStep = ({
        flex text-center items-center justify-center text-white `}
     >
       {' '}
-      {value ? value : '01'}
+      {value}
     </div>
   );
 };
@@ -53,22 +53,23 @@ const ActivityDbItem = ({
   step,
   status,
   activityItem,
-  Activitie,
-  pos, // title={item.title}
+  activitie,
+  pos,
 }: {
   status: string;
-  activityItem: ActivitiesItem;
-  Activitie: Activitie;
+  activityItem: any;
+  activitie: any;
   step: React.ReactNode | string;
   pos: PointOfSales;
   // title={item.title}
 }) => {
+  // console.log(activityItem);
   return (
     <div className="w-full flex gap-[10px] p-[10px] justify-between">
       <div className="flex justify-center  items-start ">
         <ActivitieStep
           className={`${
-            activityItem.time > 5 ? 'bg-[#5F05D1] ' : 'bg-[#D99125]'
+            activityItem?.time > 3 ? 'bg-[#5F05D1]' : 'bg-[#D99125]'
           } p-[10px] gap-[4px] w-[45px] h-[45px] rounded-[10px] `}
           value={step}
         />
@@ -76,20 +77,20 @@ const ActivityDbItem = ({
       <div className="flex w-full gap-8 justify-between my-auto border-b-bgColorDark border-b-2 pb-2">
         <div className="flex flex-col gap-2">
           <span className="text-[20px] font-bold leading-[20px] text-[#E8E8E8]">
-            {Activitie.name}
+            {activityItem?.activitie?.name}
           </span>
           <span className="text-[12px] font-normal leading-[20px] text-[#E8E8E8]">
-            {pos.name} - {pos.city}
+            {pos?.name} - {pos?.city}
           </span>
           <span className="text-[14px] font-normal line-clamp-2 leading-[20px] text-[#E8E8E8]">
-            {Activitie.description}
+            {activityItem?.activitie?.description}
           </span>
         </div>
 
         <div className="flex-col space-y-2 text-center items-center justify-center  ">
           <span className="bg-bgColorDark/30 cursor-pointer  whitespace-nowrap py-3   text-[#5F8EFF]  text-[12px] flex text-center items-center justify-center   gap-[4px] w-[94px] h-[20px]  rounded-[4px]">
             {' '}
-            {convertMinutesToHoursAndMinutes(activityItem.time)}
+            {convertMinutesToHoursAndMinutes(activityItem?.time)}
           </span>
           <ActivityValue type={status} />
         </div>

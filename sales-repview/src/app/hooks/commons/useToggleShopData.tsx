@@ -7,6 +7,5 @@ export const useToggleShopBarState = () => {
     (state: RootState) => state.ShopActions.openShopActions
   );
   const dispatch = useDispatch<AppDispatch>();
-  console.log(toggleShopDataState);
   return { dispatch, toggleShopDataState };
 };

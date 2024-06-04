@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ActivityItem from './ActivityItem';
 import { activities } from '@/core/utils/activities';
 import Activitie from '@/core/models/Activitie';
@@ -7,18 +7,83 @@ import PointOfSales from '@/core/models/Pos';
 import { convertMinutesToHoursAndMinutes } from '@/core/utils/utils';
 import CustomButton from '@/app/common/components/button/CustonButton';
 import CustomModal from '@/app/common/components/modal/Modal';
+import {
+  UseUpdateActivityItemStatus,
+  UpdateActivityItemEndTime,
+  UpdateActivityItemStartTime,
+  useManagePosInStore,
+} from '@/app/hooks/API/usePos';
+import RoadsItem from '@/core/models/RoadsItem';
+import { activity } from '@/redux/features/activities-slice';
 
 type actionType = 'start' | 'finish' | 'expired' | 'done';
 
 const ActivityValue = ({
   type = 'start',
   triggerAction,
+  roadItem,
+  activityItemId,
+  pos,
+  time,
 }: {
   type: actionType;
+  time: string;
+  roadItem: RoadsItem;
+  activityItemId: string;
+  pos: PointOfSales;
   triggerAction?: () => void;
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [status, setStatus] = useState<actionType>(type);
+  const { road } = useManagePosInStore();
+
+  const statusActivity = UseUpdateActivityItemStatus();
+  const startActivityMutation = UpdateActivityItemStartTime();
+  const endActivitiy = UpdateActivityItemEndTime();
+
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+
+  useEffect(() => {
+    let timerInterval: NodeJS.Timeout | null = null;
+    if (isRunning) {
+      const start = Date.now() - elapsedTime;
+      timerInterval = setInterval(() => {
+        setElapsedTime(Date.now() - start);
+      }, 10); // Update every 10 milliseconds for higher precision
+    } else if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+
+    return () => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+    };
+  }, [isRunning]);
+
+  const formatTime = (time: number): string => {
+    const totalMilliseconds = time;
+    const totalSeconds = Math.floor(totalMilliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
+      2,
+      '0'
+    )}:${String(seconds).padStart(2, '0')}`;
+  };
+
+  const handleStart = () => {
+    setIsRunning(true);
+  };
+
+  const handleStop = () => {
+    setIsRunning(false);
+  };
+
+  console.log(formatTime(elapsedTime));
   return (
     <>
       {status === 'start' ? (
@@ -32,16 +97,47 @@ const ActivityValue = ({
       ) : status === 'expired' ? (
         <div className="flex flex-col gap-2 items-center justify-center">
           <span
-            onClick={() => setStatus('done')}
+            onClick={() => {
+              let roadId = '';
+              let roadIdtem = '';
+              console.log(road);
+              road.filter((r) => {
+                r.roadItems.map((road) => {
+                  if (roadItem._id === road._id) {
+                    roadId = r._id;
+                    roadIdtem = road._id;
+                  }
+                });
+              });
+
+              const statusData = {
+                aRoadInstanceId: roadId,
+                activityItemId: activityItemId,
+                posId: pos._id,
+                newStatus: 'completed',
+                roadItemId: roadItem._id,
+              };
+
+              statusActivity.mutateAsync(statusData).then(() => {
+                const EndActivity = {
+                  aRoadInstanceId: roadId,
+                  activityItemId: activityItemId,
+                  posId: pos._id,
+                  newEndTime: new Date().toString(),
+                  roadItemId: roadItem._id,
+                };
+                endActivitiy.mutateAsync(EndActivity).then(() => {
+                  setStatus('done');
+                  handleStop();
+                });
+              });
+            }}
             className="bg-bgColorDark cursor-pointer text-[12px] flex text-center items-center justify-center text-white  gap-[4px] w-[87px] h-[28px]  rounded-full"
           >
             {' '}
             Mark as done{' '}
           </span>
-          <span
-            onClick={() => triggerAction && triggerAction()}
-            className="bg-[#162E66]/70 whitespace-nowrap py-2   text-[#5F8EFF] cursor-pointer text-[12px] flex text-center items-center justify-center   gap-[4px] w-[94px] h-[20px]  rounded-[4px]"
-          >
+          <span className="bg-[#162E66]/70 whitespace-nowrap py-2   text-[#5F8EFF] cursor-pointer text-[12px] flex text-center items-center justify-center   gap-[4px] w-[94px] h-[20px]  rounded-[4px]">
             <svg
               width="13"
               height="12"
@@ -67,11 +163,14 @@ const ActivityValue = ({
                 fill="#5F8EFF"
               />
             </svg>
-            <span>01:01:59</span>
+            <span className="">{formatTime(elapsedTime)}</span>
           </span>
         </div>
       ) : status === 'done' ? (
-        <div className="flex flex-col gap-2 items-center justify-center">
+        <div
+          className="flex flex-col gap-2 items-center justify-center"
+          onClick={() => setStatus('start')}
+        >
           <span className="bg-[#05522B]/70 whitespace-nowrap py-3   text-[#6DE2A6] cursor-pointer text-[12px] flex text-center items-center justify-center   gap-[4px] w-[67px] h-[20px]  rounded-[4px]">
             <svg
               width="12"
@@ -100,7 +199,9 @@ const ActivityValue = ({
         </div>
       ) : (
         <span
-          onClick={() => triggerAction && triggerAction()}
+          onClick={() => {
+            setStatus('start');
+          }}
           className="bg-[#600E18] whitespace-nowrap py-2   text-[#F57B8A] cursor-pointer text-[12px] flex text-center items-center justify-center   gap-[4px] w-[94px] h-[20px]  rounded-[4px]"
         >
           <svg
@@ -146,7 +247,9 @@ const ActivityValue = ({
             <div className="flex  gap-4 w-full items-end place-content-end ">
               <div>
                 <CustomButton
-                  onClick={() => setOpenModal(false)}
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
                   typeOfButton="Normal"
                   className="!text-[1rem] !w-[95px] gap-4 !h-[36px] !bg-transparent !flex !items-center !justify-center leading-1"
                   title=" Cancel"
@@ -159,8 +262,40 @@ const ActivityValue = ({
                   title="Start now"
                   className="!text-[1rem] !w-[95px] gap-4 !h-[36px] !bg-[#3267E6] !flex !items-center !justify-center leading-1"
                   onClick={() => {
-                    setStatus('expired');
-                    setOpenModal(false);
+                    let roadId = '';
+                    console.log(road);
+                    road.filter((r) => {
+                      r.roadItems.map((road) => {
+                        if (roadItem._id === road._id) {
+                          roadId = r._id;
+                        }
+                      });
+                    });
+                    console.log(roadId);
+                    const statusData = {
+                      aRoadInstanceId: roadId,
+                      activityItemId: activityItemId,
+                      posId: pos._id,
+                      newStatus: 'ongoing',
+                      roadItemId: roadItem._id,
+                    };
+
+                    statusActivity.mutateAsync(statusData).then(() => {
+                      const startActivity = {
+                        aRoadInstanceId: roadId,
+                        activityItemId: activityItemId,
+                        posId: pos._id,
+                        newStartTime: new Date().toString(),
+                        roadItemId: roadItem._id,
+                      };
+                      startActivityMutation
+                        .mutateAsync(startActivity)
+                        .then(() => {
+                          setStatus('expired');
+                          setOpenModal(false);
+                          handleStart();
+                        });
+                    });
                   }}
                 />
               </div>
@@ -191,27 +326,32 @@ const ActivitieStep = ({
 };
 
 const ActivityDbShopItem = ({
+  roadItem,
   step,
   status,
   activityItem,
-  Activitie,
+  activitie,
   pos, // title={item.title}
   displayRightSide = true,
 }: {
+  roadItem: RoadsItem;
   status: string;
-  activityItem: ActivitiesItem;
-  Activitie: Activitie;
+  activityItem: any;
+  activitie: any;
   step: React.ReactNode | string;
   pos: PointOfSales;
   // title={item.title}
   displayRightSide: boolean;
 }) => {
+  // console.log(activityItem);
+  // console.log(activitie);
+
   return (
     <div className="w-full flex gap-[10px] p-[10px] justify-between">
       <div className="flex justify-center  items-start ">
         <ActivitieStep
           className={`${
-            activityItem.time > 5 ? 'bg-[#5F05D1] ' : 'bg-[#D99125]'
+            activityItem?.time > 3 ? 'bg-[#5F05D1] ' : 'bg-[#D99125]'
           } p-[10px] gap-[4px] w-[45px] h-[45px] rounded-[10px] `}
           value={step}
         />
@@ -219,19 +359,33 @@ const ActivityDbShopItem = ({
       <div className="flex w-full gap-8 justify-between my-auto border-b-bgColorDark border-b-2 pb-2">
         <div className="flex flex-col gap-2">
           <span className="text-[20px] font-bold leading-[20px] text-[#E8E8E8]">
-            {Activitie.name}
+            {activityItem?.activitie?.name}
           </span>
           <span className="text-[12px] font-normal leading-[20px] text-[#E8E8E8]">
             {pos.name} - {pos.city}
           </span>
           <span className="text-[14px] font-normal line-clamp-2 leading-[20px] text-[#E8E8E8]">
-            {Activitie.description}
+            {activityItem?.activitie?.description}
           </span>
         </div>
 
         {displayRightSide && (
           <div className="flex text-center items-center justify-center pr-[14px]">
-            <ActivityValue type={'start'} />
+            <ActivityValue
+              type={
+                status == 'pending'
+                  ? 'start'
+                  : status === 'ongoing'
+                    ? 'expired'
+                    : status === 'completed'
+                      ? 'done'
+                      : 'finish'
+              }
+              roadItem={roadItem}
+              activityItemId={activityItem?._id}
+              pos={pos}
+              time={activityItem?.time}
+            />
           </div>
         )}
       </div>

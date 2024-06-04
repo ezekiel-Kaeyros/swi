@@ -1,6 +1,6 @@
 import React from 'react';
 import NotificationAction from './NotificationActions/NotificationAction';
-import DataActions from '../maps/bottomsheetDataActions/dataAction';
+import DataActions from '../maps/bottomsSheets/bottomsheetDataActions/dataAction';
 import { HomepageLink, prefixNavLink } from '../../const/constante';
 import Link from 'next/link';
 

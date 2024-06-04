@@ -1,25 +1,26 @@
+import DelayShowAnimation from '../../../../components/delayShowAnimation';
+import SlideDownToUp from '../../../../components/slideDownToUp';
 import { useManagePosInStore } from '@/app/hooks/API/usePos';
-import DelayShowAnimation from '../../../components/delayShowAnimation';
-import SlideDownToUp from '../../../components/slideDownToUp';
-import { SalesRepActivitiesList } from '../../../data';
-import ActivityItem from '../components/ActivityItem';
-import ActivityItemTask from '../components/ActivityItemTask';
-import ActivitDbShopItemTask from '../components/activitDbShopItemTask';
+import ActivityDbShopItem from '../../components/activitDbShopItem ';
 
-function ActivitiesTasks() {
-  const { road, shopData, pos, dispatch } = useManagePosInStore();
-
+const ActivitiesMaps = () => {
+  const { road, shopData } = useManagePosInStore();
+  const roadData = shopData?.activities;
+  const taskList = roadData?.taskIds;
+  console.log(shopData, '----------------------++++++++++++++++++++++');
   return (
     <DelayShowAnimation>
       <div className="flex flex-col gap-33 ">
-        {(shopData?.activities.filter((x) => x.time <= 5) || []).map(
-          (item, key) => (
-            <SlideDownToUp key={`actvities-card-item-${key}`}>
-              <ActivitDbShopItemTask
-                Activitie={item.activitie}
-                activityItem={item}
+        {(taskList || []).map((task) => {
+          return (
+            <SlideDownToUp key={`actvities-card-item-${task?._id}`}>
+              <ActivityDbShopItem
+                roadItem={roadData!}
+                activitie={task.activities}
+                activityItem={task.activityItem}
+                status={task.status}
                 step={
-                  item.time <= 5 ? (
+                  task.time > 3 ? (
                     <svg
                       width="20"
                       height="20"
@@ -48,16 +49,15 @@ function ActivitiesTasks() {
                   )
                 }
                 pos={shopData?.shopData!}
-                status={'start'}
                 // title={item.title}
                 displayRightSide
               />
             </SlideDownToUp>
-          )
-        )}
+          );
+        })}
       </div>
     </DelayShowAnimation>
   );
-}
+};
 
-export default ActivitiesTasks;
+export default ActivitiesMaps;

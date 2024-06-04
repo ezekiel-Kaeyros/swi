@@ -4,8 +4,16 @@ import { Map, useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
 import Road from '@/core/models/Roads';
 import { useRoutePlanning } from '@/app/hooks/commons/useRoutePlanning';
 import { calculateAndDisplayRoute } from '../map-utils/calculatRoute';
+import RoadsItem from '@/core/models/RoadsItem';
+import PointOfSales from '@/core/models/Pos';
 
-const Directions = ({ color, route }: { color?: string; route?: Road }) => {
+const Directions = ({
+  color,
+  route,
+}: {
+  color?: string;
+  route: PointOfSales[];
+}) => {
   const map = useMap();
   const routesLibrary = useMapsLibrary('routes');
   const { dispatch, selectedRouteId, routes } = useRoutePlanning();
@@ -14,9 +22,9 @@ const Directions = ({ color, route }: { color?: string; route?: Road }) => {
     (route) => route?.id?.toString() === selectedRouteId?.toString()
   );
 
-  console.log('selected route id', selectedRouteId);
+  // console.log('selected route id', selectedRouteId);
 
-  console.log('curret ', currentRoute);
+  // console.log('curret ', route);
 
   const [directionsService, setDirectionsService] =
     useState<google.maps.DirectionsService>();

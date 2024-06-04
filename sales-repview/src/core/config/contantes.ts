@@ -1,5 +1,5 @@
-export const BASE_URL = "https://backend_swivi.swivy.net"
-// export const BASE_URL = 'http://localhost:4000';
+export const BASE_URL = process.env.NEXT_PUBLIC_MAP_BASE_URL;
+//export const BASE_URL = 'http://localhost:4000';
 
 export const unAuthorizeCode = [401];
 

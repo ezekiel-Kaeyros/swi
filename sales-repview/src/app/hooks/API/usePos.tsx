@@ -17,10 +17,19 @@ export const useManagePosInStore = () => {
   const shopData = useSelector(
     (state: RootState) => state.RoadManagementReducer.shopData
   );
+  const currentRoad = useSelector(
+    (state: RootState) => state.RoadManagementReducer.currentRoad
+  );
+
+  const dailyRoads = useSelector(
+    (state: RootState) => state.RoadManagementReducer.dailyRoads
+  );
   const dispatch = useDispatch<AppDispatch>();
   return {
     road,
     pos,
+    currentRoad,
+    dailyRoads,
     shopData,
     dispatch,
   };
@@ -30,6 +39,30 @@ export function useGetRoads(id: string) {
   return useQuery({
     queryKey: ['road-list'],
     queryFn: async () => (await roadService.get(id)).data,
+  });
+}
+
+export function UseUpdateActivityItemStatus() {
+  return useMutation({
+    mutationKey: ['road-update'],
+    mutationFn: async (data: Record<string, any>) =>
+      roadService.updateActivityItemStatus(data),
+  });
+}
+
+export function UpdateActivityItemEndTime() {
+  return useMutation({
+    mutationKey: ['road-update-start-time'],
+    mutationFn: async (data: Record<string, any>) =>
+      roadService.updateActivityItemEndTime(data),
+  });
+}
+
+export function UpdateActivityItemStartTime() {
+  return useMutation({
+    mutationKey: ['road-update-start-time'],
+    mutationFn: async (data: Record<string, any>) =>
+      roadService.updateActivityItemStartTime(data),
   });
 }
 

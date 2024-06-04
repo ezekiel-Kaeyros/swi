@@ -110,7 +110,7 @@ export default function NavigationsItem({
   setCurrentTab,
   notifications,
 }: NavigationItem) {
-  console.log(isCurrent);
+  // console.log(isCurrent);
   return (
     <div onClick={() => setCurrentTab(title)}>
       <Link

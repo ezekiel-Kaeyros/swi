@@ -13,7 +13,7 @@ const SaleRepMapIcon: React.FC<SaleRepMapIconProps> = ({ color }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.4" clip-path="url(#clip0_3163_9096)">
+      <g opacity="0.4" clipPath="url(#clip0_3163_9096)">
         <path
           d="M6.35833 2.975C6.50782 2.89347 6.66667 3.01891 6.66667 3.18918V14.4666C6.66667 14.6639 6.53158 14.8305 6.35833 14.925L4.4 16.0417C3.03333 16.825 1.90833 16.175 1.90833 14.5917V6.48334C1.90833 5.95834 2.28333 5.30834 2.75 5.04167L6.35833 2.975Z"
           fill={color ? `${color}` : 'white'}

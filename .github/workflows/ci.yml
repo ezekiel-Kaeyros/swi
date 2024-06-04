@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Login Dockerhub
+      - name: Login Docker registry
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          echo "${{ secrets.TOKEN }}" | docker login ghcr.io -u "${{ secrets.USERNAME }}" --password-stdin
 
       - name: Create .env file for backend
         run: |
@@ -35,41 +35,40 @@ jobs:
         run: |
           cd sales-repview && \
           touch .env && \
-          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
-          echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
-          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env
+          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24'" >> .env && \
+          echo "NEXT_PUBLIC_MAP_ID='swivyApp'" >> .env && \
+          echo 'NEXT_PUBLIC_MAP_BASE_URL="https://backend_swivi.swivy.net"' >> .env
 
       - name: Create .env file for frontend
         run: |
           cd frontend && \
           touch .env && \
-          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
-          echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
-          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env
-
+          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24'" >> .env && \
+          echo "NEXT_PUBLIC_MAP_ID='swivyApp'" >> .env && \
+          echo 'NEXT_PUBLIC_MAP_BASE_URL="https://backend_swivi.swivy.net"' >> .env
       - name: Build the Docker image for backend
         run: |
           cd backend && \
-          docker build -t ezekielkaeyros/swivybackend .
+          docker build -t ghcr.io/kaeyros-analytics/swivy_backend:latest .
 
       - name: Push to Dockerhub for backend
         run: |
-          docker push ezekielkaeyros/swivybackend:latest
+          docker push ghcr.io/kaeyros-analytics/swivy_backend:latest
 
       - name: Build the Docker image for frontend
         run: |
           cd frontend && \
-          docker build -t ezekielkaeyros/swivyfrontend .
+          docker build -t ghcr.io/kaeyros-analytics/swivy_frontend:latest .
 
-      - name: Push to Dockerhub for frontend
+      - name: Push to github_registry for frontend
         run: |
-          docker push ezekielkaeyros/swivyfrontend:latest
+          docker push ghcr.io/kaeyros-analytics/swivy_frontend:latest
 
       - name: Build sales_rep
         run: |
           cd sales-repview && \
-          docker build -t ezekielkaeyros/swivy_sales_rep .
+          docker build -t ghcr.io/kaeyros-analytics/swivy_sales_rep:latest .
 
-      - name: Push to Dockerhub for sales_rep
+      - name: Push to github registry for sales_rep
         run: |
-          docker push ezekielkaeyros/swivy_sales_rep:latest
+          docker push ghcr.io/kaeyros-analytics/swivy_sales_rep:latest

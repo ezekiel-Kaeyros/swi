@@ -1,4 +1,4 @@
-name: CI Pipelines
+name: CI Pipeline_staging
 
 on:
   push:
@@ -10,68 +10,68 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Login Dockerhub
+      - name: Login github registry
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          echo "${{ secrets.TOKEN }}" | docker login ghcr.io -u "${{ secrets.USERNAME }}" --password-stdin
 
-      - name: Create .env file
-        run: |
-          cd backend && \
-          touch .env && \
-          echo "API_PORT=4000" > .env && \
-          echo "API_URL=https://backend_swivi.swivy.net" >> .env && \
-          echo "NODE_ENV=production" >> .env && \
-          echo "SECRET=WriteYourSecret" >> .env && \
-          echo "FRONTEND_URL=https://swivy.net" >> .env && \
-          echo "MONGO_URL=mongodb+srv://eric2mballus:tititata85@cluster0.e1pkdu7.mongodb.net/swivy_db" >> .env && \
-          echo "MAILGUN_API_KEY=YOUR_MAILGUN_API_KEY" >> .env && \
-          echo "MAILGUN_DOMAIN=YOUR_MAILGUN_DOMAIN" >> .env && \
-          echo "SECRET=swivyApp" >> .env && \
-          echo "HOST=smtp.ionos.de" >> .env && \
-          echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env && \
-          echo "EMAIL_PASSWORD=@@Test$$" >> .env && \
-          echo "EMAIL_HOST=smtp.ionos.de" >> .env && \
-          echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env
+      # - name: Create .env file
+      #   run: |
+      #     cd backend && \
+      #     touch .env && \
+      #     echo "API_PORT=4000" > .env && \
+      #     echo "API_URL=https://back-end.kaeyros.shop" >> .env && \
+      #     echo "NODE_ENV=production" >> .env && \
+      #     echo "SECRET=WriteYourSecret" >> .env && \
+      #     echo "FRONTEND_URL=https://kaeyros.shop" >> .env && \
+      #     echo "MONGO_URL=mongodb+srv://eric2mballus:tititata85@cluster0.e1pkdu7.mongodb.net/swivy_db" >> .env && \
+      #     echo "MAILGUN_API_KEY=YOUR_MAILGUN_API_KEY" >> .env && \
+      #     echo "MAILGUN_DOMAIN=YOUR_MAILGUN_DOMAIN" >> .env && \
+      #     echo "SECRET=swivyApp" >> .env && \
+      #     echo "HOST=smtp.ionos.de" >> .env && \
+      #     echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env && \
+      #     echo "EMAIL_PASSWORD=@@Test$$" >> .env && \
+      #     echo "EMAIL_HOST=smtp.ionos.de" >> .env && \
+      #     echo "EMAIL_USERNAME=test@kaeyros-analytics.de" >> .env
 
-      - name: Create env for sales_rep
-        run: |
-          cd sales-repview && \
-          touch .env && \
-          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
-          echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
-          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env
+      # - name: Create env for sales_rep
+      #   run: |
+      #     cd sales-repview && \
+      #     touch .env && \
+      #     echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24'" >> .env && \
+      #     echo "NEXT_PUBLIC_MAP_ID='swivyApp'" >> .env && \
+      #     echo 'NEXT_PUBLIC_MAP_BASE_URL="https://back-end.kaeyros.shop"' >> .env
 
-      - name: Create .env file for frontend
-        run: |
-          cd frontend && \
-          touch .env && \
-          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24" >> .env && \
-          echo "NEXT_PUBLIC_MAP_ID=swivyApp" >> .env && \
-          echo "BASE_URL=https://backend_swivi.swivy.net" >> .env
+      # - name: Create .env file for frontend
+      #   run: |
+      #     cd frontend && \
+      #     touch .env && \
+      #     echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY='AIzaSyDgt8OssZkZSllaUnnyf0wqoTGPHdsxC24'" >> .env && \
+      #     echo "NEXT_PUBLIC_MAP_ID='swivyApp'" >> .env && \
+      #     echo 'NEXT_PUBLIC_MAP_BASE_URL="https://back-end.kaeyros.shop"' >> .env
 
-      - name: Build the Docker image for backend
-        run: |
-          cd backend && \
-          docker build -t ezekielkaeyros/swivybackend .
+      # - name: Build the Docker image for backend
+      #   run: |
+      #     cd backend && \
+      #     docker build -t ghcr.io/kaeyros-analytics/swivy_backend_staging:latest .
 
-      - name: Push to Dockerhub for backend
-        run: |
-          docker push ezekielkaeyros/swivybackend:latest
+      # - name: Push to Dockerhub for backend
+      #   run: |
+      #     docker push ghcr.io/kaeyros-analytics/swivy_backend_staging:latest
 
-      - name: Build the Docker image for frontend
-        run: |
-          cd frontend && \
-          docker build -t ezekielkaeyros/swivyfrontend .
+      # - name: Build the Docker image for frontend
+      #   run: |
+      #     cd frontend && \
+      #     docker build -t ghcr.io/kaeyros-analytics/swivy_frontend_staging:latest .
 
-      - name: Push to Dockerhub for frontend
-        run: |
-          docker push ezekielkaeyros/swivyfrontend:latest
+      # - name: Push to github_registry for frontend
+      #   run: |
+      #     docker push ghcr.io/kaeyros-analytics/swivy_frontend_staging:latest
 
       - name: Build sales_rep
         run: |
           cd sales-repview && \
-          docker build -t ezekielkaeyros/swivy_sales_rep .
+          docker build -t ezekielkaeyros/swivy_sales_rep:latest .
 
-      - name: Push to Dockerhub for sales_rep
+      - name: Push to github registry for sales_rep
         run: |
           docker push ezekielkaeyros/swivy_sales_rep:latest

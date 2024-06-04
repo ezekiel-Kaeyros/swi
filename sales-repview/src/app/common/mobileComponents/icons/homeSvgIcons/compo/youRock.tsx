@@ -42,8 +42,8 @@ export default function YouRock() {
           y2="149.614"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#E9B8FF" />
-          <stop offset="1" stop-color="#F9ECFF" />
+          <stop stopColor="#E9B8FF" />
+          <stop offset="1" stopColor="#F9ECFF" />
         </linearGradient>
       </defs>
     </svg>

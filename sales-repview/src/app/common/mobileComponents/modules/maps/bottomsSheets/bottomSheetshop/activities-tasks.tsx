@@ -1,28 +1,28 @@
-import { ShopDataType } from '@/redux/features/roard-management-slice';
-import DelayShowAnimation from '../../../components/delayShowAnimation';
-import SlideDownToUp from '../../../components/slideDownToUp';
-import { SalesRepActivitiesList } from '../../../data';
-import ActivityItem from '../components/ActivityItem';
-import { FC } from 'react';
 import { useManagePosInStore } from '@/app/hooks/API/usePos';
-import ActivityDbShopItem from '../components/activitDbShopItem ';
+import DelayShowAnimation from '../../../../components/delayShowAnimation';
+import SlideDownToUp from '../../../../components/slideDownToUp';
+import { SalesRepActivitiesList } from '../../../../data';
+import ActivityItem from '../../components/ActivityItem';
+import ActivityItemTask from '../../components/ActivityItemTask';
+import ActivitDbShopItemTask from '../../components/activitDbShopItemTask';
 
-const ActivitiesMaps = () => {
+function ActivitiesTasks() {
   const { road, shopData, pos, dispatch } = useManagePosInStore();
 
-  console.log('+voxj fjdsf -------');
-  console.log(shopData);
+  const roadData = shopData?.activities;
+  const taskList = roadData?.taskIds;
+  console.log(shopData, '----------------------++++++++++++++++++++++');
   return (
     <DelayShowAnimation>
       <div className="flex flex-col gap-33 ">
-        {(shopData?.activities.filter((x) => x.time > 5) || []).map(
-          (item, key) => (
-            <SlideDownToUp key={`actvities-card-item-${key}`}>
-              <ActivityDbShopItem
-                Activitie={item.activitie}
-                activityItem={item}
+        {(taskList || []).map((task, key) => {
+          return (
+            <SlideDownToUp key={`actvities-card-item-tasks-${task?._id}`}>
+              <ActivitDbShopItemTask
+                activitie={task.activityItem}
+                activityItem={task.activities}
                 step={
-                  item.time > 5 ? (
+                  task.activityItem.time <= 3 ? (
                     <svg
                       width="20"
                       height="20"
@@ -56,11 +56,11 @@ const ActivitiesMaps = () => {
                 displayRightSide
               />
             </SlideDownToUp>
-          )
-        )}
+          );
+        })}
       </div>
     </DelayShowAnimation>
   );
-};
+}
 
-export default ActivitiesMaps;
+export default ActivitiesTasks;

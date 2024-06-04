@@ -9,8 +9,8 @@ export default function RouteSvgIcone() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_3222_113)">
-        <g clip-path="url(#clip1_3222_113)">
+      <g clipPath="url(#clip0_3222_113)">
+        <g clipPath="url(#clip1_3222_113)">
           <mask
             id="mask0_3222_113"
             style={{
@@ -43,8 +43,8 @@ export default function RouteSvgIcone() {
           y2="172"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#ACAAFF" />
-          <stop offset="1" stop-color="#C0E8FF" />
+          <stop stopColor="#ACAAFF" />
+          <stop offset="1" stopColor="#C0E8FF" />
         </linearGradient>
         <clipPath id="clip0_3222_113">
           <rect

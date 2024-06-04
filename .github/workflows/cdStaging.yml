@@ -1,14 +1,14 @@
-name: Deploy to Amazon ECS
+name: Deploy to Amazon ECS STAGING
 
 on:
   workflow_run:
-    workflows: ["CI Pipeline"]
+    workflows: ["CI Pipeline_staging"]
     types:
       - completed
 
 env:
-  IMAGE_NAME_FRONTEND_SWIVY: ezekielkaeyros/swivyfrontend:latest
-  IMAGE_NAME_BACKEND_SWIVY: ezekielkaeyros/swivybackend:latest
+  IMAGE_NAME_FRONTEND_SWIVY: ghcr.io/kaeyros-analytics/swivy_frontend_staging:latest
+  IMAGE_NAME_BACKEND_SWIVY: ghcr.io/kaeyros-analytics/swivy_backend_staging:latest
   AWS_REGION: eu-central-1
   ECS_SERVICE_FRONTEND_SWIVY: swivi_frontend
   ECS_SERVICE_BACKEND_SWIVY: backend_swivy_staging
@@ -16,11 +16,11 @@ env:
   ECS_TASK_DEFINITION_FRONTEND: aws_staging/frontend_staging.json
   ECS_TASK_DEFINITION_BACKEND: aws_staging/backend_staging.json
   CONTAINER_NAME_FRONTEND: swivy_frontend_container
-  CONTAINER_NAME_BACKEND: swivy_backend_container
-  ECS_TASK_DEFINITION_SALES_REPVIEW: aws/sales-repview.json
-  CONTAINER_SALES_REPVIEW: swivy_sales_rep
-  IMAGE_NAME_SALES_REPVIEW: ezekielkaeyros/swivy_sales_rep:latest
-  ECS_SERVICE_SALES_REPVIEW: swivy_sales_rep
+  CONTAINER_NAME_BACKEND: container
+  ECS_TASK_DEFINITION_SALES_REPVIEW: aws_staging/sales-repview.json
+  CONTAINER_SALES_REPVIEW: container_sales_staging
+  IMAGE_NAME_SALES_REPVIEW: ghcr.io/kaeyros-analytics/swivy_sales_rep_staging:latest
+  ECS_SERVICE_SALES_REPVIEW: sales_rep_staging
 
 
 defaults:
@@ -76,21 +76,21 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
 
-      # - name: Fill in the new image ID in the Amazon ECS task definition for sales-repview
-      #   id: task-def-sales-repview
-      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-      #   with:
-      #     task-definition: ${{ env.ECS_TASK_DEFINITION_SALES_REPVIEW }}
-      #     container-name: ${{ env.CONTAINER_SALES_REPVIEW }}
-      #     image: ${{ env.IMAGE_NAME_SALES_REPVIEW }}
+      - name: Fill in the new image ID in the Amazon ECS task definition for sales-repview
+        id: task-def-sales-repview
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_SALES_REPVIEW }}
+          container-name: ${{ env.CONTAINER_SALES_REPVIEW }}
+          image: ${{ env.IMAGE_NAME_SALES_REPVIEW }}
 
-      # - name: Deploy Amazon ECS task definition for sales-repview
-      #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      #   with:
-      #     task-definition: ${{ steps.task-def-sales-repview.outputs.task-definition }}
-      #     service: ${{ env.ECS_SERVICE_SALES_REPVIEW }}
-      #     cluster: ${{ env.ECS_CLUSTER }}
-      #     wait-for-service-stability: true
+      - name: Deploy Amazon ECS task definition for sales-repview
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-sales-repview.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_SALES_REPVIEW }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
     
 
       

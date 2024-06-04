@@ -30,12 +30,12 @@ const ActivityDbItemTask = ({
   step,
   status,
   activityItem,
-  Activitie,
+  activitie,
   pos, // title={item.title}
 }: {
+  activityItem: any;
+  activitie: any;
   status: string;
-  activityItem: ActivitiesItem;
-  Activitie: Activitie;
   step: number;
   pos: PointOfSales;
   // title={item.title}
@@ -52,10 +52,10 @@ const ActivityDbItemTask = ({
       <div className="flex w-full justify-between gap-8 my-auto border-b-bgColorDark border-b-2 pb-2">
         <div className="flex flex-col gap-2">
           <span className="text-[20px] font-bold leading-[20px] text-[#E8E8E8]">
-            {Activitie.name}
+            {activityItem.activitie.name}
           </span>
           <span className="text-[14px] font-normal leading-[20px] text-[#E8E8E8]">
-            {Activitie.description}
+            {activityItem.activitie.description}
           </span>
         </div>
 

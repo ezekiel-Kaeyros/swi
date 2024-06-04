@@ -14,7 +14,7 @@ const ReactDirectionsMap = () => {
   const position = { lat: 61.2176, lng: -149.8997 };
   return (
     <Map center={position} zoom={18} mapId={process.env.NEXT_PUBLIC_MAP_ID}>
-      <Directions color={'blue'} />
+      {/* <Directions color={'blue'} /> */}
 
       {currentRoute?.pointOfSales.map((pos: any) => (
         <AdvancedMarkerWrapper

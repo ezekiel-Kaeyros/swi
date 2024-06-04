@@ -1,0 +1,54 @@
+{
+    "family": "swivy_sales_rep_agent",
+    "containerDefinitions": [
+        {
+            "name": "container_sales_staging",
+            "image": "ghcr.io/kaeyros-analytics/swivy_sales_rep_staging:latest",
+            "repositoryCredentials": {
+                "credentialsParameter": "arn:aws:secretsmanager:eu-central-1:108165532263:secret:githubcred-TW3q7Z"
+            },
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "container_sales_staging-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 0,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "dockerLabels": {
+                "traefik.enable": "true",
+                "traefik.http.routers.sales_staging.rule": "Host(`sales_rep_agent.kaeyros.shop`)"
+            },
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/swivy_sales_rep_agent",
+                    "awslogs-region": "eu-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::108165532263:role/ecs_role_task_again",
+    "executionRoleArn": "arn:aws:iam::108165532263:role/ecs_role_task_again",
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "307",
+    "memory": "307",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

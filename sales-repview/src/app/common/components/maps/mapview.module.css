@@ -19,7 +19,7 @@
   border-radius: 50%;
   color: #263238;
   display: flex;
-  font-size: 14px;
+  fontSize: 14px;
   gap: 15px;
   height: 30px;
   justify-content: center;
@@ -65,7 +65,7 @@
 
 .property .address {
   color: #9E9E9E;
-  font-size: 10px;
+  fontSize: 10px;
   margin-bottom: 10px;
   margin-top: 5px;
 }
@@ -83,7 +83,7 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   display: flex;
-  font-size: 10px;
+  fontSize: 10px;
   gap: 5px;
   padding: 5px;
 }

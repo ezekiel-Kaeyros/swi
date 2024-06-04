@@ -14,15 +14,17 @@ import Directions from './Directions';
 import { generateRandomBrightColor } from '../map-utils/generateRandomColors';
 import Road from '@/core/models/Roads';
 import ActivitiesItem from '@/core/models/ActivitiItem';
+import RoadsItem from '@/core/models/RoadsItem';
 
-export default function PosMap() {
+export default function PosMap({ roads }: { roads: Road[] | undefined }) {
   const position = { lat: 3.8852761566538545, lng: 11.502079803888337 };
 
   const { pos, shopData, road } = useManagePosInStore();
 
   const { pointOfSales, dispatch } = usePointOfSales();
+  // console.log(shopData);
   // console.log(road);
-  // console.log(road);
+  // console.log(pos);
   // console.log('++++++++++++++fgpddg lkdsjfgdopsfjk ');
 
   const { selectedRouteId, routes } = useRoutePlanning();
@@ -58,21 +60,21 @@ export default function PosMap() {
     return regex.test(url);
   }
 
-  console.log('path', pathname);
+  // console.log('path', pathname);
   const { toggleShopDataState } = useToggleShopBarState();
 
-  function getColorOfChannelCluster(
-    activitiesItem: ActivitiesItem[],
-    pos: PointOfSales
-  ) {
-    console.log(pos);
-    const getChanneCluster = activitiesItem.filter(
-      (c) => c.channelClusters[0]._id === pos.channelCluster
-    );
-    console.log(getChanneCluster);
-    return getChanneCluster[0].channelClusters[0].color || '';
-  }
-  console.log(shopData?.shopData);
+  // function getColorOfChannelCluster(
+  //   activitiesItem: ActivitiesItem[],
+  //   pos: PointOfSales
+  // ) {
+  //   console.log(pos);
+  //   const getChanneCluster = activitiesItem.filter(
+  //     (c) => c.categories[0]._id === pos.category
+  //   );
+  //   console.log(getChanneCluster, ' get channel cluster ');
+  //   return getChanneCluster[0].channelClusters[0].color || '';
+  // }
+  // console.log(shopData?.shopData);
   return (
     <>
       <Map
@@ -81,37 +83,80 @@ export default function PosMap() {
         mapId={'6fc7264e643ee8b1'}
         onClick={handleMapClick}
       >
-        {road.map((route) => {
-          let color = generateRandomBrightColor();
-          console.log(shopData);
+        {(roads || []).map((route) => {
+          let pointOfSalesList: PointOfSales[] = [];
+          // let color = generateRandomBrightColor();
+          // const getChanneCluster = route.activities_items.filter(
+          //   (c) => c.categories[0]._id === pos.category
+          // );
           // const channelCLusterColor = getColorOfChannelCluster(
           //   route.activities_items,
           //   shopData?.shopData!
           // );
-          return <Directions route={route} color={color} key={route._id} />;
+          route.roadItems.map((roadItem) => {
+            pointOfSalesList.push(roadItem.posId);
+          });
+          // console.log(pointOfSalesList);
+          return (
+            <Directions
+              route={pointOfSalesList}
+              color={'#5F8EFF'}
+              key={route._id}
+            />
+          );
         })}
 
-        {pos?.map((pos: PointOfSales) => {
-          const position = { lat: pos.latitude, lng: pos.longitude };
-          console.log('position of poss', road);
-          return (
-            <AdvancedMarkerWrapper
-              type="BOTTOMSHEET"
-              roadsData={road}
-              position={position}
-              pos={pos}
-              active={true}
-              key={pos._id}
-              markerColor={'red'}
-            >
-              {/* {hasNumberInUrl(pathname) ? (
-              <InfoViewRoutes shopDetails={pos} />
-            ) : ( */}
-              {/* <InfoView shopDetails={pos} /> */}
-              {/* )}*/}
-              <div>marker</div>
-            </AdvancedMarkerWrapper>
-          );
+        {/* <Directions route={pos} color={'#5F8EFF'}  key={`route-draw-${route._id}`} /> */}
+
+        {(roads || []).map((route) => {
+          let pointOfSalesList: PointOfSales[] = [];
+          // let color = generateRandomBrightColor();
+          // const getChanneCluster = route.activities_items.filter(
+          //   (c) => c.categories[0]._id === pos.category
+          // );
+          // const channelCLusterColor = getColorOfChannelCluster(
+          //   route.activities_items,
+          //   shopData?.shopData!
+          // );
+
+          // console.log(pointOfSalesList);
+          return route.roadItems.map((pointOfSalesItem: RoadsItem, index) => {
+            let colorOfMarker = '';
+            const position = {
+              lat: pointOfSalesItem?.posId?.latitude,
+              lng: pointOfSalesItem?.posId?.longitude,
+            };
+            // console.log('position of poss', road);
+
+            // console.log(colorOfMarker, 'fsdfjhskfsjk------------');
+            return (
+              <AdvancedMarkerWrapper
+                type="BOTTOMSHEET"
+                roadsData={pointOfSalesItem}
+                position={position}
+                pos={pointOfSalesItem?.posId}
+                active={true}
+                key={pointOfSalesItem?._id}
+                markerType={
+                  index === 0
+                    ? 'START'
+                    : index === route?.roadItems.length - 1
+                      ? 'END'
+                      : 'IDLE'
+                }
+                markerColor={
+                  pointOfSalesItem?.posId?.channelCluster?.color || '#000000'
+                }
+              >
+                {/* {hasNumberInUrl(pathname) ? (
+                <InfoViewRoutes shopDetails={pos} />
+              ) : ( */}
+                {/* <InfoView shopDetails={pos} /> */}
+                {/* )}*/}
+                <div>marker</div>
+              </AdvancedMarkerWrapper>
+            );
+          });
         })}
       </Map>
       {toggleShopDataState}

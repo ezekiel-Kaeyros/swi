@@ -1,3 +1,8 @@
+import { category } from '../utils/category';
+import ActivitiesItem from './ActivitiItem';
+import { Category } from './Category';
+import { TradeChannel } from './TradeChannel';
+
 type PointOfSales = {
   _id: string;
   owner: string;
@@ -8,9 +13,10 @@ type PointOfSales = {
   city: string;
   firstStat: string;
   secondStat: string;
-  channelCluster: string;
-  tradeChannel: string;
-  category: string;
+  channelCluster: Category;
+  tradeChannel: TradeChannel;
+  activityItems: ActivitiesItem;
+  category: Category;
   createdAt?: Date;
   updatedAt?: Date;
   __v?: number;

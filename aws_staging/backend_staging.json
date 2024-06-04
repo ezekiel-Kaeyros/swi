@@ -3,8 +3,11 @@
     "containerDefinitions": [
         {
             "name": "swivy_backend_container",
-            "image": "ezekielkaeyros/swivybackend",
-            "cpu": 512,
+            "image": "ghcr.io/kaeyros-analytics/swivy_backend_staging:latest",
+            "repositoryCredentials": {
+                "credentialsParameter": "arn:aws:secretsmanager:eu-central-1:108165532263:secret:githubcred-TW3q7Z"
+            },
+            "cpu": 410,
             "memory": 512,
             "memoryReservation": 512,
             "portMappings": [
@@ -18,14 +21,12 @@
             ],
             "essential": true,
             "environment": [],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
             "dockerLabels": {
                 "traefik.enable": "true",
                 "traefik.http.routers.swivybackend.rule": "Host(`back-end.kaeyros.shop`)"
             },
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -39,12 +40,12 @@
             "systemControls": []
         }
     ],
-    "taskRoleArn": "arn:aws:iam::108165532263:role/ecsTaskExecutionRole",
-    "executionRoleArn": "arn:aws:iam::108165532263:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::108165532263:role/ecs_role_task_again",
+    "executionRoleArn": "arn:aws:iam::108165532263:role/ecs_role_task_again",
     "requiresCompatibilities": [
         "EC2"
     ],
-    "cpu": "512",
+    "cpu": "410",
     "memory": "512",
     "runtimePlatform": {
         "cpuArchitecture": "X86_64",

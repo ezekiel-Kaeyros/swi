@@ -4,8 +4,10 @@ import CustomInput from '@/app/common/components/forms/customInput/CustomInput';
 import CustomTextArea from '@/app/common/components/forms/customTextArea/CustomTextArea';
 import FileInput from '@/app/common/components/forms/file-input/FileInput';
 import FormRow from '@/app/common/components/forms/form-row/FormRow';
+import SelectField from '@/app/common/components/forms/select-field/SelectField';
 import TextArea from '@/app/common/components/forms/text-area/TextArea';
 import InputField from '@/app/common/components/forms/text-field/InputField';
+import { ShopSvgIcon } from '@/core/svg/SvgIcon';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -36,8 +38,10 @@ interface ProposePOSType {
   images: File[];
   currentLocation: string;
   shopName: string;
+  shopNumber: string;
   EstimatedCommmands: number;
   notes: string;
+  category: string;
 }
 
 interface PointOfSaleInteface {
@@ -73,6 +77,12 @@ const ProposePOS: React.FC<PointOfSaleInteface> = ({ onClose }) => {
           placeholder="Location(Your current position)"
           autoComplete="off"
         />
+        <SelectField
+          icons={<ShopSvgIcon />}
+          name="shopId"
+          options={['bonamouSadi', 'makepe']}
+          register={register('category')}
+        />
         <CustomInput
           register={register('shopName')}
           type="text"
@@ -80,11 +90,18 @@ const ProposePOS: React.FC<PointOfSaleInteface> = ({ onClose }) => {
           autoComplete="off"
         />
         <CustomInput
+          register={register('shopName')}
+          type="text"
+          placeholder="Enter shop owner name phone number"
+          autoComplete="off"
+        />
+        {/* 
+        <CustomInput
           register={register('EstimatedCommmands')}
           type="text"
           placeholder="Estimatated commands (in figure)"
           autoComplete="off"
-        />
+        /> */}
         <CustomTextArea
           row={5}
           props={register('notes')}

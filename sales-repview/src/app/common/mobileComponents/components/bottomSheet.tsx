@@ -12,7 +12,7 @@ const CloseIcone = () => {
       <path
         d="M4.16748 4.16669L15.8334 15.8326"
         stroke="#BABABA"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -20,7 +20,7 @@ const CloseIcone = () => {
       <path
         d="M4.16676 15.8326L15.8326 4.16669"
         stroke="#BABABA"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

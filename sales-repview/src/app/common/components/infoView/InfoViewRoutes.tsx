@@ -52,24 +52,6 @@ const InfoViewRoutes: React.FC<InfoViewProps> = ({ shopDetails }) => {
             </div>
           </div>
           <h1 className="font-bold my-2">Tasks</h1>
-          {/* <ul className="flex space-x-4 flex-wrap">
-            {shopDetails?.tasks?.map((value: any) => (
-              <li
-                className="px-2 py-1 rounded-full  text-sm bg-[#CCEAF7]"
-                key={value?.id}
-              >
-                {value?.name}
-              </li>
-            ))}
-          </ul> */}
-
-          {/* <div className="mt-8 mb-2">
-            {shopDetails?.tasks?.length !== 0 && (
-              <Button onClick={() => handleAddToRoute()} className="w-fit py-1">
-                Add to route
-              </Button>
-            )}
-          </div> */}
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'articulat';
+  fontFamily: 'articulat';
   src: url('../../../../public/fonts/articulat/Articulat_CF_OTF/ArticulatCF-Regular.otf');
   font-weight: normal;
 
@@ -11,18 +11,18 @@
 }
 
 /* @font-face {
-  font-family: "visby-bold";
+  fontFamily: "visby-bold";
   src: url("../../../../public/fonts/Visby/VisbyCF-Bold.otf"); 
 } */
 
 /* @font-face {
-  font-family: "visby-regular";
+  fontFamily: "visby-regular";
   src: url("../../../../public/fonts/Visby/VisbyCF-Regular.otf");
 } */
 
 body {
   overflow-y: hidden;
-  /* font-family: "articulat"; */
+  /* fontFamily: "articulat"; */
 }
 
 ::-webkit-scrollbar {

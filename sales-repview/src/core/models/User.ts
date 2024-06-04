@@ -9,7 +9,7 @@ export class User {
 export interface IUser {
   _id: string;
   name: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   gender: string;
   country: string;
   region: string;
@@ -20,8 +20,8 @@ export interface IUser {
   password: string;
   reportingManager: string[];
   id_company: string[];
-  startDate: Date;
+  startDate: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

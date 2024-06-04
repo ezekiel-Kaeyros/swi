@@ -12,7 +12,7 @@ const initialState: AuthState = {
   user: {
     _id: '',
     name: '',
-    dateOfBirth: new Date(),
+    dateOfBirth: '',
     gender: '',
     country: '',
     region: '',
@@ -24,9 +24,9 @@ const initialState: AuthState = {
     reportingManager: [],
     id_company: [],
     email: '',
-    startDate: new Date(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    startDate: '',
+    createdAt: '',
+    updatedAt: '',
   },
 
   token: '',

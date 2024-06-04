@@ -1,6 +1,7 @@
 import ActivitiesItem from '@/core/models/ActivitiItem';
 import PointOfSales from '@/core/models/Pos';
 import Road from '@/core/models/Roads';
+import RoadsItem from '@/core/models/RoadsItem';
 import { pointOfSales } from '@/core/utils/pointOfSalesData';
 import { createSlice, current } from '@reduxjs/toolkit';
 
@@ -8,16 +9,24 @@ export type ShopDataType = {
   shopData: PointOfSales;
   activities: ActivitiesItem[];
 };
+export type PosType = {
+  shopData: PointOfSales;
+  activities: RoadsItem;
+};
 export type RoadMamangementstate = {
   roard: Road[];
+  currentRoad: Road | null;
   pointOfSales: PointOfSales[];
-  shopData: ShopDataType | null;
+  shopData: PosType | null;
+  dailyRoads: ShopDataType | null;
 };
 
 const initialState: RoadMamangementstate = {
   roard: [],
+  currentRoad: null,
   pointOfSales: [],
   shopData: null,
+  dailyRoads: null,
 };
 
 // Create the slice
@@ -31,7 +40,7 @@ export const roadManagementView = createSlice({
       console.log(state.roard);
     },
     setPosList: (state, action) => {
-      console.log(action);
+      console.log(action, '/////////////////////////////////////////////////');
       state.pointOfSales = action.payload;
       console.log(state.pointOfSales);
     },
@@ -39,6 +48,11 @@ export const roadManagementView = createSlice({
       console.log(action);
       state.shopData = action.payload;
       console.log(state.pointOfSales);
+    },
+    setDailyRoads: (state, action) => {
+      console.log(action);
+      state.dailyRoads = action.payload;
+      console.log(state.dailyRoads);
     },
 
     // filter: (state, action) => {
@@ -62,6 +76,6 @@ export const roadManagementView = createSlice({
 });
 
 // Export actions and reducer
-export const { setRoards, setPosList, setShopData } =
+export const { setRoards, setPosList, setShopData, setDailyRoads } =
   roadManagementView.actions;
 export default roadManagementView.reducer;

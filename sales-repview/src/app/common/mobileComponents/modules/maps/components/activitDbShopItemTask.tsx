@@ -26,18 +26,20 @@ const ActivitDbShopItemTask = ({
   step,
   status,
   activityItem,
-  Activitie,
+  activitie,
   pos, // title={item.title}
   displayRightSide = true,
 }: {
   status: string;
-  activityItem: ActivitiesItem;
-  Activitie: Activitie;
+  activityItem: any;
+  activitie: any;
   step: React.ReactNode | string;
   pos: PointOfSales;
   // title={item.title}
   displayRightSide: boolean;
 }) => {
+  // console.log(activityItem);
+  // console.log(activitie);
   const [isSelected, setIsSelected] = React.useState(false);
   return (
     <div className="w-full flex gap-[10px] p-[10px] justify-between">
@@ -50,10 +52,10 @@ const ActivitDbShopItemTask = ({
       <div className="flex w-full justify-between gap-8 my-auto border-b-bgColorDark border-b-2 pb-2">
         <div className="flex flex-col gap-2">
           <span className="text-[20px] font-bold leading-[20px] text-[#E8E8E8]">
-            {Activitie.name}
+            {activitie?.activitie?.name}
           </span>
           <span className="text-[14px] font-normal leading-[20px] text-[#E8E8E8]">
-            {Activitie.description}
+            {activitie?.activitie?.description}
           </span>
         </div>
 

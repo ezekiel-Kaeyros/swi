@@ -29,6 +29,29 @@ class RoadsService {
       method: 'get',
     });
   }
+
+  public async updateActivityItemStatus(data: Record<string, any>) {
+    return DatabaseService.fetchData<IApiResponse<Road[]>>({
+      url: `/updateActivityItemStatus`,
+      method: 'put',
+      data,
+    });
+  }
+  public async updateActivityItemStartTime(data: Record<string, any>) {
+    return DatabaseService.fetchData<IApiResponse<Road[]>>({
+      url: `/updateActivityItemStartTime`,
+      method: 'put',
+      data,
+    });
+  }
+
+  public async updateActivityItemEndTime(data: Record<string, any>) {
+    return DatabaseService.fetchData<IApiResponse<Road[]>>({
+      url: `/updateActivityItemEndTime`,
+      method: 'put',
+      data,
+    });
+  }
 }
 
 export default new RoadsService();

@@ -7,6 +7,7 @@ import FormRow from '@/app/common/components/forms/form-row/FormRow';
 import SelectField from '@/app/common/components/forms/select-field/SelectField';
 import TextArea from '@/app/common/components/forms/text-area/TextArea';
 import InputField from '@/app/common/components/forms/text-field/InputField';
+import { ShopSvgIcon } from '@/core/svg/SvgIcon';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -68,6 +69,7 @@ const ProposeShelfLooKup: React.FC<proposeShelfLooKupInteface> = ({
           name="file"
         />
         <SelectField
+          icons={<ShopSvgIcon />}
           name="shopId"
           options={['bonamouSadi', 'makepe']}
           register={register('shopId')}

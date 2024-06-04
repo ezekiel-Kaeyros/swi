@@ -6,7 +6,11 @@ import {
   TOKEN_TYPE_KEY,
   unAuthorizeCode,
 } from './contantes';
-import { getTokenCookies } from '@/core/cookies/cookies';
+import {
+  getTokenCookies,
+  removeTokenCookies,
+  removeUserCookies,
+} from '@/core/cookies/cookies';
 import { useRouter } from 'next/router';
 
 const ApiServiceInstance = axios.create({
@@ -29,15 +33,18 @@ ApiServiceInstance.interceptors.request.use(
   }
 );
 
-// ApiServiceInstance.interceptors.request.use(
-//   (response) => response,
-//   (error) => {
-//     const { response } = error;
-//     if (response && unAuthorizeCode.includes(response.status)) {
-//       //   store.dispatch(signOut);
-//       // logout
-//     }
-//   }
-// );
+ApiServiceInstance.interceptors.request.use(
+  (response) => response,
+  (error) => {
+    const { response } = error;
+    if (response && unAuthorizeCode.includes(response.status)) {
+      //   store.dispatch(signOut);
+      // logout
+      removeTokenCookies();
+      removeUserCookies();
+      window.location.reload();
+    }
+  }
+);
 
 export default ApiServiceInstance;

@@ -7,8 +7,9 @@ type ActivitiesItem = {
   priority: string;
   channelClusters: Category[];
   tradeChannels: TradeChannel[];
-  activitie: Activitie;
-  categories: Category[];
+  activities: Activitie;
+  activityItem: ActivitiesItem;
+  categories: string[];
   time: number;
   frequency: number;
   status: string;

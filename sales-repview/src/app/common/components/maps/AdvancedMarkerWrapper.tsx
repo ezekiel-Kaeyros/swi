@@ -13,11 +13,17 @@ import Marker from '../markers/AddShopMarker';
 import { useToggleShopBarState } from '@/app/hooks/commons/useToggleShopData';
 import { toogleShopBottomSheet } from '@/redux/features/saleRep-slice';
 import Road from '@/core/models/Roads';
-import { setShopData } from '@/redux/features/roard-management-slice';
+import {
+  setDailyRoads,
+  setShopData,
+} from '@/redux/features/roard-management-slice';
 import PointOfSales from '@/core/models/Pos';
 import { activities } from '@/core/utils/activities';
 import ActivitiesItem from '@/core/models/ActivitiItem';
 import { set } from 'mongoose';
+import MarkerCustom from './maps-management/subComponent/MarkerCustom';
+import RoadsItem from '@/core/models/RoadsItem';
+import { usePathname } from 'next/navigation';
 
 interface AdvancedMarkerProps {
   position: {
@@ -25,11 +31,12 @@ interface AdvancedMarkerProps {
     lng: number;
   };
   type?: 'BOTTOMSHEET' | 'SHOP';
+  markerType?: 'START' | 'END' | 'IDLE';
   children: ReactNode;
   active: boolean;
-  roadsData?: Road[];
+  roadsData?: RoadsItem;
   pos?: PointOfSales;
-  markerColor?: string;
+  markerColor: string;
 }
 
 const AdvancedMarkerWrapper: React.FC<AdvancedMarkerProps> = ({
@@ -38,50 +45,66 @@ const AdvancedMarkerWrapper: React.FC<AdvancedMarkerProps> = ({
   active,
   roadsData,
   type,
+  markerType = 'IDLE',
   pos,
   markerColor,
 }) => {
+  const getId = usePathname();
   const [markerRef, marker] = useAdvancedMarkerRef();
   const [infowindowShown, setInfowindowShown] = useState(false);
   const { dispatch, toggleShopDataState } = useToggleShopBarState();
   // console.log('Hello I am executing');
 
   // console.log('position of lat and long', position);
-  function getActivitiesListByPos(roadsData: Road[], pos: PointOfSales) {
-    let actitivtiesItem: ActivitiesItem[] = [];
+  function getActivitieOfOnePosListByPos(roadsData: Road[], pos: PointOfSales) {
+    let activitieOfOnePos: RoadsItem[] = [];
+    let roadUrl = getId.split('/').at(-1);
+    console.log(roadsData);
+    console.log(pos);
     roadsData?.map((c, i) => {
-      return c.pos.map((activity) => {
-        const activitiesItemsList = c.activities_items.filter(
-          (c) => c.channelClusters[i]._id === pos.channelCluster
-        );
-        if (activitiesItemsList) {
-          activitiesItemsList.forEach((x, i) => {
-            const filterData = actitivtiesItem.filter((v) => v._id === x._id);
-            if (filterData.length === 0) {
-              actitivtiesItem.push(x);
-            }
-          });
+      // return c.roadItems.map((activitiesItemsList) => {
+      //   if (activitiesItemsList) {
+      //     activitiesItemsList.taskIds.forEach((x, i) => {
+      //       const filterData = actitivtiesItem.filter((v) => v._id === x._id);
+      //       if (filterData.length === 0) {
+      //         actitivtiesItem.push(x);
+      //       }
+      //     });
+      //   }
+      // });
+      // console.log(c);
+      return c.roadItems.map((roads) => {
+        if (c._id === roadUrl) {
+          console.log(roads.posId._id === pos._id);
+          if (roads.posId._id === pos._id) {
+            activitieOfOnePos.push(roads);
+          }
         }
       });
     });
-    return actitivtiesItem;
+    console.log(activitieOfOnePos);
+    return activitieOfOnePos;
   }
   const toggleInfoWindow = () => {
     if (type !== undefined && type === 'BOTTOMSHEET') {
       if (roadsData && pos) {
-        let actitivtiesItem: ActivitiesItem[] = getActivitiesListByPos(
-          roadsData,
-          pos
-        );
+        // let actitivtiesItem: RoadsItem[] = getActivitieOfOnePosListByPos(
+        //   roadsData,
+        //   pos
+        // );
+        // console.log(actitivtiesItem);
+        // console.log(pos);
+        // console.log(roadsData);
+        // console.log(pos);
         dispatch(toogleShopBottomSheet(true));
-        if (actitivtiesItem.length >= 0) {
-          dispatch(
-            setShopData({
-              activities: actitivtiesItem,
-              shopData: pos,
-            })
-          );
-        }
+        // if (actitivtiesItem.length >= 0) {
+        dispatch(
+          setShopData({
+            activities: roadsData,
+            shopData: pos,
+          })
+        );
+        // }
       }
     } else {
       setInfowindowShown((previousState) => !previousState);
@@ -89,15 +112,15 @@ const AdvancedMarkerWrapper: React.FC<AdvancedMarkerProps> = ({
   };
 
   const closeInfoWindow = () => setInfowindowShown(false);
-
+  // console.log(markerColor, '+++++++++++++-----------------------');
   return (
     <AdvancedMarker
       ref={markerRef}
       onClick={toggleInfoWindow}
       position={position}
     >
-      {/* <Image src={DefaultPOSMarker} alt='pos marker' style={{fill: '#FF0000'}}/> */}
-      <Marker color={markerColor} />
+      <MarkerCustom color={markerColor} type={markerType} />
+      {/* <Marker color={markerColor} /> */}
       {/* <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} /> */}
       {infowindowShown && (
         <InfoWindow anchor={marker} onCloseClick={closeInfoWindow}>

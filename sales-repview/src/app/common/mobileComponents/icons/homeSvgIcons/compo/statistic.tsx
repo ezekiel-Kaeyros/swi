@@ -42,8 +42,8 @@ export default function StatisticSvgIcons() {
           y2="170.078"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#A7B5FF" />
-          <stop offset="1" stop-color="#F3ACFF" />
+          <stop stopColor="#A7B5FF" />
+          <stop offset="1" stopColor="#F3ACFF" />
         </linearGradient>
       </defs>
     </svg>

@@ -32,13 +32,13 @@ const RealTimeMap = () => {
     };
   }, [position]);
 
-  const { dispatch, routes, selectedRouteId } = useRoutePlanning();
+  const { routes } = useRoutePlanning();
   const currentRoute = routes.find((route) => route?.id.toString() === '1');
   console.log('CURRENT ROUTE', currentRoute);
 
   return (
     <Map center={position} zoom={18} mapId={process.env.NEXT_PUBLIC_MAP_ID}>
-      <Directions color={'blue'} />
+      {/* <Directions color={'blue'} /> */}
 
       {currentRoute?.pointOfSales.map((pos: any) => (
         <AdvancedMarkerWrapper
